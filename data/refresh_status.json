@@ -1,81 +1,83 @@
 {
   "schema_version": "internal_refresh_status_v1",
-  "run_id": "bdb19fcb-4cfa-4d80-a5e2-76baa0f69a1c",
-  "generated_at_utc": "2026-09-11T07:22:39Z",
-  "started_at_utc": "2026-09-11T07:10:01Z",
-  "overall_status": "success",
+  "run_id": "24307b77-f128-48ea-a2a3-9c30b5034ba0",
+  "generated_at_utc": "2026-09-12T08:28:51Z",
+  "started_at_utc": "2026-09-12T07:10:01Z",
+  "overall_status": "degraded",
   "stages": {
     "jup_share_price_daily": {
-      "status": "success",
-      "started_at_utc": "2026-09-11T07:10:01Z",
+      "status": "failed",
+      "started_at_utc": "2026-09-12T07:10:01Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:10:04Z"
+      "error": "Command '['/home/mark/trading_env/venv311/bin/python', '/home/mark/trading_env/tools/sync_jup_share_price_daily.py']' returned non-zero exit status 1.",
+      "finished_at_utc": "2026-09-12T08:16:22Z"
     },
     "jup_gear_chart_data": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:10:04Z",
+      "started_at_utc": "2026-09-12T08:16:22Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:10:10Z"
+      "finished_at_utc": "2026-09-12T08:16:28Z"
     },
     "tips_fedinvest_status": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:10:10Z",
+      "started_at_utc": "2026-09-12T08:16:28Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:10:11Z"
+      "finished_at_utc": "2026-09-12T08:16:29Z"
     },
     "swaption_status": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:10:11Z",
+      "started_at_utc": "2026-09-12T08:16:29Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:11:28Z"
+      "finished_at_utc": "2026-09-12T08:17:45Z"
     },
     "model_logs": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:11:28Z",
+      "started_at_utc": "2026-09-12T08:17:45Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:11:42Z"
+      "finished_at_utc": "2026-09-12T08:18:00Z"
     },
     "tip_tlt_model_data": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:11:42Z",
+      "started_at_utc": "2026-09-12T08:18:00Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:18:48Z"
+      "finished_at_utc": "2026-09-12T08:25:25Z"
     },
     "etf_bars": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:18:48Z",
+      "started_at_utc": "2026-09-12T08:25:25Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:18:52Z"
+      "finished_at_utc": "2026-09-12T08:25:29Z"
     },
     "short_shadow_export": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:18:52Z",
+      "started_at_utc": "2026-09-12T08:25:29Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:22:09Z"
+      "finished_at_utc": "2026-09-12T08:28:43Z"
     },
     "long_shadow_extension": {
-      "status": "success",
-      "started_at_utc": "2026-09-11T07:22:09Z",
+      "status": "failed",
+      "started_at_utc": "2026-09-12T08:28:43Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:22:35Z"
+      "error": "Command '['/home/mark/trading_env/venv311/bin/python', '/home/mark/trading_env/tools/extend_cpurnsa_long_shadow.py', '--date', '2026-09-11', '--artifact-dir', '/home/mark/trading_env/artifacts/uscpi_long_shadow_history_v4_median_maturity_2026', '--front', '/home/mark/deltagammavega/data/cpurnsa_snapshots/2026-09-11.csv', '--sdr-uri', 'gs://systematicpositiveskew/inflation_data/sdr']' returned non-zero exit status 1.",
+      "finished_at_utc": "2026-09-12T08:28:47Z"
     },
     "cpurnsa_publish": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:22:35Z",
+      "started_at_utc": "2026-09-12T08:28:47Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:22:35Z"
+      "finished_at_utc": "2026-09-12T08:28:47Z"
     },
     "shadow_replay": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:22:35Z",
+      "started_at_utc": "2026-09-12T08:28:47Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:22:39Z"
+      "finished_at_utc": "2026-09-12T08:28:51Z"
     },
     "internal_build": {
       "status": "success",
-      "started_at_utc": "2026-09-11T07:22:39Z",
+      "started_at_utc": "2026-09-12T08:28:51Z",
       "output": null,
-      "finished_at_utc": "2026-09-11T07:22:39Z"
+      "finished_at_utc": "2026-09-12T08:28:51Z"
     }
   }
 }
