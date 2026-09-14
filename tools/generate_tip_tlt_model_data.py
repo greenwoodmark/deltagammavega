@@ -19,6 +19,7 @@ GS_MARQUEE_ROOT = TRADING_ROOT / "gs_marquee"
 if str(GS_MARQUEE_ROOT) not in sys.path:
     sys.path.insert(0, str(GS_MARQUEE_ROOT))
 
+from infrastructure.equity_option_payoffs import construct_delta_option  # noqa: E402
 from infrastructure.equity_vol_gh3 import fit_equity_vol_day  # noqa: E402
 from infrastructure.equity_vol_model import (  # noqa: E402
     GH3_VERSION,
@@ -39,6 +40,7 @@ ACTIVE_MODEL_VERSION = "gh5_v1"
 HOLDINGS_BASE = f"{GCS_BASE}/etf_reference/holdings"
 SYMBOLS = ("TIP", "TLT")
 TENOR_YEARS = 1.0 / 12.0
+EW_HALF_LIFE_DAYS = 91.25
 DATE_RE = re.compile(r"year=(\d{4})/(\d{4}-\d{2}-\d{2})\.parquet$")
 
 
@@ -220,6 +222,80 @@ def _smile_payload(raw: pd.DataFrame, fit: pd.Series) -> list[dict]:
             "fitted_iv": _implied_vol(forward, strike, model_price, right),
         })
     return points
+
+
+def _exponentially_weighted_parameter_fit(
+    fit_frame: pd.DataFrame,
+    latest_fit: pd.Series,
+    end_date: str,
+) -> pd.Series:
+    """Return a current-forward fit with a three-month EW mean of GH5 parameters."""
+    parameters = ("b", "g", "h", "c", "q")
+    frame = fit_frame.copy()
+    frame["date"] = pd.to_datetime(frame["date"], errors="raise")
+    frame = frame.loc[frame["date"] <= pd.Timestamp(end_date)]
+    if "objective_name" in frame.columns and "objective_name" in latest_fit:
+        frame = frame.loc[frame["objective_name"].astype(str).eq(str(latest_fit["objective_name"]))]
+    if "fit_datetime" in frame.columns:
+        frame["_fit_datetime_sort"] = pd.to_datetime(frame["fit_datetime"], errors="coerce", utc=True)
+        frame = frame.sort_values(["date", "_fit_datetime_sort"], na_position="first")
+    else:
+        frame = frame.sort_values("date")
+    frame = frame.drop_duplicates("date", keep="last")
+    usable = frame.dropna(subset=list(parameters)).copy()
+    if usable.empty:
+        raise ValueError("no usable historical GH5 fits for exponentially weighted parameters")
+    ages = (pd.Timestamp(end_date) - usable["date"]).dt.days.to_numpy(dtype=float)
+    alpha = np.log(2.0) / EW_HALF_LIFE_DAYS
+    weights = np.exp(-alpha * np.maximum(ages, 0.0))
+    values = usable.loc[:, parameters].apply(pd.to_numeric, errors="coerce").to_numpy(dtype=float)
+    valid = np.isfinite(values).all(axis=1) & np.isfinite(weights) & (weights > 0.0)
+    if not valid.any():
+        raise ValueError("no finite historical GH5 parameters for exponentially weighted mean")
+    weights = weights[valid]
+    values = values[valid]
+    means = np.average(values, axis=0, weights=weights)
+    result = latest_fit.copy()
+    for name, value in zip(parameters, means, strict=True):
+        result[name] = float(value)
+    return result
+
+
+def _option_price_table(
+    base_fit: pd.Series,
+    shape_fit: pd.Series,
+    ew_fit: pd.Series,
+    *,
+    right: str,
+    absolute_deltas: tuple[float, ...],
+) -> list[dict]:
+    """Return native, EW, and translated-shape GH5 option prices on one scale."""
+    if right not in {"P", "C"}:
+        raise ValueError("right must be 'P' or 'C'")
+    if any(str(fit.get("model_version", "")) != GH5_VERSION for fit in (base_fit, shape_fit, ew_fit)):
+        raise ValueError("adjusted TIP/TLT option price table requires GH5 fits")
+    adjusted_shape_fit = base_fit.copy()
+    for name in ("g", "h", "c", "q"):
+        adjusted_shape_fit[name] = shape_fit[name]
+    rows = []
+    for absolute_delta in absolute_deltas:
+        signed_delta = absolute_delta if right == "C" else -absolute_delta
+        native_option = construct_delta_option(base_fit, right=right, target_delta=signed_delta, tenor_years=TENOR_YEARS)
+        ew_option = construct_delta_option(ew_fit, right=right, target_delta=signed_delta, tenor_years=TENOR_YEARS)
+        adjusted_option = construct_delta_option(adjusted_shape_fit, right=right, target_delta=signed_delta, tenor_years=TENOR_YEARS)
+        rows.append({
+            "target_delta": absolute_delta,
+            "native_achieved_delta": abs(float(native_option.achieved_delta)),
+            "ew_achieved_delta": abs(float(ew_option.achieved_delta)),
+            "adjusted_achieved_delta": abs(float(adjusted_option.achieved_delta)),
+            "native_strike": float(native_option.strike),
+            "ew_strike": float(ew_option.strike),
+            "adjusted_strike": float(adjusted_option.strike),
+            "native_price_per_underlying_unit": float(native_option.premium),
+            "ew_price_per_underlying_unit": float(ew_option.premium),
+            "adjusted_price_per_underlying_unit": float(adjusted_option.premium),
+        })
+    return rows
 
 
 def _fit_metadata(fit: pd.Series, fit_date: str, *, source: str) -> dict:
@@ -411,6 +487,7 @@ def build_payload(
     raw_dates = {symbol: _raw_dates(symbol) for symbol in SYMBOLS}
     fit_frames = {}
     fit_model_versions = {}
+    latest_fits = {}
     for symbol in SYMBOLS:
         try:
             fit_frames[symbol] = _read_fit_frame(symbol, model_version)
@@ -432,6 +509,7 @@ def build_payload(
         if "fit_datetime" in matching_fits.columns:
             matching_fits = matching_fits.sort_values("fit_datetime")
         fit = matching_fits.iloc[-1]
+        latest_fits[symbol] = fit
         fit_date = str(fit["date"])
         holdings = _read_holdings(symbol)
         duration, duration_source, holdings_date, holdings_rows = _effective_duration(holdings)
@@ -458,6 +536,25 @@ def build_payload(
             entry["c"] = float(fit["c"])
             entry["q"] = float(fit["q"])
         result["symbols"][symbol] = entry
+    if model_version == GH5_VERSION:
+        ew_fits = {
+            symbol: _exponentially_weighted_parameter_fit(
+                fit_frames[symbol], latest_fits[symbol], paired_date
+            )
+            for symbol in SYMBOLS
+        }
+        result["symbols"]["TIP"]["put_price_table"] = _option_price_table(
+            latest_fits["TIP"], latest_fits["TLT"], ew_fits["TIP"], right="P", absolute_deltas=(0.05, 0.15, 0.25, 0.40)
+        )
+        result["symbols"]["TLT"]["put_price_table"] = _option_price_table(
+            latest_fits["TLT"], latest_fits["TIP"], ew_fits["TLT"], right="P", absolute_deltas=(0.05, 0.15, 0.25, 0.40)
+        )
+        result["symbols"]["TIP"]["call_price_table"] = _option_price_table(
+            latest_fits["TIP"], latest_fits["TLT"], ew_fits["TIP"], right="C", absolute_deltas=(0.40, 0.25, 0.15, 0.05)
+        )
+        result["symbols"]["TLT"]["call_price_table"] = _option_price_table(
+            latest_fits["TLT"], latest_fits["TIP"], ew_fits["TLT"], right="C", absolute_deltas=(0.40, 0.25, 0.15, 0.05)
+        )
     result["return_scatter"] = _return_scatter_payload()
     result["swaption_summary"] = {
         "title": "Swaption implied volatility",

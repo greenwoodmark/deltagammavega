@@ -99,6 +99,15 @@
     <section class="card">
       <h2>CONCLUSION SO FAR</h2>
       <p>PURELY DISCRETIONARY but with a quant filter that highlights how far apart the Q-measures are in (a) vol terms vs historical and (b) in skew terms. Can also give expected mtm gain if convergence overnight in parameters, as an indication of value of the trade (expressed in risk adjusted terms).</p>
+      <div class="grid" id="tip-tlt-put-price-tables">
+        <div id="tip-put-price-table"><p class="meta">Loading TIP GH5 put prices…</p></div>
+        <div id="tlt-put-price-table"><p class="meta">Loading TLT GH5 put prices…</p></div>
+      </div>
+      <div class="grid" id="tip-tlt-call-price-tables">
+        <div id="tip-call-price-table"><p class="meta">Loading TIP call prices…</p></div>
+        <div id="tlt-call-price-table"><p class="meta">Loading TLT call prices…</p></div>
+      </div>
+      <p class="meta" id="tip-put-price-date"></p>
     </section>
   </main>
 <script>
@@ -113,6 +122,42 @@
   function customdata(symbol, payload, point) {
     const row = payload.symbols[symbol];
     return [row.medcouple, row.b, row.g, row.h, row.c, row.q, row.effective_duration, row.holdings_as_of_date, row.fit_date, row.mad_err, row.model_version];
+  }
+  function renderOptionPriceTable(elementId, title, nativeLabel, ewLabel, adjustedLabel, rows, right) {
+    const optionLabel = right === 'C' ? 'Call' : 'Put';
+    document.getElementById(elementId).innerHTML = `
+      <table aria-label="Latest ${title} GH5 European ${optionLabel.toLowerCase()} prices">
+        <caption>${title}</caption>
+        <thead><tr><th>${optionLabel} delta</th><th>${nativeLabel}</th><th>${ewLabel}</th><th>${adjustedLabel}</th></tr></thead>
+        <tbody>${rows.map(row => `<tr><td>${(Number(row.target_delta) * 100).toFixed(0)}-delta ${optionLabel.toLowerCase()}</td><td>${fmt(row.native_price_per_underlying_unit, 4)}</td><td>${fmt(row.ew_price_per_underlying_unit, 4)}</td><td>${fmt(row.adjusted_price_per_underlying_unit, 4)}</td></tr>`).join('')}</tbody>
+      </table>`;
+  }
+  function validateOptionPriceRows(rows, expectedDeltas, label) {
+    if (!Array.isArray(rows) || rows.length !== expectedDeltas.length) throw new Error(`${label} price table payload is not supported`);
+    rows.forEach((row, index) => {
+      if (!Number.isFinite(Number(row.target_delta)) || Math.abs(Number(row.target_delta) - expectedDeltas[index]) > 1e-9 || !Number.isFinite(Number(row.native_price_per_underlying_unit)) || !Number.isFinite(Number(row.ew_price_per_underlying_unit)) || !Number.isFinite(Number(row.adjusted_price_per_underlying_unit))) {
+        throw new Error(`${label} price table contains invalid values`);
+      }
+    });
+  }
+  function renderOptionPrices(payload) {
+    const tip = payload.symbols?.TIP;
+    const tlt = payload.symbols?.TLT;
+    const tipPutRows = tip?.put_price_table;
+    const tltPutRows = tlt?.put_price_table;
+    const tipCallRows = tip?.call_price_table;
+    const tltCallRows = tlt?.call_price_table;
+    const putDeltas = [0.05, 0.15, 0.25, 0.40];
+    const callDeltas = [0.40, 0.25, 0.15, 0.05];
+    validateOptionPriceRows(tipPutRows, putDeltas, 'TIP put');
+    validateOptionPriceRows(tltPutRows, putDeltas, 'TLT put');
+    validateOptionPriceRows(tipCallRows, callDeltas, 'TIP call');
+    validateOptionPriceRows(tltCallRows, callDeltas, 'TLT call');
+    renderOptionPriceTable('tip-put-price-table', 'TIP put options', 'TIP GH5', 'EW TIP GH5', 'adj TLT GH5', tipPutRows, 'P');
+    renderOptionPriceTable('tlt-put-price-table', 'TLT put options', 'TLT GH5', 'EW TLT GH5', 'adj TIP GH5', tltPutRows, 'P');
+    renderOptionPriceTable('tip-call-price-table', 'TIP call options', 'TIP GH5', 'EW TIP GH5', 'adj TLT GH5', tipCallRows, 'C');
+    renderOptionPriceTable('tlt-call-price-table', 'TLT call options', 'TLT GH5', 'EW TLT GH5', 'adj TIP GH5', tltCallRows, 'C');
+    document.getElementById('tip-put-price-date').textContent = `Data date: TIP/TLT GH5 fits dated ${tip.fit_date}. One-month expiry European put and call premiums per one unit of the relevant underlying. EW columns use exponentially weighted means of b, g, h, c, and q with a three-month half-life (alpha = log(2) / 91.25), retaining the latest forward. Adj TLT GH5 uses TIP b and forward with TLT g, h, c, and q; adj TIP GH5 uses TLT b and forward with TIP g, h, c, and q.`;
   }
   function renderMetrics(payload) {
     document.getElementById('metrics').innerHTML = SYMBOLS.map(symbol => {
@@ -222,7 +267,7 @@
     return response.json();
   }).then(payload => {
     if (payload.schema_version !== 'tip_tlt_gh5_model_v1') throw new Error('TIP/TLT model payload schema is not supported');
-    renderChart(payload); renderComparison(payload); renderReturnScatter(payload); renderSwaptionSummary(payload); renderMetrics(payload);
+    renderChart(payload); renderComparison(payload); renderReturnScatter(payload); renderSwaptionSummary(payload); renderMetrics(payload); renderOptionPrices(payload);
     document.getElementById('status').textContent = `Latest aligned raw/fit smiles: ${payload.latest_date}; generated ${payload.generated_at_utc}.`;
   }).catch(error => { document.getElementById('error').textContent = error.message; document.getElementById('status').textContent = 'Latest TIP/TLT model data is temporarily unavailable.'; });
 </script>

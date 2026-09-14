@@ -1,7 +1,7 @@
 {
   "schema_version": "tip_tlt_gh5_model_v1",
   "model_version": "gh5_v1",
-  "generated_at_utc": "2026-09-12T08:18:01+00:00",
+  "generated_at_utc": "2026-09-14T15:33:30+00:00",
   "tenor": "1m",
   "symbols": {
     "TIP": {
@@ -15,10 +15,10 @@
       "g": -0.12087912457543018,
       "h": 0.32161427225798317,
       "mad_err": 0.008191080938192347,
-      "effective_duration": 6.328688972628828,
+      "effective_duration": 6.321164256941775,
       "effective_duration_source": "iShares Duration field, market-value weighted",
       "holdings_as_of_date": "2026-09-04",
-      "holdings_rows": 204,
+      "holdings_rows": 255,
       "points": [
         {
           "moneyness": 0.9759406019352268,
@@ -174,7 +174,107 @@
         }
       ],
       "c": 0.05,
-      "q": 0.0006892221705619638
+      "q": 0.0006892221705619638,
+      "put_price_table": [
+        {
+          "target_delta": 0.05,
+          "native_achieved_delta": 0.050000000000001155,
+          "ew_achieved_delta": 0.049999999999837175,
+          "adjusted_achieved_delta": 0.050000000105343,
+          "native_strike": 101.71914294634067,
+          "ew_strike": 102.65558301255108,
+          "adjusted_strike": 103.75333701820023,
+          "native_price_per_underlying_unit": 0.060575478128478334,
+          "ew_price_per_underlying_unit": 0.047787478804298344,
+          "adjusted_price_per_underlying_unit": 0.03306760930146992
+        },
+        {
+          "target_delta": 0.15,
+          "native_achieved_delta": 0.14999999995485636,
+          "ew_achieved_delta": 0.14999999999794622,
+          "adjusted_achieved_delta": 0.14999999999998037,
+          "native_strike": 104.19975814142767,
+          "ew_strike": 104.50400727234758,
+          "adjusted_strike": 104.89386346213864,
+          "native_price_per_underlying_unit": 0.1618959942722927,
+          "ew_price_per_underlying_unit": 0.13786756062616007,
+          "adjusted_price_per_underlying_unit": 0.1073672936711456
+        },
+        {
+          "target_delta": 0.25,
+          "native_achieved_delta": 0.2499999999847362,
+          "ew_achieved_delta": 0.250000000000003,
+          "adjusted_achieved_delta": 0.24999999999696376,
+          "native_strike": 105.11446570119367,
+          "ew_strike": 105.25186385591053,
+          "adjusted_strike": 105.43900331141087,
+          "native_price_per_underlying_unit": 0.26914745024587,
+          "ew_price_per_underlying_unit": 0.23719852428287586,
+          "adjusted_price_per_underlying_unit": 0.19400551243509614
+        },
+        {
+          "target_delta": 0.4,
+          "native_achieved_delta": 0.39999999999979874,
+          "ew_achieved_delta": 0.3999999999997601,
+          "adjusted_achieved_delta": 0.3999999999999321,
+          "native_strike": 105.9060440443924,
+          "ew_strike": 105.9430416068856,
+          "adjusted_strike": 105.99620661672202,
+          "native_price_per_underlying_unit": 0.4611805821405297,
+          "ew_price_per_underlying_unit": 0.4161638259061347,
+          "adjusted_price_per_underlying_unit": 0.35211025455328687
+        }
+      ],
+      "call_price_table": [
+        {
+          "target_delta": 0.4,
+          "native_achieved_delta": 0.3999999999999465,
+          "ew_achieved_delta": 0.40000000008346337,
+          "adjusted_achieved_delta": 0.4000000004189729,
+          "native_strike": 106.7057472660626,
+          "ew_strike": 106.66295223928724,
+          "adjusted_strike": 106.6075118865228,
+          "native_price_per_underlying_unit": 0.43951401840535625,
+          "ew_price_per_underlying_unit": 0.3947551264268315,
+          "adjusted_price_per_underlying_unit": 0.33625019604886036
+        },
+        {
+          "target_delta": 0.25,
+          "native_achieved_delta": 0.24999999999865385,
+          "ew_achieved_delta": 0.2499999999999819,
+          "adjusted_achieved_delta": 0.24999999994539596,
+          "native_strike": 107.44297415408947,
+          "ew_strike": 107.28201359059798,
+          "adjusted_strike": 107.11172807984768,
+          "native_price_per_underlying_unit": 0.2466604967572071,
+          "ew_price_per_underlying_unit": 0.2126642534402272,
+          "adjusted_price_per_underlying_unit": 0.17644425283751275
+        },
+        {
+          "target_delta": 0.15,
+          "native_achieved_delta": 0.14999999996473168,
+          "ew_achieved_delta": 0.15000000030982824,
+          "adjusted_achieved_delta": 0.1499999999271608,
+          "native_strike": 108.29783994862935,
+          "ew_strike": 107.91630556121176,
+          "adjusted_strike": 107.58206798503488,
+          "native_price_per_underlying_unit": 0.14597356195957686,
+          "ew_price_per_underlying_unit": 0.11867790009657538,
+          "adjusted_price_per_underlying_unit": 0.09454673549806561
+        },
+        {
+          "target_delta": 0.05,
+          "native_achieved_delta": 0.04999999998372428,
+          "ew_achieved_delta": 0.0499999999998962,
+          "adjusted_achieved_delta": 0.049999999865454295,
+          "native_strike": 110.81920487509767,
+          "ew_strike": 109.47138295985918,
+          "adjusted_strike": 108.591759562645,
+          "native_price_per_underlying_unit": 0.05527499369028818,
+          "ew_price_per_underlying_unit": 0.03922407755394134,
+          "adjusted_price_per_underlying_unit": 0.028554671950557553
+        }
+      ]
     },
     "TLT": {
       "raw_date": "2026-09-11",
@@ -187,10 +287,10 @@
       "g": -0.14368864115120564,
       "h": 0.10559052490461852,
       "mad_err": 0.00509894933738064,
-      "effective_duration": 15.043384398973062,
+      "effective_duration": 15.015133151071092,
       "effective_duration_source": "iShares Duration field, market-value weighted",
       "holdings_as_of_date": "2026-09-04",
-      "holdings_rows": 147,
+      "holdings_rows": 245,
       "points": [
         {
           "moneyness": 0.9516277501216662,
@@ -346,16 +446,116 @@
         }
       ],
       "c": 0.05,
-      "q": 0.05
+      "q": 0.05,
+      "put_price_table": [
+        {
+          "target_delta": 0.05,
+          "native_achieved_delta": 0.049999999999998934,
+          "ew_achieved_delta": 0.04999999999999594,
+          "adjusted_achieved_delta": 0.04999999999999971,
+          "native_strike": 75.96088290727577,
+          "ew_strike": 75.99014190293894,
+          "adjusted_strike": 72.03581816082382,
+          "native_price_per_underlying_unit": 0.0688723121550738,
+          "ew_price_per_underlying_unit": 0.06845348304790762,
+          "adjusted_price_per_underlying_unit": 0.12793490530856672
+        },
+        {
+          "target_delta": 0.15,
+          "native_achieved_delta": 0.14999999999928004,
+          "ew_achieved_delta": 0.14999999999952995,
+          "adjusted_achieved_delta": 0.149999999959457,
+          "native_strike": 78.25372287737866,
+          "ew_strike": 78.27089131434533,
+          "adjusted_strike": 76.90792396523435,
+          "native_price_per_underlying_unit": 0.22186880377902962,
+          "ew_price_per_underlying_unit": 0.22044612418955367,
+          "adjusted_price_per_underlying_unit": 0.3362879349103064
+        },
+        {
+          "target_delta": 0.25,
+          "native_achieved_delta": 0.2499999999999245,
+          "ew_achieved_delta": 0.24999999999995648,
+          "adjusted_achieved_delta": 0.24999999999981304,
+          "native_strike": 79.35263239132654,
+          "ew_strike": 79.3586541868842,
+          "adjusted_strike": 78.72688559857896,
+          "native_price_per_underlying_unit": 0.39955411034352556,
+          "ew_price_per_underlying_unit": 0.39807751196549657,
+          "adjusted_price_per_underlying_unit": 0.5561251818824855
+        },
+        {
+          "target_delta": 0.4,
+          "native_achieved_delta": 0.39999999995484414,
+          "ew_achieved_delta": 0.3999999999855378,
+          "adjusted_achieved_delta": 0.3999999999389099,
+          "native_strike": 80.47794298541237,
+          "ew_strike": 80.47710973288504,
+          "adjusted_strike": 80.31297250898534,
+          "native_price_per_underlying_unit": 0.7230065829246457,
+          "ew_price_per_underlying_unit": 0.7241202621333714,
+          "adjusted_price_per_underlying_unit": 0.9497013753649783
+        }
+      ],
+      "call_price_table": [
+        {
+          "target_delta": 0.4,
+          "native_achieved_delta": 0.4000000000000814,
+          "ew_achieved_delta": 0.40000000000133384,
+          "adjusted_achieved_delta": 0.39999999999072317,
+          "native_strike": 81.71533026887688,
+          "ew_strike": 81.72190581839759,
+          "adjusted_strike": 81.93137574068797,
+          "native_price_per_underlying_unit": 0.672889962513196,
+          "ew_price_per_underlying_unit": 0.6792369581003205,
+          "adjusted_price_per_underlying_unit": 0.8769028581405259
+        },
+        {
+          "target_delta": 0.25,
+          "native_achieved_delta": 0.2499999999814675,
+          "ew_achieved_delta": 0.24999999999999667,
+          "adjusted_achieved_delta": 0.24999999999486822,
+          "native_strike": 82.73871011756204,
+          "ew_strike": 82.76763675106264,
+          "adjusted_strike": 83.4399184715542,
+          "native_price_per_underlying_unit": 0.3524437190068796,
+          "ew_price_per_underlying_unit": 0.35826904532605514,
+          "adjusted_price_per_underlying_unit": 0.4911722686201197
+        },
+        {
+          "target_delta": 0.15,
+          "native_achieved_delta": 0.15000000000000108,
+          "ew_achieved_delta": 0.14999999999999414,
+          "adjusted_achieved_delta": 0.14999999999998698,
+          "native_strike": 83.69603560655226,
+          "ew_strike": 83.7562111297224,
+          "adjusted_strike": 85.20488984304286,
+          "native_price_per_underlying_unit": 0.18846357138178274,
+          "ew_price_per_underlying_unit": 0.19259158740461216,
+          "adjusted_price_per_underlying_unit": 0.28960937323126784
+        },
+        {
+          "target_delta": 0.05,
+          "native_achieved_delta": 0.049999999984779206,
+          "ew_achieved_delta": 0.04999999999975591,
+          "adjusted_achieved_delta": 0.04999999999847713,
+          "native_strike": 85.7605587883423,
+          "ew_strike": 85.89251123197282,
+          "adjusted_strike": 90.48306433869953,
+          "native_price_per_underlying_unit": 0.05662542588065329,
+          "ew_price_per_underlying_unit": 0.05813709943469123,
+          "adjusted_price_per_underlying_unit": 0.10826481112889665
+        }
+      ]
     }
   },
   "return_scatter": {
     "schema_version": "tip_tlt_one_month_return_scatter_v1",
     "return_definition": "unadjusted ETF close-to-close price return",
     "dividend_rule": "exclude observations whose start or end session is an ex-dividend date for TIP or TLT",
-    "raw_observations": 2413,
+    "raw_observations": 2414,
     "excluded_dividend_observations": 205,
-    "observations": 2208,
+    "observations": 2209,
     "points": [
       {
         "start_date": "2017-01-03",
@@ -13604,6 +13804,12 @@
         "end_date": "2026-09-10",
         "TIP_return": -0.006550626988583219,
         "TLT_return": -0.01584399756246191
+      },
+      {
+        "start_date": "2026-08-11",
+        "end_date": "2026-09-11",
+        "TIP_return": -0.009355412105903294,
+        "TLT_return": -0.015689613232789945
       }
     ]
   },
