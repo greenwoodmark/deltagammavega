@@ -1,6 +1,6 @@
 from datetime import date
 
-from tools.generate_jup_gear_chart_data import build_jup_total_return_rows, build_scatter_series
+from tools.generate_jup_gear_chart_data import calculate_regression, build_jup_total_return_rows, build_scatter_series
 
 
 def test_gross_total_return_reinvests_ex_date_cash():
@@ -31,6 +31,22 @@ def test_scatter_keeps_price_return_and_uses_gross_total_return():
     point = points[-1]
     assert point["jup_price_return_pct"] == round((95.0 / 90.0 - 1) * 100, 6)
     assert point["jup_total_return_pct"] > point["jup_price_return_pct"]
+
+
+def test_regression_line_reports_incremental_jup_response_per_gear_point():
+    points = [
+        {"gear_return_pct": -1.0, "jup_total_return_pct": 0.0},
+        {"gear_return_pct": 0.0, "jup_total_return_pct": 2.0},
+        {"gear_return_pct": 1.0, "jup_total_return_pct": 4.0},
+    ]
+    result = calculate_regression(points)
+    assert result == {
+        "n": 3,
+        "beta": 2.0,
+        "intercept_pct": 2.0,
+        "correlation": 1.0,
+        "r_squared": 1.0,
+    }
 
 
 def test_dividend_monitor_flags_missing_event_after_cadence():

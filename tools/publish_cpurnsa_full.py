@@ -36,6 +36,8 @@ def _optional_finite_number(value: Any, *, field: str, date: str) -> float | Non
 def _normalise_snapshot(path: Path) -> dict[str, Any]:
     snapshot = json.loads(path.read_text(encoding="utf-8"))
     date = str(snapshot.get("model_date") or path.stem)
+    if not isinstance(date, str) or len(date) != 10:
+        raise ValueError(f"{date}: model_date must be YYYY-MM-DD")
     if snapshot.get("synthetic_prior") is not True:
         raise ValueError(f"{date}: snapshot is not marked synthetic_prior")
     if snapshot.get("status") != "long_shadow_posterior":
@@ -55,7 +57,19 @@ def _normalise_snapshot(path: Path) -> dict[str, Any]:
         raise ValueError(f"{date}: knot_label must contain 360 values")
     if set(statuses) - EXPECTED_NODE_STATUSES:
         raise ValueError(f"{date}: unexpected node status values")
-
+    if statuses[:12] != ["front_fixed"] * 12 or statuses[12:] != ["long_shadow_posterior"] * 348:
+        raise ValueError(f"{date}: node statuses do not match the 12-month front/long partition")
+    for value in rates:
+        number = _finite_number(value, field="inflation_rate_percent", date=date)
+        if number <= -100.0:
+            raise ValueError(f"{date}: inflation_rate_percent implies a non-positive index")
+    transition = snapshot.get("frame_transition")
+    if transition is not None and not isinstance(transition, dict):
+        raise ValueError(f"{date}: frame_transition must be an object")
+    if snapshot.get("front_source_kind") == "short_bayesian_state":
+        for field in ("front_state_sha256", "front_state_as_of_date", "front_cpi_status"):
+            if not snapshot.get(field):
+                raise ValueError(f"{date}: missing long-front lineage field {field}")
     return {
         "model_date": date,
         "status": snapshot["status"],

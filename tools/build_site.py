@@ -40,7 +40,7 @@ INTERNAL_DATA_FILES = (
     "jup_gear_chart.json",
     "tip_tlt_model.json",
 )
-INTERNAL_OPTIONAL_DATA_FILES = ("refresh_status.json", "tips_fedinvest_status.json", "swaption_status.json")
+INTERNAL_OPTIONAL_DATA_FILES = ("refresh_status.json", "tips_fedinvest_status.json", "swaption_status.json", "jup_performance_fee.json")
 
 PUBLIC_LOG_TEXT = '<text x="950.48" y="110.08" font-size="192.05px" transform="rotate(-30.83, 950.48, 110.08)">a</text>'
 INTERNAL_LOG_LINK = f'<a href="logs.html" aria-label="Open logs">{PUBLIC_LOG_TEXT}</a>'

@@ -48,19 +48,20 @@
 
   <section class="card">
     <h2> B. Simple HWM backtest: historical periods</h2>
-    <p class="muted">GEAR-only estimate using period-specific average performance-fee rates of 20% in FY2024, 19% in FY2025, and 18% in FY2026, factsheet-based annual hurdle rates of 5.3% for 2023 (applied to FY2024), 4.4% for FY2025, and 4.0% for FY2026, and a simple HWM equal to opening NAV. PF EPS is the estimated net after-tax performance-fee contribution divided by average shares. FY2024 uses the archived FE fundinfo representative NAV extension through 27 November 2024, followed by official Jupiter NAV from 28 November 2024.</p>
-    <div class="table-wrap"><table aria-describedby="backtest-note"><caption>Projection methodology backtest against reported consolidated PF EPS proxy</caption><thead><tr><th scope="col">Period</th><th scope="col">NAV window</th><th scope="col">NAV return</th><th scope="col">Annual hurdle</th><th scope="col">Average PF rate</th><th scope="col">Average AUM</th><th scope="col">Estimated gross PF</th><th scope="col">Estimated net PF PAT</th><th scope="col">Estimated PF EPS</th><th scope="col">Reported PF EPS proxy</th></tr></thead><tbody>
+    <p class="muted">GEAR-only estimate using period-specific average performance-fee rates of 20% in FY2024, 19% in FY2025, and 18% in FY2026, factsheet-based annual hurdle rates of 5.3% for 2023 (applied to FY2024), 4.4% for FY2025, and 4.0% for FY2026, and a permanent HWM carried after positive annual crystallisation. The H1 2026 row is an interim, non-crystallising observation. PF EPS is the estimated net after-tax performance-fee contribution divided by average shares. FY2024 uses the archived FE fundinfo representative NAV extension through 27 November 2024, followed by official Jupiter NAV from 28 November 2024.</p>
+    <div class="table-wrap"><table id="jup-pf-backtest-table" aria-describedby="backtest-note"><caption>Projection methodology backtest against reported consolidated PF EPS proxy</caption><thead><tr><th scope="col">Period</th><th scope="col">NAV window</th><th scope="col">NAV return</th><th scope="col">Annual hurdle</th><th scope="col">Average PF rate</th><th scope="col">Average AUM</th><th scope="col">Estimated gross PF</th><th scope="col">Estimated net PF PAT</th><th scope="col">Estimated PF EPS</th><th scope="col">Reported PF EPS proxy</th></tr></thead><tbody id="jup-pf-backtest-body">
       <tr><td>FY2024</td><td>29-Dec-2023–31-Dec-2024</td><td>10.84%</td><td>5.3%</td><td>20%</td><td>£1.85bn + 20% non-UCITS</td><td>£24.4m</td><td>£9.6m</td><td>1.76p</td><td>2.55p</td></tr>
       <tr><td>FY2025</td><td>31-Dec 2024–31-Dec 2025</td><td>16.54%</td><td>4.4%</td><td>19%</td><td>£4.20bn + 30% non-UCITS</td><td>£125.9m</td><td>£49.6m</td><td>9.28p</td><td>10.68p</td></tr>
       <tr><td>H1 2026</td><td>31-Dec 2025–30-Jun 2026</td><td>3.12%</td><td>4.0%</td><td>18%</td><td>£7.39bn + 30% non-UCITS</td><td>£20.0m</td><td>£7.9m</td><td>1.50p</td><td>-0.14p</td></tr>
     </tbody></table></div>
-    <p id="backtest-note" class="meta">FY2024 uses the nearest preceding valuation, 29 December 2023, because 31 December 2023 was a Sunday. The pre-overlap history through 27 November 2024 is the FE fundinfo-derived representative GEAR GBP NAV series; official Jupiter NAV is used from 28 November 2024 onward. AUM uses the 2023/2024, 2024/2025, and 2025/current-reference annual interpolation anchors. The fee base includes assumed non-UCITS exposure of 20% in FY2024 and 30% in FY2025 and FY2026, with average performance-fee rates of 20%, 19%, and 18% respectively. These assumptions imply the same performance as the UCITS vehicle and are not observed offshore AUM. Reported PF EPS is a 25% tax proxy applied to consolidated reported PF PBT, not fund-level EPS.</p>
+    <p id="backtest-note" class="meta">FY2024 uses the nearest preceding valuation, 29 December 2023, because 31 December 2023 was a Sunday. The pre-overlap history through 27 November 2024 is the FE fundinfo-derived representative GEAR GBP NAV series; official Jupiter NAV is used from 28 November 2024 onward. AUM uses the 2023/2024, 2024/2025, and 2025/current-reference annual interpolation anchors. The fee base includes assumed non-UCITS exposure of 20% in FY2024 and 30% in FY2025 and FY2026, with average performance-fee rates of 20%, 19%, and 18% respectively. The HWM is carried after positive annual crystallisations; losses and partial recoveries do not lower it. H1 2026 is an interim period and does not reset the HWM. These assumptions imply the same performance as the UCITS vehicle and are not observed offshore AUM. Reported PF EPS is a 25% tax proxy applied to consolidated reported PF PBT, not fund-level EPS.</p>
+    <p id="jup-pf-backtest-error" class="meta"></p>
   </section>
 
   <section class="card">
     <h2>C. FY2026 performance-fee EPS projection scenarios</h2>
-    <p class="muted">As of 7 September 2026, GEAR NAV is 2.7571 and the current AUM reference is £9.45bn. Both scenarios calculate the full FY2026 performance-fee EPS from 31 December 2025 to 31 December 2026.</p>
-    <div class="table-wrap"><table aria-describedby="projection-pf-note"><caption>Full-year FY2026 estimated performance-fee contribution</caption><thead><tr><th scope="col">Scenario</th><th scope="col">Remainder NAV assumption</th><th scope="col">Projected year-end NAV</th><th scope="col">Estimated gross PF</th><th scope="col">Estimated net PF PAT</th><th scope="col">Projected PF EPS</th></tr></thead><tbody>
+    <p id="jup-pf-scenario-summary" class="muted">As of 7 September 2026, GEAR NAV is 2.7571 and the current AUM reference is £9.45bn. Both scenarios calculate the full FY2026 performance-fee EPS from 31 December 2025 to 31 December 2026.</p>
+    <div class="table-wrap"><table id="jup-pf-scenario-table" aria-describedby="projection-pf-note"><caption>Full-year FY2026 estimated performance-fee contribution</caption><thead><tr><th scope="col">Scenario</th><th scope="col">Remainder NAV assumption</th><th scope="col">Projected year-end NAV</th><th scope="col">Estimated gross PF</th><th scope="col">Estimated net PF PAT</th><th scope="col">Projected PF EPS</th></tr></thead><tbody id="jup-pf-scenario-body">
       <tr><td>1. Flat NAV</td><td>0% growth from 7-Sep to year-end</td><td>2.7571</td><td>£48.1m</td><td>£18.9m</td><td>3.59p</td></tr>
       <tr><td>2. Continued YTD pace</td><td>YTD NAV growth annualised: 9.94%</td><td>2.9886</td><td>£108.8m</td><td>£42.9m</td><td>8.13p</td></tr>
     </tbody></table></div>
@@ -69,7 +70,21 @@
   </section>
 
   <section class="card">
-    <h2>D. GEAR cumulative performance, drawdown, and assumed AUM</h2>
+    <h2>D. Model assumptions</h2>
+    <p class="muted">The performance-fee estimates are scenario calculations, not administrator or statutory accounting outputs. They use GEAR NAV before the performance-fee deduction but after ongoing fund expenses, and assume that movements into and out of units are ignored. The unit position is therefore treated as constant throughout each calculation period.</p>
+    <div class="grid">
+      <article class="metric"><span>High-water mark</span><strong>Permanent</strong><div class="formula">A fee is charged only above the carried HWM. A loss or partial recovery does not lower it; after a positive annual crystallisation, the post-fee NAV becomes the next HWM.</div></article>
+      <article class="metric"><span>Crystallisation</span><strong>Annual</strong><div class="formula">Daily provisional fees can reverse during drawdowns; the HWM transition occurs only at the accounting-period crystallisation date.</div></article>
+      <article class="metric"><span>Unit movements</span><strong>Ignored</strong><div class="formula">The examples assume a constant unit balance and do not model subscriptions, redemptions, or investor-level flow adjustments.</div></article>
+    </div>
+    <p><strong>Hurdle and fee-rate assumptions.</strong> The ESMA-style absolute-return test cases use a zero hurdle. The historical backtest uses annual hurdle assumptions of 5.3% for FY2024, 4.4% for FY2025, and 4.0% for FY2026, with average performance-fee rates of 20%, 19%, and 18% respectively. The FY2026 scenarios use a 4% hurdle and an 18% average performance-fee rate.</p>
+    <p><strong>Corporate EPS bridge.</strong> Estimated gross performance fees are based on interpolated average AUM and assumed additional non-UCITS fee-bearing exposure of 20% in FY2024 and 30% in FY2025/FY2026. The bridge applies 45% staff/bonus drag, 2.5% overhead, and 25% tax before dividing by the relevant period-average share count. The FY2026 scenarios use £7.825bn interpolated average AUM and 526.8m shares. The FY2024/FY2025 comparison also uses the 2.76% FY2025 calibration-yield proxy described above.</p>
+    <p><strong>Data and interpretation.</strong> FY2024 combines FE fundinfo-derived representative NAV history through 27 November 2024 with official Jupiter NAV from 28 November 2024 onward. AUM values are model anchors/interpolations rather than a complete observed AUM history. These displayed tables are static scenario outputs and should not be interpreted as live forecasts or administrator accruals.</p>
+    <p class="notice"><strong>Test coverage:</strong> 13 dedicated HWM/performance-fee tests cover positive crystallisation, post-fee HWM carry-forward, losses, partial recovery, breakout above the HWM, daily accrual reversal, the four-period ESMA example, and period-estimator carry behaviour. The wider Jupiter valuation test suite currently contains 74 passing tests.</p>
+  </section>
+
+  <section class="card">
+    <h2>E. GEAR cumulative performance, drawdown, and assumed AUM</h2>
     <p class="muted">Cumulative performance is measured from the first available valuation on or after 1 January 2024. Running drawdown is measured from the running NAV peak. The AUM line uses the model’s annual/current anchors with linear interpolation and is shown on the right-hand axis. The chart is descriptive and does not reconstruct the contractual HWM or fee-accrual ledger.</p>
     <div class="chart-wrap" aria-live="polite">
       <div id="gear-chart" role="img" aria-label="GEAR cumulative performance, running drawdown, and assumed assets under management"></div>
@@ -83,6 +98,7 @@
     <div class="chart-wrap" aria-live="polite">
       <div id="jup-gear-scatter" role="img" aria-label="Rolling 90-calendar-day JUP gross total return versus GEAR NAV growth"></div>
     </div>
+    <p id="jup-gear-regression-interpretation" class="notice">Regression-implied JUP response is loading from the latest GEAR/JUP chart data.</p>
     <p id="jup-gear-scatter-error" class="meta"></p>
   </section>
   <section class="card">
@@ -111,6 +127,30 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <script>
   function byId(id) { return document.getElementById(id); }
+  function renderPerformanceFeeBacktest(payload) {
+    const rows = payload.periods;
+    if (!Array.isArray(rows) || rows.length === 0) throw new Error('Performance-fee backtest data is empty');
+    const body = byId('jup-pf-backtest-body');
+    const formatAum = row => `£${(row.average_aum_gbp_m / row.non_ucits_factor / 1000).toFixed(2)}bn + ${Math.round((row.non_ucits_factor - 1) * 100)}% non-UCITS`;
+    const formatMillions = value => `£${Number(value).toFixed(1)}m`;
+    const formatPence = value => `${Number(value).toFixed(2)}p`;
+    body.innerHTML = rows.map(row => `<tr><td>${row.label}</td><td>${row.nav_start_date}–${row.nav_end_date}</td><td>${Number(row.nav_return_pct).toFixed(2)}%</td><td>${Number(row.hurdle_return_pct).toFixed(1)}%</td><td>${Number(row.average_pf_rate_pct).toFixed(0)}%</td><td>${formatAum(row)}</td><td>${formatMillions(row.gross_pf_gbp_m)}</td><td>${formatMillions(row.estimated_pf_pat_gbp_m)}</td><td>${formatPence(row.estimated_pf_eps_pence)}</td><td>${formatPence(row.reported_pf_eps_proxy_pence)}</td></tr>`).join('');
+  }
+  function renderFy2026Scenarios(payload) {
+    const scenarios = payload.scenarios;
+    const summary = payload.scenario_summary;
+    if (!Array.isArray(scenarios) || scenarios.length !== 2 || !summary) throw new Error('FY2026 scenario data is missing');
+    const body = byId('jup-pf-scenario-body');
+    const formatMillions = value => `£${Number(value).toFixed(1)}m`;
+    const formatPence = value => `${Number(value).toFixed(2)}p`;
+    body.innerHTML = scenarios.map(row => `<tr><td>${row.label}</td><td>${row.nav_assumption}</td><td>${Number(row.projected_nav).toFixed(4)}</td><td>${formatMillions(row.gross_pf_gbp_m)}</td><td>${formatMillions(row.estimated_pf_pat_gbp_m)}</td><td>${formatPence(row.projected_pf_eps_pence)}</td></tr>`).join('');
+    byId('jup-pf-scenario-summary').textContent = `As of ${summary.as_of_date}, GEAR NAV is ${Number(summary.current_nav).toFixed(4)} and the current AUM reference is £${(Number(summary.base_average_aum_gbp_m) / 1000).toFixed(3)}bn. Both scenarios calculate full-year FY2026 performance-fee EPS from ${summary.opening_date} to 2026-12-31 using the carried HWM.`;
+    byId('projection-pf-note').textContent = `The continued-pace scenario annualises the ${Number(summary.ytd_nav_return_pct).toFixed(2)}% NAV gain from ${summary.opening_date} to ${summary.as_of_date} to ${Number(summary.annualized_ytd_return_pct).toFixed(2)}%. Both scenarios use a ${Number(summary.hurdle_return_pct).toFixed(1)}% annual hurdle, an assumed ${Number(summary.average_pf_rate_pct).toFixed(0)}% FY2026 average performance-fee rate, interpolated average AUM of £${(Number(summary.base_average_aum_gbp_m) / 1000).toFixed(3)}bn, a ${Number(summary.non_ucits_factor).toFixed(2)} non-UCITS factor, 45% staff/bonus drag, 2.5% overhead, 25% tax, and ${Number(summary.shares_m).toFixed(1)}m shares.`;
+  }
+  function renderPerformanceFeePayload(payload) {
+    renderPerformanceFeeBacktest(payload);
+    renderFy2026Scenarios(payload);
+  }
   function renderGearChart(payload) {
     const data = payload.series;
     if (!Array.isArray(data) || data.length < 2) throw new Error('GEAR chart data is empty or incomplete');
@@ -192,6 +232,24 @@
     };
     Plotly.newPlot('jup-gear-scatter', traces, layout, { responsive: true, displaylogo: false, modeBarButtonsToRemove: ['lasso2d', 'select2d'] });
   }
+  function renderJupGearRegressionInterpretation(payload) {
+    const data = payload.scatter_series;
+    const regression = payload.regression;
+    const target = byId('jup-gear-regression-interpretation');
+    const rollingDays = Number(payload.rolling_days || 90);
+    if (!Array.isArray(data) || data.length < 1 || !regression || typeof regression.beta !== 'number' || typeof regression.intercept_pct !== 'number') {
+      throw new Error('JUP/GEAR regression interpretation data is missing');
+    }
+    const latest = data[data.length - 1];
+    if (typeof latest.gear_return_pct !== 'number' || typeof latest.jup_close_gbp !== 'number') {
+      throw new Error('Latest JUP/GEAR observation is missing return or price data');
+    }
+    const fittedReturnPct = regression.intercept_pct + regression.beta * latest.gear_return_pct;
+    const latestClose = latest.jup_close_gbp;
+    const fittedLevel = latestClose * (1 + fittedReturnPct / 100);
+    const onePointMove = latestClose * regression.beta / 100;
+    target.innerHTML = `<strong>Fair value for <code>JUP</code> based on NAV performance: £${fittedLevel.toFixed(2)} (vs £${latestClose.toFixed(2)} last)</strong><br><br>Regression-implied JUP response (illustrative): If the market immediately repriced JUP in line with the fitted ${rollingDays}-calendar-day relationship, each 1.00 percentage-point move in GEAR NAV growth would correspond to a ${regression.beta.toFixed(2)} percentage-point move in JUP gross total return, or approximately £${onePointMove.toFixed(2)} per share from the latest unadjusted JUP close of £${latestClose.toFixed(2)}. At the latest observation (${latest.date}), GEAR's ${rollingDays}-day NAV growth of ${latest.gear_return_pct.toFixed(2)}% gives a fitted JUP gross total return of ${fittedReturnPct.toFixed(2)}%, equivalent to an illustrative level of £${fittedLevel.toFixed(2)}. This is not a next-session price target: the regression is descriptive, uses overlapping ${rollingDays}-day returns, and its JUP measure includes dividends; R² is ${(Number(regression.r_squared) * 100).toFixed(2)}%.`;
+  }
   function renderJointFrequency(payload) {
     const matrix = payload.joint_frequency;
     if (!matrix || !Array.isArray(matrix.counts) || matrix.counts.length !== 10) throw new Error('JUP/GEAR opportunity matrix is missing or incomplete');
@@ -217,7 +275,8 @@
     body.innerHTML = monitor.last_four_events.map(event => `<tr><td>${event.ex_date}</td><td>${event.payment_date || '—'}</td><td>${event.dividend_type}</td><td>${Number(event.amount_gbp_per_share).toFixed(4)}</td><td>${event.status}</td></tr>`).join('');
     byId('jup-dividend-monitor-note').textContent = monitor.note + (monitor.expected_next_ordinary_ex_date ? ` Historical-cadence review date: ${monitor.expected_next_ordinary_ex_date}.` : '');
   }
-  fetch('../../data/jup_gear_chart.json', { cache: 'no-store' }).then(response => { if (!response.ok) throw new Error(`GEAR chart request failed: ${response.status}`); return response.json(); }).then(payload => { renderGearChart(payload); renderJupGearScatter(payload); renderJointFrequency(payload); renderJupDividendMonitor(payload); }).catch(error => { byId('gear-chart-error').textContent = error.message; byId('jup-gear-scatter-error').textContent = error.message; byId('jup-gear-joint-frequency-error').textContent = error.message; byId('jup-dividend-monitor-status').textContent = error.message; });
+  fetch('../../data/jup_performance_fee.json', { cache: 'no-store' }).then(response => { if (!response.ok) throw new Error(`Performance-fee data request failed: ${response.status}`); return response.json(); }).then(renderPerformanceFeePayload).catch(error => { byId('jup-pf-backtest-error').textContent = `Latest calculated backtest unavailable: ${error.message}`; byId('jup-pf-scenario-summary').textContent = `Latest calculated FY2026 scenarios unavailable: ${error.message}`; });
+  fetch('../../data/jup_gear_chart.json', { cache: 'no-store' }).then(response => { if (!response.ok) throw new Error(`GEAR chart request failed: ${response.status}`); return response.json(); }).then(payload => { renderGearChart(payload); renderJupGearScatter(payload); renderJupGearRegressionInterpretation(payload); renderJointFrequency(payload); renderJupDividendMonitor(payload); }).catch(error => { byId('gear-chart-error').textContent = error.message; byId('jup-gear-scatter-error').textContent = error.message; byId('jup-gear-regression-interpretation').textContent = `Regression-implied JUP response unavailable: ${error.message}`; byId('jup-gear-joint-frequency-error').textContent = error.message; byId('jup-dividend-monitor-status').textContent = error.message; });
 </script>
 </body>
 </html>
