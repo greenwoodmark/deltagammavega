@@ -30,15 +30,10 @@
   </section>
 
   <section class="card">
-    <h2>A. Performance-fee EPS model: FY2024 and FY2025</h2>
-    <p class="muted">Basic historical comparison using the three annual-report AUM anchors. GEAR is the material modelled fund. Jupiter UK Dynamic Long Short Equity is recognised as fee-bearing, but its current AUM is only £50.80m and no annual-report AUM anchor is available, so it is not included in the quantified estimate.</p>
+    <h2>A. Performance-fee EPS model assumptions</h2>
+    <p class="muted">GEAR is the material modelled fund. Jupiter UK Dynamic Long Short Equity is recognised as fee-bearing, but its current AUM is only £50.80m and no annual-report AUM anchor is available, so it is not included in the quantified estimate.</p>
     <div class="notice"><strong>Important:</strong> The estimate is a fee-yield proxy, not an administrator HWM calculation. The KIID documents a 20% contractual fee for GEAR and reports an actual FY2025 fee equal to 2.76% of weighted-average share-class NAV. That 2.76% is used as the calibration yield for this deliberately simple comparison.</div>
     <div class="notice"><strong>Coverage and fee-rate assumptions:</strong> The UCITS representative NAV is assumed to proxy additional GEAR offshore Cayman and segregated-fund performance-fee assets. The model adds 20% to the FY2024 fee base and 30% to the FY2025 and FY2026 fee bases. It assumes average performance-fee rates of 20% in FY2024, 19% in FY2025, and 18% in FY2026. These are sensitivity assumptions, not observed offshore AUM or verified group-wide fee rates.</div>
-    <div class="table-wrap"><table aria-describedby="pf-eps-note"><caption>Reported consolidated performance-fee result versus basic fund-level estimate</caption><thead><tr><th scope="col">Financial year</th><th scope="col">AUM basis</th><th scope="col">Estimated gross PF GBP m</th><th scope="col">Estimated PF PBT GBP m</th><th scope="col">Estimated PF PAT GBP m</th><th scope="col">Estimated PF EPS</th><th scope="col">Reported PF PBT GBP m</th><th scope="col">Reported PF EPS proxy</th></tr></thead><tbody>
-      <tr><td>FY2024</td><td>£1.85bn interpolated average + 20% non-UCITS</td><td>£61.3m</td><td>£32.2m</td><td>£24.1m</td><td>4.43p</td><td>£18.5m</td><td>2.55p</td></tr>
-      <tr><td>FY2025</td><td>£4.20bn interpolated average + 30% non-UCITS</td><td>£150.7m</td><td>£79.1m</td><td>£59.3m</td><td>11.11p</td><td>£76.1m</td><td>10.68p</td></tr>
-    </tbody></table></div>
-    <p id="pf-eps-note" class="meta">Estimated gross PF = modelled AUM × 2.76% calibration yield × non-UCITS factor. FY2024 uses a 1.20 factor; FY2025 uses 1.30. Estimated PF PBT = gross PF × (1 − 45% staff/bonus drag − 2.5% overhead). Estimated PF PAT = PF PBT × (1 − 25% tax), so net PF PAT equals gross PF × 0.39375. EPS uses 545.0m average shares for FY2024 and 534.2m for FY2025. Reported PF EPS is a 25% tax proxy applied to reported PF PBT, not reported fund-level EPS.</p>
     <div class="grid">
       <article class="metric"><span>GEAR contractual fee</span><strong>20%</strong><div class="formula">Above average Federal Reserve Funds Target Rate, subject to HWM</div></article>
       <article class="metric"><span>FY2025 calibration yield</span><strong>2.76%</strong><div class="formula">Actual KIID fee / weighted-average share-class NAV</div></article>
@@ -235,10 +230,14 @@
   function renderJupGearRegressionInterpretation(payload) {
     const data = payload.scatter_series;
     const regression = payload.regression;
+    const trailingPe = payload.trailing_pe;
     const target = byId('jup-gear-regression-interpretation');
     const rollingDays = Number(payload.rolling_days || 90);
     if (!Array.isArray(data) || data.length < 1 || !regression || typeof regression.beta !== 'number' || typeof regression.intercept_pct !== 'number') {
       throw new Error('JUP/GEAR regression interpretation data is missing');
+    }
+    if (!trailingPe || !trailingPe.jup || !trailingPe.isf) {
+      throw new Error('JUP/ISF trailing P/E data is missing');
     }
     const latest = data[data.length - 1];
     if (typeof latest.gear_return_pct !== 'number' || typeof latest.jup_close_gbp !== 'number') {
@@ -248,7 +247,9 @@
     const latestClose = latest.jup_close_gbp;
     const fittedLevel = latestClose * (1 + fittedReturnPct / 100);
     const onePointMove = latestClose * regression.beta / 100;
-    target.innerHTML = `<strong>Fair value for <code>JUP</code> based on NAV performance: £${fittedLevel.toFixed(2)} (vs £${latestClose.toFixed(2)} last)</strong><br><br>Regression-implied JUP response (illustrative): If the market immediately repriced JUP in line with the fitted ${rollingDays}-calendar-day relationship, each 1.00 percentage-point move in GEAR NAV growth would correspond to a ${regression.beta.toFixed(2)} percentage-point move in JUP gross total return, or approximately £${onePointMove.toFixed(2)} per share from the latest unadjusted JUP close of £${latestClose.toFixed(2)}. At the latest observation (${latest.date}), GEAR's ${rollingDays}-day NAV growth of ${latest.gear_return_pct.toFixed(2)}% gives a fitted JUP gross total return of ${fittedReturnPct.toFixed(2)}%, equivalent to an illustrative level of £${fittedLevel.toFixed(2)}. This is not a next-session price target: the regression is descriptive, uses overlapping ${rollingDays}-day returns, and its JUP measure includes dividends; R² is ${(Number(regression.r_squared) * 100).toFixed(2)}%.`;
+    const jupPeText = trailingPe.jup.status === 'available' ? `${Number(trailingPe.jup.pe_ratio).toFixed(2)}x (${Number(trailingPe.jup.price_quoted).toFixed(1)} / ${Number(trailingPe.jup.eps_pence).toFixed(1)} = ${Number(trailingPe.jup.pe_ratio).toFixed(2)}x)` : `Unavailable${trailingPe.jup.reason ? ` — ${trailingPe.jup.reason}` : ''}`;
+    const isfPeText = trailingPe.isf.status === 'available' || trailingPe.isf.status === 'stale' ? `${Number(trailingPe.isf.pe_ratio).toFixed(2)}x${trailingPe.isf.status === 'stale' ? ' (stale)' : ''}` : `Unavailable${trailingPe.isf.reason ? ` — ${trailingPe.isf.reason}` : ''}`;
+    target.innerHTML = `<strong>Fair value for <code>JUP</code> based on NAV performance: £${fittedLevel.toFixed(2)} (vs £${latestClose.toFixed(2)} last)</strong><br>JUP trailing P/E ratio: ${jupPeText}<br>ISF trailing P/E ratio: ${isfPeText}<br><br>Regression-implied JUP response (illustrative): If the market immediately repriced JUP in line with the fitted ${rollingDays}-calendar-day relationship, each 1.00 percentage-point move in GEAR NAV growth would correspond to a ${regression.beta.toFixed(2)} percentage-point move in JUP gross total return, or approximately £${onePointMove.toFixed(2)} per share from the latest unadjusted JUP close of £${latestClose.toFixed(2)}. At the latest observation (${latest.date}), GEAR's ${rollingDays}-day NAV growth of ${latest.gear_return_pct.toFixed(2)}% gives a fitted JUP gross total return of ${fittedReturnPct.toFixed(2)}%, equivalent to an illustrative level of £${fittedLevel.toFixed(2)}. This is not a next-session price target: the regression is descriptive, uses overlapping ${rollingDays}-day returns, and its JUP measure includes dividends; R² is ${(Number(regression.r_squared) * 100).toFixed(2)}%.`;
   }
   function renderJointFrequency(payload) {
     const matrix = payload.joint_frequency;

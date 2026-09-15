@@ -129,13 +129,13 @@
       <table aria-label="Latest ${title} GH5 European ${optionLabel.toLowerCase()} prices">
         <caption>${title}</caption>
         <thead><tr><th>${optionLabel} delta</th><th>${nativeLabel}</th><th>${ewLabel}</th><th>${adjustedLabel}</th></tr></thead>
-        <tbody>${rows.map(row => `<tr><td>${(Number(row.target_delta) * 100).toFixed(0)}-delta ${optionLabel.toLowerCase()}</td><td>${fmt(row.native_price_per_underlying_unit, 4)}</td><td>${fmt(row.ew_price_per_underlying_unit, 4)}</td><td>${fmt(row.adjusted_price_per_underlying_unit, 4)}</td></tr>`).join('')}</tbody>
+        <tbody>${rows.map(row => `<tr><td>${(Number(row.target_delta) * 100).toFixed(0)}-delta ${optionLabel.toLowerCase()}</td><td>${fmt(row.native_price_per_underlying_unit, 4)}</td><td>${fmt(row.ew_price_per_underlying_unit, 4)}</td><td>${fmt(row.adjusted_price_per_underlying_unit, 4)} (${Number(row.adjusted_price_percentile).toFixed(0)})</td></tr>`).join('')}</tbody>
       </table>`;
   }
   function validateOptionPriceRows(rows, expectedDeltas, label) {
     if (!Array.isArray(rows) || rows.length !== expectedDeltas.length) throw new Error(`${label} price table payload is not supported`);
     rows.forEach((row, index) => {
-      if (!Number.isFinite(Number(row.target_delta)) || Math.abs(Number(row.target_delta) - expectedDeltas[index]) > 1e-9 || !Number.isFinite(Number(row.native_price_per_underlying_unit)) || !Number.isFinite(Number(row.ew_price_per_underlying_unit)) || !Number.isFinite(Number(row.adjusted_price_per_underlying_unit))) {
+      if (!Number.isFinite(Number(row.target_delta)) || Math.abs(Number(row.target_delta) - expectedDeltas[index]) > 1e-9 || !Number.isFinite(Number(row.native_price_per_underlying_unit)) || !Number.isFinite(Number(row.ew_price_per_underlying_unit)) || !Number.isFinite(Number(row.adjusted_price_per_underlying_unit)) || !Number.isFinite(Number(row.adjusted_price_percentile)) || Number(row.adjusted_price_percentile) < 0 || Number(row.adjusted_price_percentile) > 100 || !Number.isFinite(Number(row.adjusted_history_count)) || Number(row.adjusted_history_count) < 1) {
         throw new Error(`${label} price table contains invalid values`);
       }
     });
@@ -157,7 +157,7 @@
     renderOptionPriceTable('tlt-put-price-table', 'TLT put options', 'TLT GH5', 'EW TLT GH5', 'adj TIP GH5', tltPutRows, 'P');
     renderOptionPriceTable('tip-call-price-table', 'TIP call options', 'TIP GH5', 'EW TIP GH5', 'adj TLT GH5', tipCallRows, 'C');
     renderOptionPriceTable('tlt-call-price-table', 'TLT call options', 'TLT GH5', 'EW TLT GH5', 'adj TIP GH5', tltCallRows, 'C');
-    document.getElementById('tip-put-price-date').textContent = `Data date: TIP/TLT GH5 fits dated ${tip.fit_date}. One-month expiry European put and call premiums per one unit of the relevant underlying. EW columns use exponentially weighted means of b, g, h, c, and q with a three-month half-life (alpha = log(2) / 91.25), retaining the latest forward. Adj TLT GH5 uses TIP b and forward with TLT g, h, c, and q; adj TIP GH5 uses TLT b and forward with TIP g, h, c, and q.`;
+    document.getElementById('tip-put-price-date').textContent = `Data date: TIP/TLT GH5 fits dated ${tip.fit_date}. One-month expiry European put and call premiums per one unit of the relevant underlying. Parentheses after adjusted premiums show the current price's empirical percentile in the matching adjusted-premium list from paired GH5 fits over the prior three calendar years, inclusive at the lower boundary and excluding the current date; each list uses the same right and delta. Percentiles use midpoint rank, 100 × (count below + 0.5 × count equal) / history count. EW columns use exponentially weighted means of b, g, h, c, and q with a three-month half-life (alpha = log(2) / 91.25), retaining the latest forward. Adj TLT GH5 uses TIP b and forward with TLT g, h, c, and q; adj TIP GH5 uses TLT b and forward with TIP g, h, c, and q.`;
   }
   function renderMetrics(payload) {
     document.getElementById('metrics').innerHTML = SYMBOLS.map(symbol => {

@@ -20,6 +20,16 @@ if str(GS_MARQUEE_ROOT) not in sys.path:
     sys.path.insert(0, str(GS_MARQUEE_ROOT))
 
 from infrastructure.equity_option_payoffs import construct_delta_option  # noqa: E402
+try:
+    from tip_tlt_premium_cache import (  # noqa: E402
+        CACHE_BASE,
+        read_cached_adjusted_history,
+    )
+except ModuleNotFoundError:  # pragma: no cover - package-style invocation.
+    from tools.tip_tlt_premium_cache import (  # noqa: E402
+        CACHE_BASE,
+        read_cached_adjusted_history,
+    )
 from infrastructure.equity_vol_gh3 import fit_equity_vol_day  # noqa: E402
 from infrastructure.equity_vol_model import (  # noqa: E402
     GH3_VERSION,
@@ -41,6 +51,7 @@ HOLDINGS_BASE = f"{GCS_BASE}/etf_reference/holdings"
 SYMBOLS = ("TIP", "TLT")
 TENOR_YEARS = 1.0 / 12.0
 EW_HALF_LIFE_DAYS = 91.25
+ROLLING_PERCENTILE_YEARS = 3
 DATE_RE = re.compile(r"year=(\d{4})/(\d{4}-\d{2}-\d{2})\.parquet$")
 
 
@@ -99,6 +110,33 @@ def _read_fit_frame(symbol: str, model_version: str) -> pd.DataFrame:
         fits["model_version"] = GH3_VERSION
     fits["date"] = fits["date"].astype(str)
     return fits.loc[fits["model_version"].astype(str).eq(model_version)].copy()
+
+
+def _normalize_percentile_fit_frame(fits: pd.DataFrame, latest_fit: pd.Series) -> pd.DataFrame:
+    """Normalize historical GH5 rows used for rolling adjusted-price percentiles."""
+    required = {"date", "model_version", "b", "g", "h", "c", "q", "fwd"}
+    if not required.issubset(fits.columns):
+        raise ValueError(f"GH5 percentile fits are missing required columns: {sorted(required.difference(fits.columns))}")
+    frame = fits.copy()
+    frame["date"] = pd.to_datetime(frame["date"], errors="raise").dt.strftime("%Y-%m-%d")
+    frame = frame.loc[frame["model_version"].astype(str).eq(GH5_VERSION)].copy()
+    if "objective_name" in frame.columns and "objective_name" in latest_fit:
+        frame = frame.loc[frame["objective_name"].astype(str).eq(str(latest_fit["objective_name"]))]
+    if "fit_datetime" in frame.columns:
+        frame["_fit_datetime_sort"] = pd.to_datetime(frame["fit_datetime"], errors="coerce", utc=True)
+        frame = frame.sort_values(["date", "_fit_datetime_sort"], na_position="first")
+    else:
+        frame = frame.sort_values("date")
+    frame = frame.drop_duplicates("date", keep="last")
+    numeric = ["b", "g", "h", "c", "q", "fwd", "truncpoint", "zsteps"]
+    for column in numeric:
+        if column in frame.columns:
+            frame[column] = pd.to_numeric(frame[column], errors="coerce")
+    frame = frame.loc[
+        np.isfinite(frame[["b", "g", "h", "c", "q", "fwd"]].to_numpy(dtype=float)).all(axis=1)
+        & frame["fwd"].gt(0)
+    ].copy()
+    return frame.sort_values("date").reset_index(drop=True)
 
 
 def _read_latest_fit(
@@ -261,6 +299,14 @@ def _exponentially_weighted_parameter_fit(
     return result
 
 
+def _mixed_shape_fit(base_fit: pd.Series, shape_fit: pd.Series) -> pd.Series:
+    """Keep base ETF scale and transplant the opposing GH5 shape parameters."""
+    mixed = base_fit.copy()
+    for name in ("g", "h", "c", "q"):
+        mixed[name] = shape_fit[name]
+    return mixed
+
+
 def _option_price_table(
     base_fit: pd.Series,
     shape_fit: pd.Series,
@@ -274,9 +320,7 @@ def _option_price_table(
         raise ValueError("right must be 'P' or 'C'")
     if any(str(fit.get("model_version", "")) != GH5_VERSION for fit in (base_fit, shape_fit, ew_fit)):
         raise ValueError("adjusted TIP/TLT option price table requires GH5 fits")
-    adjusted_shape_fit = base_fit.copy()
-    for name in ("g", "h", "c", "q"):
-        adjusted_shape_fit[name] = shape_fit[name]
+    adjusted_shape_fit = _mixed_shape_fit(base_fit, shape_fit)
     rows = []
     for absolute_delta in absolute_deltas:
         signed_delta = absolute_delta if right == "C" else -absolute_delta
@@ -296,6 +340,96 @@ def _option_price_table(
             "adjusted_price_per_underlying_unit": float(adjusted_option.premium),
         })
     return rows
+
+
+def _adjusted_price_history(
+    base_frame: pd.DataFrame,
+    shape_frame: pd.DataFrame,
+    current_date: str,
+    *,
+    right: str,
+    absolute_deltas: tuple[float, ...],
+) -> dict[float, list[float]]:
+    """Price adjusted historical fits over the prior three calendar years."""
+    start_date = (pd.Timestamp(current_date) - pd.DateOffset(years=ROLLING_PERCENTILE_YEARS)).strftime("%Y-%m-%d")
+    base_rows = {str(row["date"]): row for _, row in base_frame.iterrows()}
+    shape_rows = {str(row["date"]): row for _, row in shape_frame.iterrows()}
+    dates = sorted(
+        date for date in set(base_rows).intersection(shape_rows)
+        if start_date <= date < current_date
+    )
+    history = {delta: [] for delta in absolute_deltas}
+    for date in dates:
+        mixed_fit = _mixed_shape_fit(base_rows[date], shape_rows[date])
+        for absolute_delta in absolute_deltas:
+            signed_delta = absolute_delta if right == "C" else -absolute_delta
+            try:
+                option = construct_delta_option(
+                    mixed_fit,
+                    right=right,
+                    target_delta=signed_delta,
+                    tenor_years=TENOR_YEARS,
+                )
+            except (ValueError, FloatingPointError):
+                continue
+            history[absolute_delta].append(float(option.premium))
+    return history
+
+
+def _cached_or_direct_adjusted_history(
+    base_symbol: str,
+    shape_symbol: str,
+    base_frame: pd.DataFrame,
+    shape_frame: pd.DataFrame,
+    current_date: str,
+    *,
+    right: str,
+    absolute_deltas: tuple[float, ...],
+    allowed_dates: set[str],
+) -> dict[float, list[float]]:
+    """Read the compact cache, with direct pricing as a safe bootstrap fallback."""
+    start_date = (pd.Timestamp(current_date) - pd.DateOffset(years=ROLLING_PERCENTILE_YEARS)).strftime("%Y-%m-%d")
+    history = read_cached_adjusted_history(
+        base_symbol,
+        shape_symbol,
+        right,
+        absolute_deltas,
+        start_date,
+        current_date,
+        allowed_dates=allowed_dates,
+        cache_base=CACHE_BASE,
+    )
+    if any(history.values()):
+        return history
+    return _adjusted_price_history(
+        base_frame,
+        shape_frame,
+        current_date,
+        right=right,
+        absolute_deltas=absolute_deltas,
+    )
+def _empirical_percentile(value: float, history: list[float]) -> float | None:
+    """Return midpoint-rank percentile of value within a finite historical list."""
+    values = np.asarray(history, dtype=float)
+    values = values[np.isfinite(values)]
+    if values.size == 0 or not np.isfinite(value):
+        return None
+    less = np.count_nonzero(values < value)
+    equal = np.count_nonzero(values == value)
+    return float(100.0 * (less + 0.5 * equal) / values.size)
+
+
+def _attach_adjusted_percentiles(
+    rows: list[dict],
+    history: dict[float, list[float]],
+) -> None:
+    """Attach rolling historical percentile and count to current adjusted rows."""
+    for row in rows:
+        values = history.get(float(row["target_delta"]), [])
+        row["adjusted_price_percentile"] = _empirical_percentile(
+            float(row["adjusted_price_per_underlying_unit"]), values
+        )
+        row["adjusted_history_count"] = int(np.isfinite(np.asarray(values, dtype=float)).sum())
 
 
 def _fit_metadata(fit: pd.Series, fit_date: str, *, source: str) -> dict:
@@ -537,24 +671,53 @@ def build_payload(
             entry["q"] = float(fit["q"])
         result["symbols"][symbol] = entry
     if model_version == GH5_VERSION:
+        percentile_frames = {
+            symbol: _normalize_percentile_fit_frame(fit_frames[symbol], latest_fits[symbol])
+            for symbol in SYMBOLS
+        }
         ew_fits = {
             symbol: _exponentially_weighted_parameter_fit(
-                fit_frames[symbol], latest_fits[symbol], paired_date
+                percentile_frames[symbol], latest_fits[symbol], paired_date
             )
             for symbol in SYMBOLS
         }
-        result["symbols"]["TIP"]["put_price_table"] = _option_price_table(
+        tip_put_rows = _option_price_table(
             latest_fits["TIP"], latest_fits["TLT"], ew_fits["TIP"], right="P", absolute_deltas=(0.05, 0.15, 0.25, 0.40)
         )
-        result["symbols"]["TLT"]["put_price_table"] = _option_price_table(
+        tlt_put_rows = _option_price_table(
             latest_fits["TLT"], latest_fits["TIP"], ew_fits["TLT"], right="P", absolute_deltas=(0.05, 0.15, 0.25, 0.40)
         )
-        result["symbols"]["TIP"]["call_price_table"] = _option_price_table(
+        tip_call_rows = _option_price_table(
             latest_fits["TIP"], latest_fits["TLT"], ew_fits["TIP"], right="C", absolute_deltas=(0.40, 0.25, 0.15, 0.05)
         )
-        result["symbols"]["TLT"]["call_price_table"] = _option_price_table(
+        tlt_call_rows = _option_price_table(
             latest_fits["TLT"], latest_fits["TIP"], ew_fits["TLT"], right="C", absolute_deltas=(0.40, 0.25, 0.15, 0.05)
         )
+        paired_percentile_dates = set(percentile_frames["TIP"]["date"]).intersection(percentile_frames["TLT"]["date"])
+        tip_put_history = _cached_or_direct_adjusted_history(
+            "TIP", "TLT", percentile_frames["TIP"], percentile_frames["TLT"], paired_date,
+            right="P", absolute_deltas=(0.05, 0.15, 0.25, 0.40), allowed_dates=paired_percentile_dates,
+        )
+        tlt_put_history = _cached_or_direct_adjusted_history(
+            "TLT", "TIP", percentile_frames["TLT"], percentile_frames["TIP"], paired_date,
+            right="P", absolute_deltas=(0.05, 0.15, 0.25, 0.40), allowed_dates=paired_percentile_dates,
+        )
+        tip_call_history = _cached_or_direct_adjusted_history(
+            "TIP", "TLT", percentile_frames["TIP"], percentile_frames["TLT"], paired_date,
+            right="C", absolute_deltas=(0.40, 0.25, 0.15, 0.05), allowed_dates=paired_percentile_dates,
+        )
+        tlt_call_history = _cached_or_direct_adjusted_history(
+            "TLT", "TIP", percentile_frames["TLT"], percentile_frames["TIP"], paired_date,
+            right="C", absolute_deltas=(0.40, 0.25, 0.15, 0.05), allowed_dates=paired_percentile_dates,
+        )
+        _attach_adjusted_percentiles(tip_put_rows, tip_put_history)
+        _attach_adjusted_percentiles(tlt_put_rows, tlt_put_history)
+        _attach_adjusted_percentiles(tip_call_rows, tip_call_history)
+        _attach_adjusted_percentiles(tlt_call_rows, tlt_call_history)
+        result["symbols"]["TIP"]["put_price_table"] = tip_put_rows
+        result["symbols"]["TLT"]["put_price_table"] = tlt_put_rows
+        result["symbols"]["TIP"]["call_price_table"] = tip_call_rows
+        result["symbols"]["TLT"]["call_price_table"] = tlt_call_rows
     result["return_scatter"] = _return_scatter_payload()
     result["swaption_summary"] = {
         "title": "Swaption implied volatility",

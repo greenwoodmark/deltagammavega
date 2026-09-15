@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
+import tempfile
+import uuid
 from pathlib import Path
 
 PUBLIC_FILES = (
     "index.html",
+    "softs/logs.html",
     "cpurnsa.html",
     "pca.html",
     "chart.html",
@@ -16,6 +20,7 @@ PUBLIC_FILES = (
     "CNAME",
 )
 PUBLIC_DATA_FILES = (
+    "softs_diagnostics.json",
     "cpurnsa_curve_history.json",
     "cpurnsa_daily_commentary.json",
     "cpurnsa_pca_diagnostics.json",
@@ -53,17 +58,10 @@ def _copy(source: Path, destination: Path) -> None:
     shutil.copy2(source, destination)
 
 
-def _clean_directory(path: Path) -> None:
-    if path.exists():
-        shutil.rmtree(path)
-    path.mkdir(parents=True, exist_ok=True)
-
-
-def build_variant(root: Path, output: Path, *, include_internal: bool) -> None:
+def _assemble_variant(root: Path, output: Path, *, include_internal: bool) -> None:
     shared = root / "site" / "shared"
     data = root / "data"
     internal = root / "site" / "internal"
-    _clean_directory(output)
 
     for relative in PUBLIC_FILES:
         _copy(shared / relative, output / relative)
@@ -110,6 +108,26 @@ def build_variant(root: Path, output: Path, *, include_internal: bool) -> None:
             for source in internal.rglob("*"):
                 if source.is_file():
                     _copy(source, output / source.relative_to(internal))
+
+
+def build_variant(root: Path, output: Path, *, include_internal: bool) -> None:
+    """Build into a complete temporary tree, then atomically publish it."""
+    output.parent.mkdir(parents=True, exist_ok=True)
+    temporary = Path(tempfile.mkdtemp(prefix=f".{output.name}.", dir=output.parent))
+    backup = output.with_name(f".{output.name}.{uuid.uuid4().hex}.old")
+    try:
+        _assemble_variant(root, temporary, include_internal=include_internal)
+        if output.exists():
+            os.replace(output, backup)
+        os.replace(temporary, output)
+        if backup.exists():
+            shutil.rmtree(backup)
+    except Exception:
+        if temporary.exists():
+            shutil.rmtree(temporary)
+        if backup.exists() and not output.exists():
+            os.replace(backup, output)
+        raise
 
 
 def main() -> int:

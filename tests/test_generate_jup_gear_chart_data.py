@@ -1,6 +1,15 @@
+import json
 from datetime import date
 
-from tools.generate_jup_gear_chart_data import calculate_regression, build_jup_total_return_rows, build_scatter_series
+import pytest
+
+from tools.generate_jup_gear_chart_data import (
+    build_jup_total_return_rows,
+    build_scatter_series,
+    build_trailing_pe_summary,
+    calculate_regression,
+    fetch_isf_trailing_pe_snapshot,
+)
 
 
 def test_gross_total_return_reinvests_ex_date_cash():
@@ -47,6 +56,45 @@ def test_regression_line_reports_incremental_jup_response_per_gear_point():
         "correlation": 1.0,
         "r_squared": 1.0,
     }
+
+
+def test_trailing_pe_uses_latest_reported_annual_eps_and_marks_isf_unavailable(tmp_path):
+    comparison = {
+        "periods": [
+            {"period_id": "FY2024", "period_end": "2024-12-31", "reported_underlying_eps_pence": 13.4, "source_document": "fy2024.pdf"},
+            {"period_id": "FY2025", "period_end": "2025-12-31", "reported_underlying_eps_pence": 19.4, "source_document": "fy2025.pdf"},
+        ]
+    }
+    path = tmp_path / "reported.json"
+    path.write_text(json.dumps(comparison), encoding="utf-8")
+    result = build_trailing_pe_summary(159.2, path)
+    assert result["jup"]["pe_ratio"] == pytest.approx(159.2 / 19.4)
+    assert result["jup"]["eps_period"] == "FY2025"
+    assert result["isf"]["pe_ratio"] is None
+    assert result["isf"]["status"] == "unavailable"
+
+
+def test_isf_yfinance_snapshot_reads_trailing_pe_without_network():
+    class FakeTicker:
+        info = {"trailingPE": 15.22, "currency": "GBP"}
+
+    result = fetch_isf_trailing_pe_snapshot(ticker_factory=lambda symbol: FakeTicker())
+    assert result["ticker"] == "ISF.L"
+    assert result["metric"] == "trailingPE"
+    assert result["pe_ratio"] == 15.22
+    assert result["status"] == "available"
+
+
+def test_isf_yfinance_snapshot_retains_last_good_value_on_failure():
+    last_good = {"label": "ISF trailing P/E ratio", "pe_ratio": 15.22, "status": "available"}
+
+    def failing_ticker(symbol):
+        raise RuntimeError("Yahoo unavailable")
+
+    result = fetch_isf_trailing_pe_snapshot(last_good, ticker_factory=failing_ticker)
+    assert result["pe_ratio"] == 15.22
+    assert result["status"] == "stale"
+    assert "Yahoo unavailable" in result["refresh_error"]
 
 
 def test_dividend_monitor_flags_missing_event_after_cadence():

@@ -1,448 +1,464 @@
 {
   "schema_version": "tip_tlt_gh5_model_v1",
   "model_version": "gh5_v1",
-  "generated_at_utc": "2026-09-14T15:33:30+00:00",
+  "generated_at_utc": "2026-09-15T11:19:20+00:00",
   "tenor": "1m",
   "symbols": {
     "TIP": {
-      "raw_date": "2026-09-11",
-      "fit_date": "2026-09-11",
+      "raw_date": "2026-09-14",
+      "fit_date": "2026-09-14",
       "model_version": "gh5_v1",
       "objective_name": "synthetic_black76_iv_l2_v1",
-      "forward": 106.29961186163058,
-      "medcouple": -0.09074454582437677,
-      "b": 0.009894116697089114,
-      "g": -0.12087912457543018,
-      "h": 0.32161427225798317,
-      "mad_err": 0.008191080938192347,
+      "forward": 106.31526268613214,
+      "medcouple": -0.038789546586598854,
+      "b": 0.010450990770998474,
+      "g": 0.014774417815234591,
+      "h": 0.26584794979920634,
+      "mad_err": 0.011443165200689505,
       "effective_duration": 6.321164256941775,
       "effective_duration_source": "iShares Duration field, market-value weighted",
       "holdings_as_of_date": "2026-09-04",
       "holdings_rows": 255,
       "points": [
         {
-          "moneyness": 0.9759406019352268,
-          "strike": 103.74210718572073,
+          "moneyness": 0.9764300485926862,
+          "strike": 103.80941711076422,
           "right": "P",
           "delta_reference": 0.95,
-          "raw_iv": 0.07264518134305821,
-          "fitted_iv": 0.07209238116717237
+          "raw_iv": 0.06699064766666,
+          "fitted_iv": 0.06620600716242923
         },
         {
-          "moneyness": 0.9812282837870403,
-          "strike": 104.30418571421629,
+          "moneyness": 0.9816107280897604,
+          "strike": 104.3602024123883,
           "right": "P",
           "delta_reference": 0.9,
-          "raw_iv": 0.06622708013692867,
-          "fitted_iv": 0.06624271101831934
+          "raw_iv": 0.061014112806572325,
+          "fitted_iv": 0.06108148410589558
         },
         {
-          "moneyness": 0.984812042866938,
-          "strike": 104.685137913415,
+          "moneyness": 0.9851216373535638,
+          "strike": 104.73346565303675,
           "right": "P",
           "delta_reference": 0.85,
-          "raw_iv": 0.062114027204546216,
-          "fitted_iv": 0.062400995636685136
+          "raw_iv": 0.057372958829770115,
+          "fitted_iv": 0.057859378024913435
         },
         {
-          "moneyness": 0.9876696345780109,
-          "strike": 104.98889880316108,
+          "moneyness": 0.9879209513041175,
+          "strike": 105.03107545103082,
           "right": "P",
           "delta_reference": 0.8,
-          "raw_iv": 0.05908860676860137,
-          "fitted_iv": 0.05947008188637722
+          "raw_iv": 0.054901114092613716,
+          "fitted_iv": 0.055522239737013084
         },
         {
-          "moneyness": 0.9901277981268691,
-          "strike": 105.2502006342971,
+          "moneyness": 0.9903288490594936,
+          "strike": 105.28707173341498,
           "right": "P",
           "delta_reference": 0.75,
-          "raw_iv": 0.05676061860257729,
-          "fitted_iv": 0.05709922299603323
+          "raw_iv": 0.053228201301739775,
+          "fitted_iv": 0.05374537649952014
         },
         {
-          "moneyness": 0.9923405156248553,
-          "strike": 105.48541164549248,
+          "moneyness": 0.9924962140771828,
+          "strike": 105.51749571460734,
           "right": "P",
           "delta_reference": 0.7,
-          "raw_iv": 0.05494614490321362,
-          "fitted_iv": 0.05514031302343576
+          "raw_iv": 0.05215145776767877,
+          "fitted_iv": 0.05239257039373402
         },
         {
-          "moneyness": 0.9943953415609192,
-          "strike": 105.70383884493928,
+          "moneyness": 0.9945088342531507,
+          "strike": 105.73146795730277,
           "right": "P",
           "delta_reference": 0.65,
-          "raw_iv": 0.05350735195006955,
-          "fitted_iv": 0.053529208429902886
+          "raw_iv": 0.0514514071215173,
+          "fitted_iv": 0.05140025985291725
         },
         {
-          "moneyness": 0.9963491073120117,
-          "strike": 105.91152338594895,
+          "moneyness": 0.9964223902650833,
+          "strike": 105.93490816737601,
           "right": "P",
           "delta_reference": 0.6,
-          "raw_iv": 0.05237734141064063,
-          "fitted_iv": 0.05224569492156483
+          "raw_iv": 0.05100838771567641,
+          "fitted_iv": 0.05073856771370266
         },
         {
-          "moneyness": 0.998243055431691,
-          "strike": 106.11284933595694,
+          "moneyness": 0.9982772856860634,
+          "strike": 106.13211186131282,
           "right": "P",
           "delta_reference": 0.55,
-          "raw_iv": 0.05154962750312695,
-          "fitted_iv": 0.051296161115655825
+          "raw_iv": 0.05080446296858671,
+          "fitted_iv": 0.05039371748688817
         },
         {
-          "moneyness": 1.000110485705869,
-          "strike": 106.31135644928071,
+          "moneyness": 1.0001061388218897,
+          "strike": 106.32654686286254,
           "right": "C",
           "delta_reference": 0.5,
-          "raw_iv": 0.05102969590531585,
-          "fitted_iv": 0.05070331780184286
+          "raw_iv": 0.05083054372920672,
+          "fitted_iv": 0.0503622178902088
         },
         {
-          "moneyness": 1.001981409413645,
-          "strike": 106.51023491324003,
+          "moneyness": 1.0019383424334207,
+          "strike": 106.52133807111694,
           "right": "C",
           "delta_reference": 0.45,
-          "raw_iv": 0.05082815652338758,
-          "fitted_iv": 0.050493635431297416
+          "raw_iv": 0.05108243279771972,
+          "fitted_iv": 0.0506390419660821
         },
         {
-          "moneyness": 1.0038860639091283,
-          "strike": 106.7126989468404,
+          "moneyness": 1.0038035061046122,
+          "strike": 106.7196334367723,
           "right": "C",
           "delta_reference": 0.4,
-          "raw_iv": 0.05095685695151608,
-          "fitted_iv": 0.05069191946640926
+          "raw_iv": 0.05156026752790328,
+          "fitted_iv": 0.05122472075175841
         },
         {
-          "moneyness": 1.005858476819456,
-          "strike": 106.92236567363912,
+          "moneyness": 1.0057349461961904,
+          "strike": 106.92497499747097,
           "right": "C",
           "delta_reference": 0.35,
-          "raw_iv": 0.05142807860317138,
-          "fitted_iv": 0.051313896217690336
+          "raw_iv": 0.05226982892878981,
+          "fitted_iv": 0.05212034457373319
         },
         {
-          "moneyness": 1.007941294212916,
-          "strike": 107.14376835414257,
+          "moneyness": 1.0077744123580565,
+          "strike": 107.14180137820924,
           "right": "C",
           "delta_reference": 0.3,
-          "raw_iv": 0.052257907113991024,
-          "fitted_iv": 0.05237185919284506
+          "raw_iv": 0.05322597674108067,
+          "fitted_iv": 0.05333778919817914
         },
         {
-          "moneyness": 1.0101938209502392,
-          "strike": 107.38321107202798,
+          "moneyness": 1.0099799575253425,
+          "strike": 107.37628449203538,
           "right": "C",
           "delta_reference": 0.25,
-          "raw_iv": 0.0535286689169722,
-          "fitted_iv": 0.05388840424105439
+          "raw_iv": 0.05451303705941038,
+          "fitted_iv": 0.05490822241024982
         },
         {
-          "moneyness": 1.012708043865478,
-          "strike": 107.65047199205148,
+          "moneyness": 1.0124416205455364,
+          "strike": 107.63799684267202,
           "right": "C",
           "delta_reference": 0.2,
-          "raw_iv": 0.055446959013054783,
-          "fitted_iv": 0.055919423815882045
+          "raw_iv": 0.05635497641156725,
+          "fitted_iv": 0.056897588050684365
         },
         {
-          "moneyness": 1.015646580343426,
-          "strike": 107.96283727909858,
+          "moneyness": 1.0153185667469495,
+          "strike": 107.94386013380914,
           "right": "C",
           "delta_reference": 0.15,
-          "raw_iv": 0.05821708271894867,
-          "fitted_iv": 0.05860285925409393
+          "raw_iv": 0.0589759083188842,
+          "fitted_iv": 0.059451152698277804
         },
         {
-          "moneyness": 1.019356046034962,
-          "strike": 108.3571520423229,
+          "moneyness": 1.018950038225099,
+          "strike": 108.3299409779458,
           "right": "C",
           "delta_reference": 0.1,
-          "raw_iv": 0.06222435442231534,
-          "fitted_iv": 0.062284290381081985
+          "raw_iv": 0.06276684765996803,
+          "fitted_iv": 0.06290593199389462
         },
         {
-          "moneyness": 1.0248789543497379,
-          "strike": 108.94423505253094,
+          "moneyness": 1.0243563175373591,
+          "strike": 108.90471098318332,
           "right": "C",
           "delta_reference": 0.05,
-          "raw_iv": 0.06870551358445437,
-          "fitted_iv": 0.06807634370579307
+          "raw_iv": 0.06893018276148828,
+          "fitted_iv": 0.06831558695984542
         }
       ],
-      "c": 0.05,
-      "q": 0.0006892221705619638,
+      "c": 0.013355361069055742,
+      "q": 0.04372924239484015,
       "put_price_table": [
         {
           "target_delta": 0.05,
-          "native_achieved_delta": 0.050000000000001155,
-          "ew_achieved_delta": 0.049999999999837175,
-          "adjusted_achieved_delta": 0.050000000105343,
-          "native_strike": 101.71914294634067,
-          "ew_strike": 102.65558301255108,
-          "adjusted_strike": 103.75333701820023,
-          "native_price_per_underlying_unit": 0.060575478128478334,
-          "ew_price_per_underlying_unit": 0.047787478804298344,
-          "adjusted_price_per_underlying_unit": 0.03306760930146992
+          "native_achieved_delta": 0.049999999999972955,
+          "ew_achieved_delta": 0.04999999999966609,
+          "adjusted_achieved_delta": 0.049999999999987055,
+          "native_strike": 102.34195052239517,
+          "ew_strike": 102.66765288660974,
+          "adjusted_strike": 103.88581084241672,
+          "native_price_per_underlying_unit": 0.05225926878138771,
+          "ew_price_per_underlying_unit": 0.04783574057151927,
+          "adjusted_price_per_underlying_unit": 0.031517869959469404,
+          "adjusted_price_percentile": 17.741935483870968,
+          "adjusted_history_count": 744
         },
         {
           "target_delta": 0.15,
-          "native_achieved_delta": 0.14999999995485636,
-          "ew_achieved_delta": 0.14999999999794622,
-          "adjusted_achieved_delta": 0.14999999999998037,
-          "native_strike": 104.19975814142767,
-          "ew_strike": 104.50400727234758,
-          "adjusted_strike": 104.89386346213864,
-          "native_price_per_underlying_unit": 0.1618959942722927,
-          "ew_price_per_underlying_unit": 0.13786756062616007,
-          "adjusted_price_per_underlying_unit": 0.1073672936711456
+          "native_achieved_delta": 0.14999999999999825,
+          "ew_achieved_delta": 0.14999999999999858,
+          "adjusted_achieved_delta": 0.14999999999951052,
+          "native_strike": 104.4235298208147,
+          "ew_strike": 104.51851693671051,
+          "adjusted_strike": 104.9262682787545,
+          "native_price_per_underlying_unit": 0.14543731973366175,
+          "ew_price_per_underlying_unit": 0.13795681874868798,
+          "adjusted_price_per_underlying_unit": 0.10606345654089153,
+          "adjusted_price_percentile": 19.22043010752688,
+          "adjusted_history_count": 744
         },
         {
           "target_delta": 0.25,
-          "native_achieved_delta": 0.2499999999847362,
-          "ew_achieved_delta": 0.250000000000003,
-          "adjusted_achieved_delta": 0.24999999999696376,
-          "native_strike": 105.11446570119367,
-          "ew_strike": 105.25186385591053,
-          "adjusted_strike": 105.43900331141087,
-          "native_price_per_underlying_unit": 0.26914745024587,
-          "ew_price_per_underlying_unit": 0.23719852428287586,
-          "adjusted_price_per_underlying_unit": 0.19400551243509614
+          "native_achieved_delta": 0.24999999999995604,
+          "ew_achieved_delta": 0.24999999999953848,
+          "adjusted_achieved_delta": 0.24999999999948086,
+          "native_strike": 105.2111637759536,
+          "ew_strike": 105.26684587302077,
+          "adjusted_strike": 105.45048526112294,
+          "native_price_per_underlying_unit": 0.2502763691600827,
+          "ew_price_per_underlying_unit": 0.23735271813527256,
+          "adjusted_price_per_underlying_unit": 0.19496314387240404,
+          "adjusted_price_percentile": 20.56451612903226,
+          "adjusted_history_count": 744
         },
         {
           "target_delta": 0.4,
-          "native_achieved_delta": 0.39999999999979874,
-          "ew_achieved_delta": 0.3999999999997601,
-          "adjusted_achieved_delta": 0.3999999999999321,
-          "native_strike": 105.9060440443924,
-          "ew_strike": 105.9430416068856,
-          "adjusted_strike": 105.99620661672202,
-          "native_price_per_underlying_unit": 0.4611805821405297,
-          "ew_price_per_underlying_unit": 0.4161638259061347,
-          "adjusted_price_per_underlying_unit": 0.35211025455328687
+          "native_achieved_delta": 0.39999999999952296,
+          "ew_achieved_delta": 0.3999999999999997,
+          "adjusted_achieved_delta": 0.3999999999999799,
+          "native_strike": 105.93280697966625,
+          "ew_strike": 105.95840226059417,
+          "adjusted_strike": 106.00563883281579,
+          "native_price_per_underlying_unit": 0.44761859293296286,
+          "ew_price_per_underlying_unit": 0.4165131182880592,
+          "adjusted_price_per_underlying_unit": 0.3595626156358906,
+          "adjusted_price_percentile": 20.295698924731184,
+          "adjusted_history_count": 744
         }
       ],
       "call_price_table": [
         {
           "target_delta": 0.4,
-          "native_achieved_delta": 0.3999999999999465,
-          "ew_achieved_delta": 0.40000000008346337,
-          "adjusted_achieved_delta": 0.4000000004189729,
-          "native_strike": 106.7057472660626,
-          "ew_strike": 106.66295223928724,
-          "adjusted_strike": 106.6075118865228,
-          "native_price_per_underlying_unit": 0.43951401840535625,
-          "ew_price_per_underlying_unit": 0.3947551264268315,
-          "adjusted_price_per_underlying_unit": 0.33625019604886036
+          "native_achieved_delta": 0.3999999995034284,
+          "ew_achieved_delta": 0.39999999995904645,
+          "adjusted_achieved_delta": 0.4000000000670255,
+          "native_strike": 106.72616903306518,
+          "ew_strike": 106.67908933270853,
+          "adjusted_strike": 106.63415426512265,
+          "native_price_per_underlying_unit": 0.44448498326854563,
+          "ew_price_per_underlying_unit": 0.39526761828581997,
+          "adjusted_price_per_underlying_unit": 0.34789810537998855,
+          "adjusted_price_percentile": 19.11764705882353,
+          "adjusted_history_count": 748
         },
         {
           "target_delta": 0.25,
-          "native_achieved_delta": 0.24999999999865385,
-          "ew_achieved_delta": 0.2499999999999819,
-          "adjusted_achieved_delta": 0.24999999994539596,
-          "native_strike": 107.44297415408947,
-          "ew_strike": 107.28201359059798,
-          "adjusted_strike": 107.11172807984768,
-          "native_price_per_underlying_unit": 0.2466604967572071,
-          "ew_price_per_underlying_unit": 0.2126642534402272,
-          "adjusted_price_per_underlying_unit": 0.17644425283751275
+          "native_achieved_delta": 0.2499999999926522,
+          "ew_achieved_delta": 0.24999999990003013,
+          "adjusted_achieved_delta": 0.24999999993069405,
+          "native_strike": 107.48932128492406,
+          "ew_strike": 107.29954060114756,
+          "adjusted_strike": 107.16132088730211,
+          "native_price_per_underlying_unit": 0.2531184767082955,
+          "ew_price_per_underlying_unit": 0.21306251852437985,
+          "adjusted_price_per_underlying_unit": 0.18368527837800633,
+          "adjusted_price_percentile": 18.048128342245988,
+          "adjusted_history_count": 748
         },
         {
           "target_delta": 0.15,
-          "native_achieved_delta": 0.14999999996473168,
-          "ew_achieved_delta": 0.15000000030982824,
-          "adjusted_achieved_delta": 0.1499999999271608,
-          "native_strike": 108.29783994862935,
-          "ew_strike": 107.91630556121176,
-          "adjusted_strike": 107.58206798503488,
-          "native_price_per_underlying_unit": 0.14597356195957686,
-          "ew_price_per_underlying_unit": 0.11867790009657538,
-          "adjusted_price_per_underlying_unit": 0.09454673549806561
+          "native_achieved_delta": 0.14999999996550384,
+          "ew_achieved_delta": 0.1499999998821261,
+          "adjusted_achieved_delta": 0.1499999999639085,
+          "native_strike": 108.36311288211449,
+          "ew_strike": 107.93602146504007,
+          "adjusted_strike": 107.65311040545522,
+          "native_price_per_underlying_unit": 0.14950480422737228,
+          "ew_price_per_underlying_unit": 0.11897048470077254,
+          "adjusted_price_per_underlying_unit": 0.09856041632441298,
+          "adjusted_price_percentile": 17.112299465240643,
+          "adjusted_history_count": 748
         },
         {
           "target_delta": 0.05,
-          "native_achieved_delta": 0.04999999998372428,
-          "ew_achieved_delta": 0.0499999999998962,
-          "adjusted_achieved_delta": 0.049999999865454295,
-          "native_strike": 110.81920487509767,
-          "ew_strike": 109.47138295985918,
-          "adjusted_strike": 108.591759562645,
-          "native_price_per_underlying_unit": 0.05527499369028818,
-          "ew_price_per_underlying_unit": 0.03922407755394134,
-          "adjusted_price_per_underlying_unit": 0.028554671950557553
+          "native_achieved_delta": 0.04999999999797835,
+          "ew_achieved_delta": 0.049999999999996284,
+          "adjusted_achieved_delta": 0.049999999999989296,
+          "native_strike": 110.83528221039786,
+          "ew_strike": 109.49895706818285,
+          "adjusted_strike": 108.69127992136988,
+          "native_price_per_underlying_unit": 0.055280317989034884,
+          "ew_price_per_underlying_unit": 0.03936778760413241,
+          "adjusted_price_per_underlying_unit": 0.029578803340976588,
+          "adjusted_price_percentile": 16.176470588235293,
+          "adjusted_history_count": 748
         }
       ]
     },
     "TLT": {
-      "raw_date": "2026-09-11",
-      "fit_date": "2026-09-11",
+      "raw_date": "2026-09-14",
+      "fit_date": "2026-09-14",
       "model_version": "gh5_v1",
       "objective_name": "synthetic_black76_iv_l2_v1",
-      "forward": 81.06884043078638,
-      "medcouple": -0.09743925454152264,
-      "b": 0.026307750662747067,
-      "g": -0.14368864115120564,
-      "h": 0.10559052490461852,
-      "mad_err": 0.00509894933738064,
+      "forward": 81.12200474748235,
+      "medcouple": -0.07929611820237956,
+      "b": 0.031107922343449432,
+      "g": -0.10028624260175033,
+      "h": 0.08545918377056351,
+      "mad_err": 0.002490658825319096,
       "effective_duration": 15.015133151071092,
       "effective_duration_source": "iShares Duration field, market-value weighted",
       "holdings_as_of_date": "2026-09-04",
       "holdings_rows": 245,
       "points": [
         {
-          "moneyness": 0.9516277501216662,
-          "strike": 77.14735822412162,
+          "moneyness": 0.9456349577988825,
+          "strike": 76.71180353594622,
           "right": "P",
           "delta_reference": 0.95,
-          "raw_iv": 0.1282610037369549,
-          "fitted_iv": 0.12873825138182837
+          "raw_iv": 0.14140583460685083,
+          "fitted_iv": 0.14128239536229711
         },
         {
-          "moneyness": 0.9622046908157329,
-          "strike": 78.0048185414948,
+          "moneyness": 0.9575072086110344,
+          "strike": 77.67490432269291,
           "right": "P",
           "delta_reference": 0.9,
-          "raw_iv": 0.12167494539197356,
-          "fitted_iv": 0.1219944977564361
+          "raw_iv": 0.13481558859383067,
+          "fitted_iv": 0.13514218532579939
         },
         {
-          "moneyness": 0.9694072567769455,
-          "strike": 78.58872221209656,
+          "moneyness": 0.9656014755824908,
+          "strike": 78.33152748637877,
           "right": "P",
           "delta_reference": 0.85,
-          "raw_iv": 0.11768712569705539,
-          "fitted_iv": 0.11771428166597984
+          "raw_iv": 0.13133354051596388,
+          "fitted_iv": 0.13132488426635072
         },
         {
-          "moneyness": 0.9751700622051865,
-          "strike": 79.0559061657923,
+          "moneyness": 0.9720833171109975,
+          "strike": 78.85734746562673,
           "right": "P",
           "delta_reference": 0.8,
-          "raw_iv": 0.11468460396153127,
-          "fitted_iv": 0.11451480274855859
+          "raw_iv": 0.12872393544069186,
+          "fitted_iv": 0.1285224320289061
         },
         {
-          "moneyness": 0.9801413246512214,
-          "strike": 79.45892064776946,
+          "moneyness": 0.9776788187018223,
+          "strike": 79.31126577224217,
           "right": "P",
           "delta_reference": 0.75,
-          "raw_iv": 0.11220768987043737,
-          "fitted_iv": 0.11195007807447427
+          "raw_iv": 0.12648324799106106,
+          "fitted_iv": 0.12631041318750294
         },
         {
-          "moneyness": 0.9846272604650822,
-          "strike": 79.82259026244608,
+          "moneyness": 0.9827311897744895,
+          "strike": 79.72112424238512,
           "right": "P",
           "delta_reference": 0.7,
-          "raw_iv": 0.1100987727351904,
-          "fitted_iv": 0.10981558018959148
+          "raw_iv": 0.12453931386727941,
+          "fitted_iv": 0.12449993829336839
         },
         {
-          "moneyness": 0.9888024730347729,
-          "strike": 80.16106990402295,
+          "moneyness": 0.9874362671891289,
+          "strike": 80.10280955475277,
           "right": "P",
           "delta_reference": 0.65,
-          "raw_iv": 0.10829345642214776,
-          "fitted_iv": 0.10800518801211462
+          "raw_iv": 0.12291689390514124,
+          "fitted_iv": 0.1229923490740659
         },
         {
-          "moneyness": 0.9927807164499489,
-          "strike": 80.48358148464268,
+          "moneyness": 0.9919217595973935,
+          "strike": 80.4666816911908,
           "right": "P",
           "delta_reference": 0.6,
-          "raw_iv": 0.10674628547035078,
-          "fitted_iv": 0.10646315256264396
+          "raw_iv": 0.12159583014997336,
+          "fitted_iv": 0.1217312585592455
         },
         {
-          "moneyness": 0.9966449536792457,
-          "strike": 80.79685071597125,
+          "moneyness": 0.9962809260760835,
+          "strike": 80.82030601497016,
           "right": "P",
           "delta_reference": 0.55,
-          "raw_iv": 0.10542350913678378,
-          "fitted_iv": 0.10515383638989578
+          "raw_iv": 0.12054044397593941,
+          "fitted_iv": 0.12068781095160709
         },
         {
-          "moneyness": 1.0004625994667131,
-          "strike": 81.10634283313671,
+          "moneyness": 1.0005896715476001,
+          "strike": 81.16984008556622,
           "right": "C",
           "delta_reference": 0.5,
-          "raw_iv": 0.10430719543381657,
-          "fitted_iv": 0.10406873915402008
+          "raw_iv": 0.11973208801770548,
+          "fitted_iv": 0.1198503144383905
         },
         {
-          "moneyness": 1.0042948687359983,
-          "strike": 81.4170204590162,
+          "moneyness": 1.0049170516100765,
+          "strike": 81.52088583153859,
           "right": "C",
           "delta_reference": 0.45,
-          "raw_iv": 0.10339102824045576,
-          "fitted_iv": 0.1032051732075577
+          "raw_iv": 0.1191646735584547,
+          "fitted_iv": 0.11921787624199477
         },
         {
-          "moneyness": 1.0082039229275812,
-          "strike": 81.73392294950894,
+          "moneyness": 1.0093333280783139,
+          "strike": 81.87914303216114,
           "right": "C",
           "delta_reference": 0.4,
-          "raw_iv": 0.10267869452422866,
-          "fitted_iv": 0.10257841319604913
+          "raw_iv": 0.11884306255993873,
+          "fitted_iv": 0.11880297480990996
         },
         {
-          "moneyness": 1.012260224086731,
-          "strike": 82.06276258091927,
+          "moneyness": 1.0139182892863838,
+          "strike": 82.25108427704922,
           "right": "C",
           "delta_reference": 0.35,
-          "raw_iv": 0.10218419725509675,
-          "fitted_iv": 0.10222060387968585
+          "raw_iv": 0.11878368089087583,
+          "fitted_iv": 0.11863416916405603
         },
         {
-          "moneyness": 1.0165526114510708,
-          "strike": 82.41074144722604,
+          "moneyness": 1.018772682932225,
+          "strike": 82.6448824214333,
           "right": "C",
           "delta_reference": 0.3,
-          "raw_iv": 0.10193476243867919,
-          "fitted_iv": 0.10218026490527318
+          "raw_iv": 0.11901741790489327,
+          "fitted_iv": 0.11875961577824026
         },
         {
-          "moneyness": 1.0212051953710528,
-          "strike": 82.78792103062591,
+          "moneyness": 1.024037415617858,
+          "strike": 83.07196809135144,
           "right": "C",
           "delta_reference": 0.25,
-          "raw_iv": 0.10203754528320765,
-          "fitted_iv": 0.1025389866682075
+          "raw_iv": 0.11956052874931512,
+          "fitted_iv": 0.11925800216607735
         },
         {
-          "moneyness": 1.026411137630974,
-          "strike": 83.20996073298734,
+          "moneyness": 1.0299319751553915,
+          "strike": 83.55014657813955,
           "right": "C",
           "delta_reference": 0.2,
-          "raw_iv": 0.10272391438760309,
-          "fitted_iv": 0.10343103605656949
+          "raw_iv": 0.12041578109229276,
+          "fitted_iv": 0.12026298410161027
         },
         {
-          "moneyness": 1.0325128122720453,
-          "strike": 83.70461642082493,
+          "moneyness": 1.0368456512597823,
+          "strike": 84.1109978439025,
           "right": "C",
           "delta_reference": 0.15,
-          "raw_iv": 0.10427841153864027,
-          "fitted_iv": 0.10509374542780761
+          "raw_iv": 0.12167040024075246,
+          "fitted_iv": 0.12201873127226674
         },
         {
-          "moneyness": 1.0402416684158269,
-          "strike": 84.33118582625767,
+          "moneyness": 1.0456106040810402,
+          "strike": 84.82202838828003,
           "right": "C",
           "delta_reference": 0.1,
-          "raw_iv": 0.10758278958948427,
-          "fitted_iv": 0.10803697369273238
+          "raw_iv": 0.12424815101615065,
+          "fitted_iv": 0.12505618467179122
         },
         {
-          "moneyness": 1.0518035154016094,
-          "strike": 85.26849135463324,
+          "moneyness": 1.058738028401722,
+          "strike": 85.8869513663446,
           "right": "C",
           "delta_reference": 0.05,
-          "raw_iv": 0.11537346935149995,
-          "fitted_iv": 0.1137909325538816
+          "raw_iv": 0.13155450369606653,
+          "fitted_iv": 0.13098521899935306
         }
       ],
       "c": 0.05,
@@ -450,101 +466,117 @@
       "put_price_table": [
         {
           "target_delta": 0.05,
-          "native_achieved_delta": 0.049999999999998934,
-          "ew_achieved_delta": 0.04999999999999594,
-          "adjusted_achieved_delta": 0.04999999999999971,
-          "native_strike": 75.96088290727577,
-          "ew_strike": 75.99014190293894,
-          "adjusted_strike": 72.03581816082382,
-          "native_price_per_underlying_unit": 0.0688723121550738,
-          "ew_price_per_underlying_unit": 0.06845348304790762,
-          "adjusted_price_per_underlying_unit": 0.12793490530856672
+          "native_achieved_delta": 0.050000000000001266,
+          "ew_achieved_delta": 0.050000000000000266,
+          "adjusted_achieved_delta": 0.05000000000000082,
+          "native_strike": 75.66670777254043,
+          "ew_strike": 76.0353631458851,
+          "adjusted_strike": 72.34528440057639,
+          "native_price_per_underlying_unit": 0.07386412579846387,
+          "ew_price_per_underlying_unit": 0.06856438025528051,
+          "adjusted_price_per_underlying_unit": 0.1238852184300598,
+          "adjusted_price_percentile": 59.387483355525966,
+          "adjusted_history_count": 751
         },
         {
           "target_delta": 0.15,
-          "native_achieved_delta": 0.14999999999928004,
-          "ew_achieved_delta": 0.14999999999952995,
-          "adjusted_achieved_delta": 0.149999999959457,
-          "native_strike": 78.25372287737866,
-          "ew_strike": 78.27089131434533,
-          "adjusted_strike": 76.90792396523435,
-          "native_price_per_underlying_unit": 0.22186880377902962,
-          "ew_price_per_underlying_unit": 0.22044612418955367,
-          "adjusted_price_per_underlying_unit": 0.3362879349103064
+          "native_achieved_delta": 0.1499999999999595,
+          "ew_achieved_delta": 0.14999999999290936,
+          "adjusted_achieved_delta": 0.15000000000000036,
+          "native_strike": 78.01156803317933,
+          "ew_strike": 78.31857586408796,
+          "adjusted_strike": 76.92444455262076,
+          "native_price_per_underlying_unit": 0.24647393982807578,
+          "ew_price_per_underlying_unit": 0.22089265312161227,
+          "adjusted_price_per_underlying_unit": 0.339468112853467,
+          "adjusted_price_percentile": 40.612516644474034,
+          "adjusted_history_count": 751
         },
         {
           "target_delta": 0.25,
-          "native_achieved_delta": 0.2499999999999245,
-          "ew_achieved_delta": 0.24999999999995648,
-          "adjusted_achieved_delta": 0.24999999999981304,
-          "native_strike": 79.35263239132654,
-          "ew_strike": 79.3586541868842,
-          "adjusted_strike": 78.72688559857896,
-          "native_price_per_underlying_unit": 0.39955411034352556,
-          "ew_price_per_underlying_unit": 0.39807751196549657,
-          "adjusted_price_per_underlying_unit": 0.5561251818824855
+          "native_achieved_delta": 0.2499999999503042,
+          "ew_achieved_delta": 0.2499999999197673,
+          "adjusted_achieved_delta": 0.24999999999938283,
+          "native_strike": 79.19597831375677,
+          "ew_strike": 79.4082150600728,
+          "adjusted_strike": 78.68156259885878,
+          "native_price_per_underlying_unit": 0.4513384864874378,
+          "ew_price_per_underlying_unit": 0.3989470881101341,
+          "adjusted_price_per_underlying_unit": 0.5813200389193413,
+          "adjusted_price_percentile": 33.82157123834887,
+          "adjusted_history_count": 751
         },
         {
           "target_delta": 0.4,
-          "native_achieved_delta": 0.39999999995484414,
-          "ew_achieved_delta": 0.3999999999855378,
-          "adjusted_achieved_delta": 0.3999999999389099,
-          "native_strike": 80.47794298541237,
-          "ew_strike": 80.47710973288504,
-          "adjusted_strike": 80.31297250898534,
-          "native_price_per_underlying_unit": 0.7230065829246457,
-          "ew_price_per_underlying_unit": 0.7241202621333714,
-          "adjusted_price_per_underlying_unit": 0.9497013753649783
+          "native_achieved_delta": 0.3999999999999968,
+          "ew_achieved_delta": 0.39999999999990865,
+          "adjusted_achieved_delta": 0.3999999999999989,
+          "native_strike": 80.452418160961,
+          "ew_strike": 80.52899292518248,
+          "adjusted_strike": 80.30542124988057,
+          "native_price_per_underlying_unit": 0.8294909716631185,
+          "ew_price_per_underlying_unit": 0.7257891030263459,
+          "adjusted_price_per_underlying_unit": 1.0363790165265956,
+          "adjusted_price_percentile": 33.422103861517975,
+          "adjusted_history_count": 751
         }
       ],
       "call_price_table": [
         {
           "target_delta": 0.4,
-          "native_achieved_delta": 0.4000000000000814,
-          "ew_achieved_delta": 0.40000000000133384,
-          "adjusted_achieved_delta": 0.39999999999072317,
-          "native_strike": 81.71533026887688,
-          "ew_strike": 81.72190581839759,
-          "adjusted_strike": 81.93137574068797,
-          "native_price_per_underlying_unit": 0.672889962513196,
-          "ew_price_per_underlying_unit": 0.6792369581003205,
-          "adjusted_price_per_underlying_unit": 0.8769028581405259
+          "native_achieved_delta": 0.39999999999731034,
+          "ew_achieved_delta": 0.40000000000002034,
+          "adjusted_achieved_delta": 0.3999999999924537,
+          "native_strike": 81.87805997660763,
+          "ew_strike": 81.77665543740527,
+          "adjusted_strike": 82.10934227935226,
+          "native_price_per_underlying_unit": 0.7775423233809703,
+          "ew_price_per_underlying_unit": 0.680798283533162,
+          "adjusted_price_per_underlying_unit": 0.9907820051788913,
+          "adjusted_price_percentile": 36.88415446071904,
+          "adjusted_history_count": 751
         },
         {
           "target_delta": 0.25,
-          "native_achieved_delta": 0.2499999999814675,
-          "ew_achieved_delta": 0.24999999999999667,
-          "adjusted_achieved_delta": 0.24999999999486822,
-          "native_strike": 82.73871011756204,
-          "ew_strike": 82.76763675106264,
-          "adjusted_strike": 83.4399184715542,
-          "native_price_per_underlying_unit": 0.3524437190068796,
-          "ew_price_per_underlying_unit": 0.35826904532605514,
-          "adjusted_price_per_underlying_unit": 0.4911722686201197
+          "native_achieved_delta": 0.24999999992048544,
+          "ew_achieved_delta": 0.2499999999979618,
+          "adjusted_achieved_delta": 0.25000000008250123,
+          "native_strike": 83.0770867146216,
+          "ew_strike": 82.82481327368721,
+          "adjusted_strike": 83.86291702130458,
+          "native_price_per_underlying_unit": 0.40950449080641865,
+          "ew_price_per_underlying_unit": 0.359087136382469,
+          "adjusted_price_per_underlying_unit": 0.56234880301623,
+          "adjusted_price_percentile": 44.0745672436751,
+          "adjusted_history_count": 751
         },
         {
           "target_delta": 0.15,
-          "native_achieved_delta": 0.15000000000000108,
-          "ew_achieved_delta": 0.14999999999999414,
-          "adjusted_achieved_delta": 0.14999999999998698,
-          "native_strike": 83.69603560655226,
-          "ew_strike": 83.7562111297224,
-          "adjusted_strike": 85.20488984304286,
-          "native_price_per_underlying_unit": 0.18846357138178274,
-          "ew_price_per_underlying_unit": 0.19259158740461216,
-          "adjusted_price_per_underlying_unit": 0.28960937323126784
+          "native_achieved_delta": 0.14999999999968006,
+          "ew_achieved_delta": 0.1499999999972158,
+          "adjusted_achieved_delta": 0.15000000000000185,
+          "native_strike": 84.19904668533908,
+          "ew_strike": 83.81557027744493,
+          "adjusted_strike": 85.88883084267012,
+          "native_price_per_underlying_unit": 0.21913700473016373,
+          "ew_price_per_underlying_unit": 0.19302163583907736,
+          "adjusted_price_per_underlying_unit": 0.33050531854914755,
+          "adjusted_price_percentile": 55.25965379494008,
+          "adjusted_history_count": 751
         },
         {
           "target_delta": 0.05,
-          "native_achieved_delta": 0.049999999984779206,
-          "ew_achieved_delta": 0.04999999999975591,
-          "adjusted_achieved_delta": 0.04999999999847713,
-          "native_strike": 85.7605587883423,
-          "ew_strike": 85.89251123197282,
-          "adjusted_strike": 90.48306433869953,
-          "native_price_per_underlying_unit": 0.05662542588065329,
-          "ew_price_per_underlying_unit": 0.05813709943469123,
-          "adjusted_price_per_underlying_unit": 0.10826481112889665
+          "native_achieved_delta": 0.05000000001941131,
+          "ew_achieved_delta": 0.050000000000001016,
+          "adjusted_achieved_delta": 0.0499999999999892,
+          "native_strike": 86.57943066736208,
+          "ew_strike": 85.95615803635192,
+          "adjusted_strike": 91.70645282362625,
+          "native_price_per_underlying_unit": 0.06534227545098947,
+          "ew_price_per_underlying_unit": 0.05825895299389193,
+          "adjusted_price_per_underlying_unit": 0.12033565979612469,
+          "adjusted_price_percentile": 74.16777629826898,
+          "adjusted_history_count": 751
         }
       ]
     }
@@ -553,9 +585,9 @@
     "schema_version": "tip_tlt_one_month_return_scatter_v1",
     "return_definition": "unadjusted ETF close-to-close price return",
     "dividend_rule": "exclude observations whose start or end session is an ex-dividend date for TIP or TLT",
-    "raw_observations": 2414,
+    "raw_observations": 2417,
     "excluded_dividend_observations": 205,
-    "observations": 2209,
+    "observations": 2212,
     "points": [
       {
         "start_date": "2017-01-03",
@@ -13810,6 +13842,24 @@
         "end_date": "2026-09-11",
         "TIP_return": -0.009355412105903294,
         "TLT_return": -0.015689613232789945
+      },
+      {
+        "start_date": "2026-08-12",
+        "end_date": "2026-09-14",
+        "TIP_return": -0.010289028154522484,
+        "TLT_return": -0.014610982588578958
+      },
+      {
+        "start_date": "2026-08-13",
+        "end_date": "2026-09-14",
+        "TIP_return": -0.012137055363644844,
+        "TLT_return": -0.020217917675544594
+      },
+      {
+        "start_date": "2026-08-14",
+        "end_date": "2026-09-14",
+        "TIP_return": -0.010566672900691909,
+        "TLT_return": -0.013529985372988773
       }
     ]
   },
@@ -13817,425 +13867,425 @@
     "title": "Swaption implied volatility",
     "summary": "Uses Marquee swaption data in GCS to get weighted 1-month expiry vol across every underlying (swaption tail)"
   },
-  "latest_date": "2026-09-11",
+  "latest_date": "2026-09-14",
   "comparison_schema_version": "tip_tlt_gh3_gh5_comparison_v1",
   "comparison": {
-    "raw_date": "2026-09-11",
+    "raw_date": "2026-09-14",
     "cab": 0.0,
     "symbols": {
       "TIP": {
-        "raw_date": "2026-09-11",
+        "raw_date": "2026-09-14",
         "fits": {
           "gh3_v1": {
-            "fit_date": "2026-09-11",
+            "fit_date": "2026-09-14",
             "model_version": "gh3_v1",
             "objective_name": "synthetic_black76_iv_l2_v1",
             "source": "recomputed_from_latest_raw_smile_cab_0",
-            "forward": 106.29961186163058,
-            "medcouple": -0.06481841342402533,
-            "b": 0.010478384494064897,
-            "g": -0.04482758113577044,
-            "h": 0.2924427489202682,
-            "mad_err": 0.014331426108087063,
+            "forward": 106.31526268613214,
+            "medcouple": -0.03267848356692205,
+            "b": 0.010363336394703736,
+            "g": 0.033909953477690755,
+            "h": 0.28669442259024847,
+            "mad_err": 0.012157719566173562,
             "cab": 0.0,
             "settings_hash": "3dbc8d7b891c8ed3"
           },
           "gh5_v1": {
-            "fit_date": "2026-09-11",
+            "fit_date": "2026-09-14",
             "model_version": "gh5_v1",
             "objective_name": "synthetic_black76_iv_l2_v1",
             "source": "recomputed_from_latest_raw_smile_cab_0",
-            "forward": 106.29961186163058,
-            "medcouple": -0.09082207392358047,
-            "b": 0.009918145441099492,
-            "g": -0.12115439316578075,
-            "h": 0.31678844803123607,
-            "mad_err": 0.007962341109378794,
+            "forward": 106.31526268613214,
+            "medcouple": -0.038789600669074976,
+            "b": 0.010450993412365467,
+            "g": 0.014774362260284243,
+            "h": 0.26584784736456113,
+            "mad_err": 0.011443130585955575,
             "cab": 0.0,
             "settings_hash": "f01cc71c1ea58d39",
-            "c": 0.05,
-            "q": 0.009900352336889986
+            "c": 0.013355319562093553,
+            "q": 0.043729157378843024
           }
         },
         "points": [
           {
-            "moneyness": 0.9759406019352268,
-            "strike": 103.74210718572073,
+            "moneyness": 0.9764300485926862,
+            "strike": 103.80941711076422,
             "right": "P",
             "delta_reference": 0.95,
-            "raw_iv": 0.07264518134305821,
-            "gh3_v1_fitted_iv": 0.07111393797122802,
-            "gh5_v1_fitted_iv": 0.07209789786827449
+            "raw_iv": 0.06699064766666,
+            "gh3_v1_fitted_iv": 0.06622048343733097,
+            "gh5_v1_fitted_iv": 0.06620600686863368
           },
           {
-            "moneyness": 0.9812282837870403,
-            "strike": 104.30418571421629,
+            "moneyness": 0.9816107280897604,
+            "strike": 104.3602024123883,
             "right": "P",
             "delta_reference": 0.9,
-            "raw_iv": 0.06622708013692867,
-            "gh3_v1_fitted_iv": 0.06542229913262755,
-            "gh5_v1_fitted_iv": 0.06623640337523984
+            "raw_iv": 0.061014112806572325,
+            "gh3_v1_fitted_iv": 0.06110477936919065,
+            "gh5_v1_fitted_iv": 0.06108148518986301
           },
           {
-            "moneyness": 0.984812042866938,
-            "strike": 104.685137913415,
+            "moneyness": 0.9851216373535638,
+            "strike": 104.73346565303675,
             "right": "P",
             "delta_reference": 0.85,
-            "raw_iv": 0.062114027204546216,
-            "gh3_v1_fitted_iv": 0.061740705374153285,
-            "gh5_v1_fitted_iv": 0.06239141646707754
+            "raw_iv": 0.057372958829770115,
+            "gh3_v1_fitted_iv": 0.05787052900885856,
+            "gh5_v1_fitted_iv": 0.057859380132148384
           },
           {
-            "moneyness": 0.9876696345780109,
-            "strike": 104.98889880316108,
+            "moneyness": 0.9879209513041175,
+            "strike": 105.03107545103082,
             "right": "P",
             "delta_reference": 0.8,
-            "raw_iv": 0.05908860676860137,
-            "gh3_v1_fitted_iv": 0.05897738024804098,
-            "gh5_v1_fitted_iv": 0.059461204868972106
+            "raw_iv": 0.054901114092613716,
+            "gh3_v1_fitted_iv": 0.055514068515822454,
+            "gh5_v1_fitted_iv": 0.05552224250755624
           },
           {
-            "moneyness": 0.9901277981268691,
-            "strike": 105.2502006342971,
+            "moneyness": 0.9903288490594936,
+            "strike": 105.28707173341498,
             "right": "P",
             "delta_reference": 0.75,
-            "raw_iv": 0.05676061860257729,
-            "gh3_v1_fitted_iv": 0.056785331813081485,
-            "gh5_v1_fitted_iv": 0.05709320247855913
+            "raw_iv": 0.053228201301739775,
+            "gh3_v1_fitted_iv": 0.053717429959953635,
+            "gh5_v1_fitted_iv": 0.053745379784388245
           },
           {
-            "moneyness": 0.9923405156248553,
-            "strike": 105.48541164549248,
+            "moneyness": 0.9924962140771828,
+            "strike": 105.51749571460734,
             "right": "P",
             "delta_reference": 0.7,
-            "raw_iv": 0.05494614490321362,
-            "gh3_v1_fitted_iv": 0.05501613994517786,
-            "gh5_v1_fitted_iv": 0.05513865743074115
+            "raw_iv": 0.05215145776767877,
+            "gh3_v1_fitted_iv": 0.05234808582386252,
+            "gh5_v1_fitted_iv": 0.05239257402670475
           },
           {
-            "moneyness": 0.9943953415609192,
-            "strike": 105.70383884493928,
+            "moneyness": 0.9945088342531507,
+            "strike": 105.73146795730277,
             "right": "P",
             "delta_reference": 0.65,
-            "raw_iv": 0.05350735195006955,
-            "gh3_v1_fitted_iv": 0.053603367178805435,
-            "gh5_v1_fitted_iv": 0.05353235254836681
+            "raw_iv": 0.0514514071215173,
+            "gh3_v1_fitted_iv": 0.051345675733640544,
+            "gh5_v1_fitted_iv": 0.05140026366803497
           },
           {
-            "moneyness": 0.9963491073120117,
-            "strike": 105.91152338594895,
+            "moneyness": 0.9964223902650833,
+            "strike": 105.93490816737601,
             "right": "P",
             "delta_reference": 0.6,
-            "raw_iv": 0.05237734141064063,
-            "gh3_v1_fitted_iv": 0.05251832668136747,
-            "gh5_v1_fitted_iv": 0.05225349748773806
+            "raw_iv": 0.05100838771567641,
+            "gh3_v1_fitted_iv": 0.05068458118066634,
+            "gh5_v1_fitted_iv": 0.05073857148281967
           },
           {
-            "moneyness": 0.998243055431691,
-            "strike": 106.11284933595694,
+            "moneyness": 0.9982772856860634,
+            "strike": 106.13211186131282,
             "right": "P",
             "delta_reference": 0.55,
-            "raw_iv": 0.05154962750312695,
-            "gh3_v1_fitted_iv": 0.051755971130244834,
-            "gh5_v1_fitted_iv": 0.05130728530901414
+            "raw_iv": 0.05080446296858671,
+            "gh3_v1_fitted_iv": 0.05035190624468777,
+            "gh5_v1_fitted_iv": 0.05039372100692863
           },
           {
-            "moneyness": 1.000110485705869,
-            "strike": 106.31135644928071,
+            "moneyness": 1.0001061388218897,
+            "strike": 106.32654686286254,
             "right": "C",
             "delta_reference": 0.5,
-            "raw_iv": 0.05102969590531585,
-            "gh3_v1_fitted_iv": 0.05131943027813147,
-            "gh5_v1_fitted_iv": 0.05071589009383742
+            "raw_iv": 0.05083054372920672,
+            "gh3_v1_fitted_iv": 0.050342133584987125,
+            "gh5_v1_fitted_iv": 0.05036222091598419
           },
           {
-            "moneyness": 1.001981409413645,
-            "strike": 106.51023491324003,
+            "moneyness": 1.0019383424334207,
+            "strike": 106.52133807111694,
             "right": "C",
             "delta_reference": 0.45,
-            "raw_iv": 0.05082815652338758,
-            "gh3_v1_fitted_iv": 0.05121680072169383,
-            "gh5_v1_fitted_iv": 0.05050485208592028
+            "raw_iv": 0.05108243279771972,
+            "gh3_v1_fitted_iv": 0.050649980745200364,
+            "gh5_v1_fitted_iv": 0.05063904431064925
           },
           {
-            "moneyness": 1.0038860639091283,
-            "strike": 106.7126989468404,
+            "moneyness": 1.0038035061046122,
+            "strike": 106.7196334367723,
             "right": "C",
             "delta_reference": 0.4,
-            "raw_iv": 0.05095685695151608,
-            "gh3_v1_fitted_iv": 0.051454353500524845,
-            "gh5_v1_fitted_iv": 0.05069922882931471
+            "raw_iv": 0.05156026752790328,
+            "gh3_v1_fitted_iv": 0.05126821774683481,
+            "gh5_v1_fitted_iv": 0.05122472214157112
           },
           {
-            "moneyness": 1.005858476819456,
-            "strike": 106.92236567363912,
+            "moneyness": 1.0057349461961904,
+            "strike": 106.92497499747097,
             "right": "C",
             "delta_reference": 0.35,
-            "raw_iv": 0.05142807860317138,
-            "gh3_v1_fitted_iv": 0.052037160059633304,
-            "gh5_v1_fitted_iv": 0.05131554390382959
+            "raw_iv": 0.05226982892878981,
+            "gh3_v1_fitted_iv": 0.052193957398568004,
+            "gh5_v1_fitted_iv": 0.05212034486988081
           },
           {
-            "moneyness": 1.007941294212916,
-            "strike": 107.14376835414257,
+            "moneyness": 1.0077744123580565,
+            "strike": 107.14180137820924,
             "right": "C",
             "delta_reference": 0.3,
-            "raw_iv": 0.052257907113991024,
-            "gh3_v1_fitted_iv": 0.05297413807194621,
-            "gh5_v1_fitted_iv": 0.052367679685759574
+            "raw_iv": 0.05322597674108067,
+            "gh3_v1_fitted_iv": 0.05343233304989882,
+            "gh5_v1_fitted_iv": 0.053337788306150886
           },
           {
-            "moneyness": 1.0101938209502392,
-            "strike": 107.38321107202798,
+            "moneyness": 1.0099799575253425,
+            "strike": 107.37628449203538,
             "right": "C",
             "delta_reference": 0.25,
-            "raw_iv": 0.0535286689169722,
-            "gh3_v1_fitted_iv": 0.054289839002474756,
-            "gh5_v1_fitted_iv": 0.05387900705748849
+            "raw_iv": 0.05451303705941038,
+            "gh3_v1_fitted_iv": 0.05501010086016292,
+            "gh5_v1_fitted_iv": 0.05490822007973217
           },
           {
-            "moneyness": 1.012708043865478,
-            "strike": 107.65047199205148,
+            "moneyness": 1.0124416205455364,
+            "strike": 107.63799684267202,
             "right": "C",
             "delta_reference": 0.2,
-            "raw_iv": 0.055446959013054783,
-            "gh3_v1_fitted_iv": 0.05604010662173308,
-            "gh5_v1_fitted_iv": 0.05590748808448771
+            "raw_iv": 0.05635497641156725,
+            "gh3_v1_fitted_iv": 0.056987422835500574,
+            "gh5_v1_fitted_iv": 0.05689758420807771
           },
           {
-            "moneyness": 1.015646580343426,
-            "strike": 107.96283727909858,
+            "moneyness": 1.0153185667469495,
+            "strike": 107.94386013380914,
             "right": "C",
             "delta_reference": 0.15,
-            "raw_iv": 0.05821708271894867,
-            "gh3_v1_fitted_iv": 0.05835511388319378,
-            "gh5_v1_fitted_iv": 0.05859220364013798
+            "raw_iv": 0.0589759083188842,
+            "gh3_v1_fitted_iv": 0.0594999678629827,
+            "gh5_v1_fitted_iv": 0.059451147071676175
           },
           {
-            "moneyness": 1.019356046034962,
-            "strike": 108.3571520423229,
+            "moneyness": 1.018950038225099,
+            "strike": 108.3299409779458,
             "right": "C",
             "delta_reference": 0.1,
-            "raw_iv": 0.06222435442231534,
-            "gh3_v1_fitted_iv": 0.06154548332100159,
-            "gh5_v1_fitted_iv": 0.062280949612604934
+            "raw_iv": 0.06276684765996803,
+            "gh3_v1_fitted_iv": 0.06286935729730726,
+            "gh5_v1_fitted_iv": 0.06290592416497952
           },
           {
-            "moneyness": 1.0248789543497379,
-            "strike": 108.94423505253094,
+            "moneyness": 1.0243563175373591,
+            "strike": 108.90471098318332,
             "right": "C",
             "delta_reference": 0.05,
-            "raw_iv": 0.06870551358445437,
-            "gh3_v1_fitted_iv": 0.0666003047681514,
-            "gh5_v1_fitted_iv": 0.06809231604036138
+            "raw_iv": 0.06893018276148828,
+            "gh3_v1_fitted_iv": 0.06810023227225775,
+            "gh5_v1_fitted_iv": 0.06831557614388431
           }
         ]
       },
       "TLT": {
-        "raw_date": "2026-09-11",
+        "raw_date": "2026-09-14",
         "fits": {
           "gh3_v1": {
-            "fit_date": "2026-09-11",
+            "fit_date": "2026-09-14",
             "model_version": "gh3_v1",
             "objective_name": "synthetic_black76_iv_l2_v1",
             "source": "recomputed_from_latest_raw_smile_cab_0",
-            "forward": 81.06884043078638,
-            "medcouple": -0.07707691434122119,
-            "b": 0.025987749890250503,
-            "g": -0.08043427148116429,
-            "h": 0.13131815662427793,
-            "mad_err": 0.010853930208822223,
+            "forward": 81.12200474748235,
+            "medcouple": -0.059506565840832616,
+            "b": 0.030748359222443025,
+            "g": -0.03857474471734464,
+            "h": 0.10999749108800808,
+            "mad_err": 0.005791486191596356,
             "cab": 0.0,
             "settings_hash": "3dbc8d7b891c8ed3"
           },
           "gh5_v1": {
-            "fit_date": "2026-09-11",
+            "fit_date": "2026-09-14",
             "model_version": "gh5_v1",
             "objective_name": "synthetic_black76_iv_l2_v1",
             "source": "recomputed_from_latest_raw_smile_cab_0",
-            "forward": 81.06884043078638,
-            "medcouple": -0.09743925519995192,
-            "b": 0.02630775050462269,
-            "g": -0.14368864217835978,
-            "h": 0.10559053049554576,
-            "mad_err": 0.005098949882479135,
+            "forward": 81.12200474748235,
+            "medcouple": -0.07929611801234757,
+            "b": 0.03110792250563509,
+            "g": -0.1002862401924972,
+            "h": 0.0854591805369283,
+            "mad_err": 0.002490659039823766,
             "cab": 0.0,
             "settings_hash": "f01cc71c1ea58d39",
             "c": 0.05,
-            "q": 0.04999999999999995
+            "q": 0.05
           }
         },
         "points": [
           {
-            "moneyness": 0.9516277501216662,
-            "strike": 77.14735822412162,
+            "moneyness": 0.9456349577988825,
+            "strike": 76.71180353594622,
             "right": "P",
             "delta_reference": 0.95,
-            "raw_iv": 0.1282610037369549,
-            "gh3_v1_fitted_iv": 0.12960156420989774,
-            "gh5_v1_fitted_iv": 0.12873825217951967
+            "raw_iv": 0.14140583460685083,
+            "gh3_v1_fitted_iv": 0.14225128527235428,
+            "gh5_v1_fitted_iv": 0.14128239487401825
           },
           {
-            "moneyness": 0.9622046908157329,
-            "strike": 78.0048185414948,
+            "moneyness": 0.9575072086110344,
+            "strike": 77.67490432269291,
             "right": "P",
             "delta_reference": 0.9,
-            "raw_iv": 0.12167494539197356,
-            "gh3_v1_fitted_iv": 0.12225781489374708,
-            "gh5_v1_fitted_iv": 0.1219944983426469
+            "raw_iv": 0.13481558859383067,
+            "gh3_v1_fitted_iv": 0.13539476381297913,
+            "gh5_v1_fitted_iv": 0.1351421850191969
           },
           {
-            "moneyness": 0.9694072567769455,
-            "strike": 78.58872221209656,
+            "moneyness": 0.9656014755824908,
+            "strike": 78.33152748637877,
             "right": "P",
             "delta_reference": 0.85,
-            "raw_iv": 0.11768712569705539,
-            "gh3_v1_fitted_iv": 0.117630892295041,
-            "gh5_v1_fitted_iv": 0.11771428211336794
+            "raw_iv": 0.13133354051596388,
+            "gh3_v1_fitted_iv": 0.13118455546725385,
+            "gh5_v1_fitted_iv": 0.1313248840773858
           },
           {
-            "moneyness": 0.9751700622051865,
-            "strike": 79.0559061657923,
+            "moneyness": 0.9720833171109975,
+            "strike": 78.85734746562673,
             "right": "P",
             "delta_reference": 0.8,
-            "raw_iv": 0.11468460396153127,
-            "gh3_v1_fitted_iv": 0.11421871850569765,
-            "gh5_v1_fitted_iv": 0.11451480309265753
+            "raw_iv": 0.12872393544069186,
+            "gh3_v1_fitted_iv": 0.12815405118973244,
+            "gh5_v1_fitted_iv": 0.12852243192719506
           },
           {
-            "moneyness": 0.9801413246512214,
-            "strike": 79.45892064776946,
+            "moneyness": 0.9776788187018223,
+            "strike": 79.31126577224217,
             "right": "P",
             "delta_reference": 0.75,
-            "raw_iv": 0.11220768987043737,
-            "gh3_v1_fitted_iv": 0.11152942756567652,
-            "gh5_v1_fitted_iv": 0.1119500783397254
+            "raw_iv": 0.12648324799106106,
+            "gh3_v1_fitted_iv": 0.1258201481480726,
+            "gh5_v1_fitted_iv": 0.12631041315750655
           },
           {
-            "moneyness": 0.9846272604650822,
-            "strike": 79.82259026244608,
+            "moneyness": 0.9827311897744895,
+            "strike": 79.72112424238512,
             "right": "P",
             "delta_reference": 0.7,
-            "raw_iv": 0.1100987727351904,
-            "gh3_v1_fitted_iv": 0.10934123502663111,
-            "gh5_v1_fitted_iv": 0.10981558038921939
+            "raw_iv": 0.12453931386727941,
+            "gh3_v1_fitted_iv": 0.12396644516619686,
+            "gh5_v1_fitted_iv": 0.12449993832186933
           },
           {
-            "moneyness": 0.9888024730347729,
-            "strike": 80.16106990402295,
+            "moneyness": 0.9874362671891289,
+            "strike": 80.10280955475277,
             "right": "P",
             "delta_reference": 0.65,
-            "raw_iv": 0.10829345642214776,
-            "gh3_v1_fitted_iv": 0.10753557884787794,
-            "gh5_v1_fitted_iv": 0.10800518815800804
+            "raw_iv": 0.12291689390514124,
+            "gh3_v1_fitted_iv": 0.12248160169965554,
+            "gh5_v1_fitted_iv": 0.12299234914917141
           },
           {
-            "moneyness": 0.9927807164499489,
-            "strike": 80.48358148464268,
+            "moneyness": 0.9919217595973935,
+            "strike": 80.4666816911908,
             "right": "P",
             "delta_reference": 0.6,
-            "raw_iv": 0.10674628547035078,
-            "gh3_v1_fitted_iv": 0.10604699519847322,
-            "gh5_v1_fitted_iv": 0.10646315266918926
+            "raw_iv": 0.12159583014997336,
+            "gh3_v1_fitted_iv": 0.12129669054403072,
+            "gh5_v1_fitted_iv": 0.12173125867385566
           },
           {
-            "moneyness": 0.9966449536792457,
-            "strike": 80.79685071597125,
+            "moneyness": 0.9962809260760835,
+            "strike": 80.82030601497016,
             "right": "P",
             "delta_reference": 0.55,
-            "raw_iv": 0.10542350913678378,
-            "gh3_v1_fitted_iv": 0.10483915356963756,
-            "gh5_v1_fitted_iv": 0.10515383646777884
+            "raw_iv": 0.12054044397593941,
+            "gh3_v1_fitted_iv": 0.12037224834901254,
+            "gh5_v1_fitted_iv": 0.12068781109848477
           },
           {
-            "moneyness": 1.0004625994667131,
-            "strike": 81.10634283313671,
+            "moneyness": 1.0005896715476001,
+            "strike": 81.16984008556622,
             "right": "C",
             "delta_reference": 0.5,
-            "raw_iv": 0.10430719543381657,
-            "gh3_v1_fitted_iv": 0.10388982286050229,
-            "gh5_v1_fitted_iv": 0.10406873921295867
+            "raw_iv": 0.11973208801770548,
+            "gh3_v1_fitted_iv": 0.11968737510199366,
+            "gh5_v1_fitted_iv": 0.11985031461187438
           },
           {
-            "moneyness": 1.0042948687359983,
-            "strike": 81.4170204590162,
+            "moneyness": 1.0049170516100765,
+            "strike": 81.52088583153859,
             "right": "C",
             "delta_reference": 0.45,
-            "raw_iv": 0.10339102824045576,
-            "gh3_v1_fitted_iv": 0.10319168500043012,
-            "gh5_v1_fitted_iv": 0.10320517326006223
+            "raw_iv": 0.1191646735584547,
+            "gh3_v1_fitted_iv": 0.11923363089938138,
+            "gh5_v1_fitted_iv": 0.11921787643208932
           },
           {
-            "moneyness": 1.0082039229275812,
-            "strike": 81.73392294950894,
+            "moneyness": 1.0093333280783139,
+            "strike": 81.87914303216114,
             "right": "C",
             "delta_reference": 0.4,
-            "raw_iv": 0.10267869452422866,
-            "gh3_v1_fitted_iv": 0.10274942223551393,
-            "gh5_v1_fitted_iv": 0.1025784132554854
+            "raw_iv": 0.11884306255993873,
+            "gh3_v1_fitted_iv": 0.11901131918559654,
+            "gh5_v1_fitted_iv": 0.11880297500928597
           },
           {
-            "moneyness": 1.012260224086731,
-            "strike": 82.06276258091927,
+            "moneyness": 1.0139182892863838,
+            "strike": 82.25108427704922,
             "right": "C",
             "delta_reference": 0.35,
-            "raw_iv": 0.10218419725509675,
-            "gh3_v1_fitted_iv": 0.10257642330121564,
-            "gh5_v1_fitted_iv": 0.10222060396021657
+            "raw_iv": 0.11878368089087583,
+            "gh3_v1_fitted_iv": 0.11903297227321337,
+            "gh5_v1_fitted_iv": 0.11863416936408841
           },
           {
-            "moneyness": 1.0165526114510708,
-            "strike": 82.41074144722604,
+            "moneyness": 1.018772682932225,
+            "strike": 82.6448824214333,
             "right": "C",
             "delta_reference": 0.3,
-            "raw_iv": 0.10193476243867919,
-            "gh3_v1_fitted_iv": 0.10270190989972716,
-            "gh5_v1_fitted_iv": 0.10218026502326501
+            "raw_iv": 0.11901741790489327,
+            "gh3_v1_fitted_iv": 0.11932566568819922,
+            "gh5_v1_fitted_iv": 0.11875961596903097
           },
           {
-            "moneyness": 1.0212051953710528,
-            "strike": 82.78792103062591,
+            "moneyness": 1.024037415617858,
+            "strike": 83.07196809135144,
             "right": "C",
             "delta_reference": 0.25,
-            "raw_iv": 0.10203754528320765,
-            "gh3_v1_fitted_iv": 0.10317401814458922,
-            "gh5_v1_fitted_iv": 0.10253898684186999
+            "raw_iv": 0.11956052874931512,
+            "gh3_v1_fitted_iv": 0.1199368273259414,
+            "gh5_v1_fitted_iv": 0.11925800233605402
           },
           {
-            "moneyness": 1.026411137630974,
-            "strike": 83.20996073298734,
+            "moneyness": 1.0299319751553915,
+            "strike": 83.55014657813955,
             "right": "C",
             "delta_reference": 0.2,
-            "raw_iv": 0.10272391438760309,
-            "gh3_v1_fitted_iv": 0.10408107479039296,
-            "gh5_v1_fitted_iv": 0.10343103630585505
+            "raw_iv": 0.12041578109229276,
+            "gh3_v1_fitted_iv": 0.12095420759927777,
+            "gh5_v1_fitted_iv": 0.12026298423451587
           },
           {
-            "moneyness": 1.0325128122720453,
-            "strike": 83.70461642082493,
+            "moneyness": 1.0368456512597823,
+            "strike": 84.1109978439025,
             "right": "C",
             "delta_reference": 0.15,
-            "raw_iv": 0.10427841153864027,
-            "gh3_v1_fitted_iv": 0.10558256372853542,
-            "gh5_v1_fitted_iv": 0.10509374577838208
+            "raw_iv": 0.12167040024075246,
+            "gh3_v1_fitted_iv": 0.12253789892320147,
+            "gh5_v1_fitted_iv": 0.12201873135377178
           },
           {
-            "moneyness": 1.0402416684158269,
-            "strike": 84.33118582625767,
+            "moneyness": 1.0456106040810402,
+            "strike": 84.82202838828003,
             "right": "C",
             "delta_reference": 0.1,
-            "raw_iv": 0.10758278958948427,
-            "gh3_v1_fitted_iv": 0.10804406462803712,
-            "gh5_v1_fitted_iv": 0.10803697417972884
+            "raw_iv": 0.12424815101615065,
+            "gh3_v1_fitted_iv": 0.1250540457597987,
+            "gh5_v1_fitted_iv": 0.1250561846743412
           },
           {
-            "moneyness": 1.0518035154016094,
-            "strike": 85.26849135463324,
+            "moneyness": 1.058738028401722,
+            "strike": 85.8869513663446,
             "right": "C",
             "delta_reference": 0.05,
-            "raw_iv": 0.11537346935149995,
-            "gh3_v1_fitted_iv": 0.11257233817323706,
-            "gh5_v1_fitted_iv": 0.11379093323375028
+            "raw_iv": 0.13155450369606653,
+            "gh3_v1_fitted_iv": 0.12962594654027057,
+            "gh5_v1_fitted_iv": 0.1309852188792744
           }
         ]
       }

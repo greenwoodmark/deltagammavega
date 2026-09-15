@@ -8,6 +8,7 @@ import sys
 DEFAULT_REPLAY = Path('/home/mark/trading_env/artifacts/uscpi_long_shadow_history_v4_median_maturity_2026')
 DEFAULT_SHORT_REPLAY = Path('/home/mark/trading_env/artifacts/uscpi_six_driver/shadow/replay_june12_aug28_median_maturity_2026')
 LIVE_SHORT_SNAPSHOT_DIR = Path('/home/mark/deltagammavega/data/cpurnsa_snapshots')
+LIVE_SHORT_HEALTH_DIR = Path(os.environ.get('USCPI_HEALTH_DIR', '/home/mark/trading_env/ops/health'))
 DEFAULT_OUTPUT = Path(__file__).resolve().parents[1] / 'site/internal/data/uscpi_shadow_replay_history.json'
 POST_BROKER_START = '2026-06-12'
 
@@ -85,34 +86,72 @@ def build_short_records(replay_dir):
     return records
 
 
-def build_live_short_pair(snapshot_dir=LIVE_SHORT_SNAPSHOT_DIR):
-    """Add the latest live shadow pair after the bounded historical replay."""
-    paths = sorted(snapshot_dir.glob('*.csv'))
-    if len(paths) < 2:
-        return None
-    selected = paths[-2:]
-    frames = []
-    for path in selected:
-        with path.open(newline='') as handle:
-            rows = list(csv.DictReader(handle))
-        if len(rows) != 12:
-            return None
-        frames.append((path.stem, rows))
+def _live_node_means(observation_path, snapshot):
+    """Return accepted DTCC rate means keyed by live snapshot node index."""
+    if not observation_path.is_file():
+        return {}
+
+    import pandas as pd
+    sys.path.insert(0, '/home/mark/trading_env')
+    from models.USCPI_fixings.conventions import reference_cpi_weights
+
+    node_months = {}
+    for index, row in enumerate(snapshot):
+        try:
+            month = pd.Timestamp(row.get('reference_month')).to_period('M').strftime('%Y-%m')
+        except (TypeError, ValueError):
+            continue
+        node_months[month] = index
+    grouped = {}
+    try:
+        with observation_path.open(newline='') as handle:
+            observations = csv.DictReader(handle)
+            for row in observations:
+                maturity = row.get('maturity_date')
+                rate = number(row.get('fixed_rate_decimal'))
+                if not maturity or rate is None:
+                    continue
+                try:
+                    earlier, later, weight = reference_cpi_weights(pd.Timestamp(maturity))
+                except (TypeError, ValueError):
+                    continue
+                endpoints = [earlier]
+                if weight > 0.0 and later != earlier:
+                    endpoints.append(later)
+                for endpoint in endpoints:
+                    node_index = node_months.get(pd.Timestamp(endpoint).strftime('%Y-%m'))
+                    if node_index is not None:
+                        grouped.setdefault(node_index, []).append(rate * 100.0)
+    except (OSError, csv.Error, ValueError):
+        return {}
+    return {
+        node_index: sum(rates) / len(rates)
+        for node_index, rates in grouped.items()
+        if rates
+    }
+
+
+def _build_live_short_pair(frames, health_dir=LIVE_SHORT_HEALTH_DIR):
     (date, snapshot), (next_date, next_snapshot) = frames
+    means_t = _live_node_means(
+        health_dir / f'{date}-driver-observations.csv', snapshot
+    )
+    means_t_plus_1 = _live_node_means(
+        health_dir / f'{next_date}-driver-observations.csv', next_snapshot
+    )
     rows = []
-    for index, (current, following) in enumerate(zip(snapshot, next_snapshot), start=1):
+    for index, (current, following) in enumerate(zip(snapshot, next_snapshot)):
         current_rate = number(current.get('implied_zc_rate'))
         following_rate = number(following.get('implied_zc_rate'))
         current_count = int(float(current.get('node_trade_count') or 0))
-        following_count = int(float(following.get('node_trade_count') or 0))
         rows.append({
-            'node': f'{index}M',
-            'node_index': index,
+            'node': f'{index + 1}M',
+            'node_index': index + 1,
             'shadow_t_percent': current_rate * 100.0 if current_rate is not None else None,
             'shadow_t_plus_1_percent': following_rate * 100.0 if following_rate is not None else None,
             'trade_count': current_count,
-            'mean_dtcc_zc_rate_t_percent': None,
-            'mean_dtcc_zc_rate_t_plus_1_percent': None,
+            'mean_dtcc_zc_rate_t_percent': means_t.get(index),
+            'mean_dtcc_zc_rate_t_plus_1_percent': means_t_plus_1.get(index),
             'zc_t_percent': current_rate * 100.0 if current_rate is not None else None,
             'zc_t_plus_1_percent': following_rate * 100.0 if following_rate is not None else None,
         })
@@ -123,6 +162,24 @@ def build_live_short_pair(snapshot_dir=LIVE_SHORT_SNAPSHOT_DIR):
         'status_t_plus_1': next_snapshot[0].get('fit_status'),
         'nodes': rows,
     }
+
+
+def build_live_short_records(snapshot_dir=LIVE_SHORT_SNAPSHOT_DIR, health_dir=LIVE_SHORT_HEALTH_DIR):
+    """Build every adjacent pair from accumulated live short snapshots."""
+    paths = sorted(snapshot_dir.glob('*.csv'))
+    frames = []
+    for path in paths:
+        if path.stem < POST_BROKER_START:
+            continue
+        with path.open(newline='') as handle:
+            rows = list(csv.DictReader(handle))
+        if len(rows) != 12:
+            raise ValueError(f'live short snapshot must contain 12 rows: {path}')
+        frames.append((path.stem, rows))
+    return [
+        _build_live_short_pair(frames[index:index + 2], health_dir=health_dir)
+        for index in range(len(frames) - 1)
+    ]
 
 
 def build(replay_dir=DEFAULT_REPLAY, output=DEFAULT_OUTPUT):
@@ -183,9 +240,13 @@ def build(replay_dir=DEFAULT_REPLAY, output=DEFAULT_OUTPUT):
         records.append({'date': date, 'next_date': next_date, 'status_t': snapshots[date]['status'], 'status_t_plus_1': snapshots[next_date]['status'], 'nodes': rows})
     long_records = records
     short_records = build_short_records(replay_dir)
-    live_short_pair = build_live_short_pair()
-    if live_short_pair is not None and live_short_pair['date'] not in {record['date'] for record in short_records}:
-        short_records.append(live_short_pair)
+    historical_short_dates = {record['date'] for record in short_records}
+    short_records.extend(
+        record
+        for record in build_live_short_records()
+        if record['date'] not in historical_short_dates
+    )
+    short_records.sort(key=lambda record: record['date'])
     payload = {
         'schema_version': 'uscpi_shadow_replay_logs_v2',
         'generated_at_utc': datetime.now(timezone.utc).replace(microsecond=0).isoformat(),

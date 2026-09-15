@@ -7,12 +7,14 @@ from pathlib import Path
 
 ALLOWED_FILES = {
     "index.html",
+    "softs/logs.html",
     "cpurnsa.html",
     "pca.html",
     "chart.html",
     "cpi_bayesian_update_example.html",
     "404.html",
     "CNAME",
+    "data/softs_diagnostics.json",
     "data/cpurnsa_curve_history.json",
     "data/cpurnsa_daily_commentary.json",
     "data/cpurnsa_pca_diagnostics.json",

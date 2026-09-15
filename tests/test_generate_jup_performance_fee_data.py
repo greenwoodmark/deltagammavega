@@ -67,3 +67,14 @@ def test_jup_page_declares_dynamic_backtest_and_scenario_contract():
     assert "Fair value for" in page
     assert "based on NAV performance" in page
     assert "jup_gear_chart.json" in page
+    assert "trailing_pe" in page
+    assert "JUP trailing P/E ratio" in page
+    assert "ISF trailing P/E ratio" in page
+    assert "UKX trailing P/E ratio" not in page
+    assert "price_quoted" in page
+    assert "eps_pence" in page
+    assert "A. Performance-fee EPS model assumptions" in page
+    assert "Reported consolidated performance-fee result versus basic fund-level estimate" not in page
+    assert 'id="pf-eps-note"' not in page
+    for label in ("GEAR contractual fee", "FY2025 calibration yield", "UK Dynamic Long Short AUM"):
+        assert label in page

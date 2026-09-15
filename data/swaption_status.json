@@ -1,110 +1,47 @@
 {
   "schema_version": "marquee_swaption_status_v1",
-  "generated_at_utc": "2026-09-12T08:17:45Z",
+  "generated_at_utc": "2026-09-15T07:11:45Z",
   "source_base": "gs://systematicpositiveskew/gs_marquee_data/swaptions",
   "lookback_days": 90,
-  "start_date": "2026-06-15",
-  "latest_date": "2026-09-11",
+  "start_date": "2026-06-18",
+  "latest_date": "2026-09-14",
   "currency_count": 4,
   "currencies_with_errors": [],
   "currencies": [
     {
       "currency": "USD",
-      "latest_date": "2026-09-11",
+      "latest_date": "2026-09-14",
+      "row_count": 2880,
+      "asset_count": 48,
+      "day_count": 60,
+      "error": null
+    },
+    {
+      "currency": "EUR",
+      "latest_date": "2026-09-14",
       "row_count": 2976,
       "asset_count": 48,
       "day_count": 62,
       "error": null
     },
     {
-      "currency": "EUR",
-      "latest_date": "2026-09-11",
-      "row_count": 3072,
-      "asset_count": 48,
-      "day_count": 64,
-      "error": null
-    },
-    {
       "currency": "GBP",
-      "latest_date": "2026-09-11",
-      "row_count": 3072,
+      "latest_date": "2026-09-14",
+      "row_count": 2976,
       "asset_count": 48,
-      "day_count": 64,
+      "day_count": 62,
       "error": null
     },
     {
       "currency": "JPY",
-      "latest_date": "2026-09-11",
-      "row_count": 3032,
+      "latest_date": "2026-09-14",
+      "row_count": 2936,
       "asset_count": 48,
-      "day_count": 63,
+      "day_count": 61,
       "error": null
     }
   ],
   "daily": [
-    {
-      "date": "2026-06-15",
-      "currencies": {
-        "USD": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "EUR": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "GBP": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "JPY": {
-          "row_count": 48,
-          "asset_count": 48
-        }
-      }
-    },
-    {
-      "date": "2026-06-16",
-      "currencies": {
-        "USD": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "EUR": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "GBP": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "JPY": {
-          "row_count": 48,
-          "asset_count": 48
-        }
-      }
-    },
-    {
-      "date": "2026-06-17",
-      "currencies": {
-        "USD": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "EUR": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "GBP": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "JPY": {
-          "row_count": 48,
-          "asset_count": 48
-        }
-      }
-    },
     {
       "date": "2026-06-18",
       "currencies": {
@@ -1360,6 +1297,27 @@
     },
     {
       "date": "2026-09-11",
+      "currencies": {
+        "USD": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "EUR": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "GBP": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "JPY": {
+          "row_count": 48,
+          "asset_count": 48
+        }
+      }
+    },
+    {
+      "date": "2026-09-14",
       "currencies": {
         "USD": {
           "row_count": 48,

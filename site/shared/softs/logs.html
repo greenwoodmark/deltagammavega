@@ -100,7 +100,9 @@
   }
   function setNotice(message) { const node = byId('notice'); node.hidden = !message; node.textContent = message || ''; }
   function setMeta() {
-    byId('meta').textContent = `Published: ${text(payload.generated_at_utc)} | Data range: ${text(payload.data_start_date)} to ${text(payload.data_end_date)} | All timestamps are UTC unless labelled New York.`;
+    const freshness = payload.freshness_status || 'unknown';
+    const expected = payload.expected_session_date ? ` | Expected session: ${payload.expected_session_date}` : '';
+    byId('meta').textContent = `Published: ${text(payload.generated_at_utc)} | Source freshness: ${freshness}${expected} | Data range: ${text(payload.data_start_date)} to ${text(payload.data_end_date)} | All timestamps are UTC unless labelled New York.`;
   }
   function renderSummary() {
     const root = byId('summary-cards'); root.replaceChildren();

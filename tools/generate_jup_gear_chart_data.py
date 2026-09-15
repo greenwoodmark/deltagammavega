@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import math
+import os
 from bisect import bisect_left, bisect_right
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
@@ -18,8 +20,12 @@ NAV_PREFIX = "fund_data/jupiter/nav/isin=IE00BLP5S809/"
 JUP_SHARE_PRICE_OBJECT = "fund_data/jupiter/JUP_LN_share_price_daily/data.parquet"
 JUP_DIVIDEND_PREFIX = "fund_data/jupiter/equity_reference/dividends"
 OUTPUT = Path(__file__).resolve().parents[1] / "data" / "jup_gear_chart.json"
+TRADING_ROOT = Path(os.environ.get("TRADING_ENV_ROOT", "/home/mark/trading_env"))
+REPORTED_FINANCIAL_COMPARISON = TRADING_ROOT / "models" / "JUP" / "config" / "reported_financial_comparison_v1.json"
 START_DATE = date(2024, 1, 1)
 ROLLING_DAYS = 90
+ISF_TICKER = "ISF.L"
+ISF_SOURCE_URL = "https://uk.finance.yahoo.com/quote/ISF.L/key-statistics/"
 
 AUM_ANCHORS = [
     (date(2023, 12, 31), 1500.0),
@@ -88,6 +94,112 @@ def load_jup_dividend_rows() -> list[dict]:
         if not row.get("ex_date") or row.get("cash_amount_gbp_per_share") is None:
             raise RuntimeError("Canonical JUP dividend reference contains an incomplete row")
     return sorted(rows, key=lambda row: (row["ex_date"], row.get("dividend_type", ""), row.get("declaration_date", "")))
+
+
+def _load_last_good_isf_snapshot(output_path: Path = OUTPUT) -> dict | None:
+    try:
+        payload = json.loads(output_path.read_text(encoding="utf-8"))
+        snapshot = payload.get("trailing_pe", {}).get("isf")
+    except (OSError, json.JSONDecodeError, AttributeError):
+        return None
+    if not isinstance(snapshot, dict):
+        return None
+    try:
+        pe_ratio = float(snapshot.get("pe_ratio"))
+    except (TypeError, ValueError):
+        return None
+    return snapshot if math.isfinite(pe_ratio) and pe_ratio > 0.0 else None
+
+
+def fetch_isf_trailing_pe_snapshot(
+    last_good: dict | None = None,
+    *,
+    ticker_factory=None,
+    retrieved_at_utc: datetime | None = None,
+) -> dict:
+    """Fetch ISF.L TTM P/E from Yahoo, falling back to the last good snapshot."""
+    retrieved_at_utc = retrieved_at_utc or datetime.now(timezone.utc)
+    try:
+        if ticker_factory is None:
+            import yfinance as yf
+            ticker_factory = yf.Ticker
+        info = ticker_factory(ISF_TICKER).info
+        pe_ratio = float(info.get("trailingPE"))
+        if not math.isfinite(pe_ratio) or pe_ratio <= 0.0:
+            raise ValueError(f"Yahoo returned invalid trailingPE={info.get('trailingPE')!r}")
+        return {
+            "label": "ISF trailing P/E ratio",
+            "pe_ratio": round(pe_ratio, 6),
+            "status": "available",
+            "provider": "Yahoo Finance via yfinance",
+            "ticker": ISF_TICKER,
+            "metric": "trailingPE",
+            "source_url": ISF_SOURCE_URL,
+            "retrieved_at_utc": retrieved_at_utc.replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+            "quote_currency": info.get("currency") or "GBP",
+        }
+    except Exception as exc:  # noqa: BLE001 - Yahoo availability must not block the site refresh
+        if last_good is not None:
+            stale = dict(last_good)
+            stale.update({
+                "status": "stale",
+                "refresh_error": str(exc),
+                "retrieved_at_utc": retrieved_at_utc.replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+            })
+            return stale
+        return {
+            "label": "ISF trailing P/E ratio",
+            "pe_ratio": None,
+            "status": "unavailable",
+            "provider": "Yahoo Finance via yfinance",
+            "ticker": ISF_TICKER,
+            "metric": "trailingPE",
+            "source_url": ISF_SOURCE_URL,
+            "retrieved_at_utc": retrieved_at_utc.replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+            "reason": f"Yahoo Finance ISF.L trailing P/E unavailable: {exc}",
+        }
+
+
+def build_trailing_pe_summary(latest_jup_price: float, reported_financial_path: Path = REPORTED_FINANCIAL_COMPARISON, isf_snapshot: dict | None = None) -> dict:
+    """Build transparent trailing-P/E display inputs from reported annual EPS.
+
+    The JUP price is the latest IBKR-ingested LSE quote in the same quoted
+    units as the reported EPS pence value. ISF EPS is deliberately not
+    inferred because no authoritative local benchmark earnings input exists.
+    """
+    try:
+        comparison = json.loads(reported_financial_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"Unable to read reported JUP EPS comparison: {reported_financial_path}") from exc
+    annual_periods = [
+        row for row in comparison.get("periods", [])
+        if str(row.get("period_id", "")).startswith("FY")
+        and float(row.get("reported_underlying_eps_pence", 0.0)) > 0.0
+    ]
+    if not annual_periods:
+        raise RuntimeError("No positive reported annual JUP underlying EPS is available")
+    latest_period = max(annual_periods, key=lambda row: row["period_end"])
+    eps_pence = float(latest_period["reported_underlying_eps_pence"])
+    price = float(latest_jup_price)
+    if price <= 0.0:
+        raise RuntimeError("Latest JUP price must be positive for trailing P/E")
+    return {
+        "jup": {
+            "label": "JUP trailing P/E ratio",
+            "pe_ratio": round(price / eps_pence, 6),
+            "price_quoted": round(price, 6),
+            "eps_pence": round(eps_pence, 6),
+            "eps_period": latest_period["period_id"],
+            "eps_source": latest_period["source_document"],
+            "status": "available",
+        },
+        "isf": isf_snapshot or {
+            "label": "ISF trailing P/E ratio",
+            "pe_ratio": None,
+            "status": "unavailable",
+            "reason": "ISF trailing P/E snapshot has not been fetched.",
+        },
+    }
 
 
 def build_jup_dividend_monitor(dividend_rows: list[dict], today: date | None = None) -> dict:
@@ -296,9 +408,11 @@ def main() -> None:
         series.append({"date": day.isoformat(), "nav": round(nav, 8), "cumulative_return_pct": round((nav / base_nav - 1.0) * 100.0, 6), "drawdown_pct": round((nav / peak_nav - 1.0) * 100.0, 6), "aum_gbp_m": round(interpolate_aum(day), 6)})
     scatter_series = build_scatter_series(nav_rows, price_rows, dividend_rows)
     regression = calculate_regression(scatter_series)
+    isf_snapshot = fetch_isf_trailing_pe_snapshot(_load_last_good_isf_snapshot())
+    trailing_pe = build_trailing_pe_summary(scatter_series[-1]["jup_close_gbp"], isf_snapshot=isf_snapshot)
     joint_frequency = calculate_joint_frequency(scatter_series)
     OUTPUT.write_text(json.dumps({
-        "schema_version": "jup_gear_chart_v4",
+        "schema_version": "jup_gear_chart_v5",
         "fund": "GEAR", "isin": "IE00BLP5S809", "currency": "GBP",
         "start_date": series[0]["date"], "end_date": series[-1]["date"], "base_nav": base_nav,
         "nav_source": "Canonical GEAR GBP NAV series: FE fundinfo-derived pre-overlap history and official Jupiter NAV from 2024-11-28 onward.",
@@ -309,6 +423,7 @@ def main() -> None:
         "rolling_days": ROLLING_DAYS,
         "rolling_return_definition": "Trailing 90-calendar-day return using the latest available observation on or before each target date; JUP gross total return includes ex-date distributions between the selected prior and current closes.",
         "regression": {**regression, "dependent_variable": "JUP trailing 90-calendar-day gross total return (%)", "independent_variable": "GEAR trailing 90-calendar-day NAV growth (%)", "method": "Ordinary least squares: JUP gross total return = intercept + beta × GEAR return"},
+        "trailing_pe": trailing_pe,
         "joint_frequency": joint_frequency,
         "aum_anchors_gbp_m": [{"date": day.isoformat(), "aum_gbp_m": value} for day, value in AUM_ANCHORS],
         "series": series, "scatter_series": scatter_series,
