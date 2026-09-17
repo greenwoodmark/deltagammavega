@@ -1,6 +1,6 @@
 {
   "schema_version": "uscpi_public_release_manifest_v1",
-  "release_id": "2026-09-11-0dbf8d70c31162c3f",
+  "release_id": "2026-09-11-d0b559c7a07a282d",
   "generated_at_utc": "2026-09-12T13:37:34+00:00",
   "latest_model_date": "2026-09-11",
   "model_version": "uscpi_six_driver_v1",
@@ -388,8 +388,8 @@
     },
     {
       "path": "snapshots/2026-09-11.csv",
-      "sha256": "0dbf8d70c31162c3fe046ed607896fb31e1caea5310c2c7e18ce77b0bdfa2a2e",
-      "size_bytes": 2551,
+      "sha256": "c32c453ad3af4442e9b9e0ac90f98e55e31389d380504ed857c55c7f85712ddb",
+      "size_bytes": 2706,
       "content_type": "text/csv"
     }
   ],
