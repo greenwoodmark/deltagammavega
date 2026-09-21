@@ -1,17 +1,17 @@
 {
   "schema_version": "uscpi_public_release_manifest_v1",
-  "release_id": "2026-09-11-d0b559c7a07a282d",
-  "generated_at_utc": "2026-09-12T13:37:34+00:00",
-  "latest_model_date": "2026-09-11",
+  "release_id": "2026-09-18-72322673b41e29d5",
+  "generated_at_utc": "2026-09-21T10:01:49+00:00",
+  "latest_model_date": "2026-09-18",
   "model_version": "uscpi_six_driver_v1",
   "curve_kind": "shadow_posterior",
   "pca_schema_version": "cpurnsa_pca_diagnostics_v2",
-  "snapshot_count": 63,
+  "snapshot_count": 68,
   "files": [
     {
       "path": "cpurnsa_pca_diagnostics.json",
-      "sha256": "6e168ca2b7e23b12b5fa222b94165a43ebb61da6e4828040a12eb8bf26512e02",
-      "size_bytes": 12747,
+      "sha256": "5a45f82cc5327913ad71d769e57fd9893a9b715d8cf20d57795a0bf8d7f04a5a",
+      "size_bytes": 12739,
       "content_type": "application/json"
     },
     {
@@ -389,6 +389,36 @@
     {
       "path": "snapshots/2026-09-11.csv",
       "sha256": "c32c453ad3af4442e9b9e0ac90f98e55e31389d380504ed857c55c7f85712ddb",
+      "size_bytes": 2706,
+      "content_type": "text/csv"
+    },
+    {
+      "path": "snapshots/2026-09-14.csv",
+      "sha256": "7cadf1f403b7db913bb2bc17404c89ac35c1ea88a2ab962282a924712112452c",
+      "size_bytes": 2717,
+      "content_type": "text/csv"
+    },
+    {
+      "path": "snapshots/2026-09-15.csv",
+      "sha256": "400799c38fda705260ea3603f947bd0daa3403a1331d4d26f7cad88744c34539",
+      "size_bytes": 2716,
+      "content_type": "text/csv"
+    },
+    {
+      "path": "snapshots/2026-09-16.csv",
+      "sha256": "6805ea3cafa88e90ce374029d17fbe5e04226877d74b929990d71779f713ba6d",
+      "size_bytes": 2705,
+      "content_type": "text/csv"
+    },
+    {
+      "path": "snapshots/2026-09-17.csv",
+      "sha256": "66160520e58fa8db359d8d5d3a631fb7b953db1c9607dc6930e2c7249e5602d6",
+      "size_bytes": 2702,
+      "content_type": "text/csv"
+    },
+    {
+      "path": "snapshots/2026-09-18.csv",
+      "sha256": "5b202935d18c0d202bdbfa548a5292e538d3b9a1da95dba35209d18d8abab815",
       "size_bytes": 2706,
       "content_type": "text/csv"
     }
