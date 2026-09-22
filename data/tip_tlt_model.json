@@ -1,7 +1,7 @@
 {
   "schema_version": "tip_tlt_gh5_model_v1",
   "model_version": "gh5_v1",
-  "generated_at_utc": "2026-09-19T07:11:47+00:00",
+  "generated_at_utc": "2026-09-22T07:11:45+00:00",
   "tenor": "1m",
   "symbols": {
     "TIP": {
@@ -15,10 +15,10 @@
       "g": -0.07994392075200737,
       "h": 0.23711801996987134,
       "mad_err": 0.015961070145943352,
-      "effective_duration": 6.304123691243499,
+      "effective_duration": 6.301194235163032,
       "effective_duration_source": "iShares Duration field, market-value weighted",
       "holdings_as_of_date": "2026-09-04",
-      "holdings_rows": 459,
+      "holdings_rows": 510,
       "points": [
         {
           "moneyness": 0.9783577633492824,
@@ -303,10 +303,10 @@
       "g": -0.11120916452872458,
       "h": 0.08472840853521056,
       "mad_err": 0.0020521378091948265,
-      "effective_duration": 15.008163373736192,
+      "effective_duration": 15.008965267967447,
       "effective_duration_source": "iShares Duration field, market-value weighted",
       "holdings_as_of_date": "2026-09-04",
-      "holdings_rows": 441,
+      "holdings_rows": 490,
       "points": [
         {
           "moneyness": 0.950108929336167,
@@ -585,9 +585,9 @@
     "schema_version": "tip_tlt_one_month_return_scatter_v1",
     "return_definition": "unadjusted ETF close-to-close price return",
     "dividend_rule": "exclude observations whose start or end session is an ex-dividend date for TIP or TLT",
-    "raw_observations": 2418,
+    "raw_observations": 2422,
     "excluded_dividend_observations": 205,
-    "observations": 2213,
+    "observations": 2217,
     "points": [
       {
         "start_date": "2017-01-03",
@@ -13866,6 +13866,30 @@
         "end_date": "2026-09-17",
         "TIP_return": -0.009741476208317779,
         "TLT_return": 0.0030693677102517913
+      },
+      {
+        "start_date": "2026-08-18",
+        "end_date": "2026-09-18",
+        "TIP_return": -0.016718034930419234,
+        "TLT_return": -0.005142017629774731
+      },
+      {
+        "start_date": "2026-08-19",
+        "end_date": "2026-09-21",
+        "TIP_return": -0.017300716212445333,
+        "TLT_return": -0.01397758766116397
+      },
+      {
+        "start_date": "2026-08-20",
+        "end_date": "2026-09-21",
+        "TIP_return": -0.016294227188081933,
+        "TLT_return": -0.006073120369245677
+      },
+      {
+        "start_date": "2026-08-21",
+        "end_date": "2026-09-21",
+        "TIP_return": -0.013078000934142797,
+        "TLT_return": -0.002316508168739295
       }
     ]
   },

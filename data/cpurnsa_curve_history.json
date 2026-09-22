@@ -1,6 +1,6 @@
 {
   "schema_version": "cpurnsa_curve_history_v2",
-  "generated_at_utc": "2026-09-22T05:04:12+00:00",
+  "generated_at_utc": "2026-09-22T07:30:44+00:00",
   "latest_model_date": "2026-09-21",
   "available_snapshot_count": 130,
   "requested_labels": [
@@ -12,6 +12,107 @@
   ],
   "uncertainty_definition": "One-standard-deviation rolling moves in basis points, using same reference months when available and otherwise relative curve-node positions",
   "snapshots": [
+    {
+      "model_date": "2026-09-21",
+      "status": "shadow_posterior",
+      "fit_status": "rank_deficient",
+      "curve_kind": "shadow_posterior",
+      "model_version": "uscpi_six_driver_v1",
+      "matrix_version": "uscpi_monthly_bucket_matrix_v2",
+      "base_month": "2026-08-01",
+      "training_cutoff": "2026-09-21",
+      "source_trade_count": 4,
+      "node_trade_count": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        2,
+        0
+      ],
+      "reference_month": [
+        "2026-09-01",
+        "2026-10-01",
+        "2026-11-01",
+        "2026-12-01",
+        "2027-01-01",
+        "2027-02-01",
+        "2027-03-01",
+        "2027-04-01",
+        "2027-05-01",
+        "2027-06-01",
+        "2027-07-01",
+        "2027-08-01"
+      ],
+      "yoy_rate_percent": [
+        3.614418018320009,
+        3.456684104475549,
+        3.7332904174856463,
+        3.685009650554494,
+        3.5321815136437396,
+        3.4741975349990906,
+        2.795244739095959,
+        2.299972035931419,
+        1.914193392128527,
+        2.437620446007971,
+        2.5393356403915934,
+        2.242956135028251
+      ],
+      "node_status": [
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior",
+        "shadow_posterior"
+      ],
+      "daily_move_sd_bp": [
+        13.221359023300577,
+        8.908554725329065,
+        12.538481911025126,
+        10.840189326014372,
+        8.732491513954152,
+        9.911127137061966,
+        13.684744567975741,
+        18.69420330592132,
+        22.789425108761847,
+        23.57039492356731,
+        12.794096881840769,
+        12.63251967578579
+      ],
+      "daily_move_observation_count": [
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60,
+        60
+      ],
+      "uncertainty_source": "historical_barclays_curve_moves",
+      "uncertainty_window": 60,
+      "uncertainty_min_observations": 20,
+      "uncertainty_status": "available",
+      "uncertainty_alignment": "node_position",
+      "label": "t"
+    },
     {
       "model_date": "2026-09-21",
       "status": "shadow_posterior",
@@ -213,6 +314,7 @@
       "uncertainty_status": "available",
       "uncertainty_alignment": "node_position",
       "label": "t-1"
+      "label": "t-1"
     },
     {
       "model_date": "2026-09-17",
@@ -314,8 +416,10 @@
       "uncertainty_status": "available",
       "uncertainty_alignment": "node_position",
       "label": "t-2"
+      "label": "t-2"
     },
     {
+      "model_date": "2026-09-10",
       "model_date": "2026-09-10",
       "status": "shadow_posterior",
       "fit_status": "fit_succeeded",
@@ -325,6 +429,8 @@
       "base_month": "2026-07-01",
       "training_cutoff": "2026-09-10",
       "source_trade_count": 8,
+      "training_cutoff": "2026-09-10",
+      "source_trade_count": 8,
       "node_trade_count": [
         1,
         1,
@@ -332,8 +438,11 @@
         0,
         0,
         1,
+        1,
         0,
         1,
+        1,
+        2,
         1,
         2,
         2,
@@ -354,6 +463,18 @@
         "2027-07-01"
       ],
       "yoy_rate_percent": [
+        3.400622869067038,
+        3.3798767241741245,
+        3.1981914312196214,
+        3.3186002588321717,
+        3.4673803469422504,
+        3.4408384738322972,
+        3.320373815542532,
+        2.618029160045543,
+        2.0705617117269703,
+        1.705901984125413,
+        2.3066882628027363,
+        2.5339507026394203
         3.400622869067038,
         3.3798767241741245,
         3.1981914312196214,
@@ -394,6 +515,18 @@
         21.21652089503246,
         12.125199063980178,
         12.70799502423712
+        13.011716629192351,
+        9.267607819616998,
+        10.521895540471617,
+        9.033509847934514,
+        8.734784056561042,
+        10.186040219987952,
+        12.254069810445614,
+        18.466447024692936,
+        22.92817595902744,
+        21.21652089503246,
+        12.125199063980178,
+        12.70799502423712
       ],
       "daily_move_observation_count": [
         60,
@@ -418,6 +551,7 @@
     },
     {
       "model_date": "2026-08-07",
+      "model_date": "2026-08-07",
       "status": "shadow_posterior",
       "fit_status": "shadow_posterior",
       "curve_kind": "shadow_posterior",
@@ -426,17 +560,23 @@
       "base_month": "2026-06-01",
       "training_cutoff": "2026-08-07",
       "source_trade_count": 4,
+      "training_cutoff": "2026-08-07",
+      "source_trade_count": 4,
       "node_trade_count": [
+        2,
         2,
         0,
         0,
         0,
         0,
         1,
+        1,
         0,
         0,
         0,
         0,
+        1,
+        1
         1,
         1
       ],
@@ -455,6 +595,18 @@
         "2027-06-01"
       ],
       "yoy_rate_percent": [
+        3.4088505500849298,
+        3.4064944152793375,
+        3.2262761155982256,
+        3.0836122187660964,
+        3.366048607923222,
+        3.316127490731846,
+        3.270513854955537,
+        3.425779479915936,
+        2.8148661490673854,
+        2.2705473055724124,
+        1.8371178561523482,
+        2.3091735903543853
         3.4088505500849298,
         3.4064944152793375,
         3.2262761155982256,
