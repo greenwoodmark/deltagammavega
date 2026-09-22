@@ -1,6 +1,6 @@
 {
-  "generated_at_utc": "2026-09-21T10:02:02+00:00",
-  "latest_model_date": "2026-09-18",
+  "generated_at_utc": "2026-09-22T05:04:12+00:00",
+  "latest_model_date": "2026-09-21",
   "status": "shadow_posterior",
   "model_version": "uscpi_six_driver_v1",
   "uncertainty_status": "available",
