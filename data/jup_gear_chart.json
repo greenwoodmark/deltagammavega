@@ -4,14 +4,14 @@
   "isin": "IE00BLP5S809",
   "currency": "GBP",
   "start_date": "2024-01-02",
-  "end_date": "2026-09-18",
+  "end_date": "2026-09-21",
   "base_nav": 1.9998010094,
   "nav_source": "Canonical GEAR GBP NAV series: FE fundinfo-derived pre-overlap history and official Jupiter NAV from 2024-11-28 onward.",
   "aum_source": "Linear interpolation of documented annual/current AUM anchors; visualization only.",
   "jup_share_price_source": "IBKR historical daily TRADES bars from gs://systematicpositiveskew/fund_data/jupiter/JUP_LN_share_price_daily/data.parquet; unadjusted close.",
   "jup_dividend_source": "Canonical gross dividend reference from gs://systematicpositiveskew/fund_data/jupiter/equity_reference/dividends; ex-date attribution, cash GBP per share before tax.",
   "jup_dividend_monitor": {
-    "as_of_date": "2026-09-22",
+    "as_of_date": "2026-09-23",
     "last_four_events": [
       {
         "ex_date": "2025-08-07",
@@ -51,11 +51,11 @@
   "rolling_days": 90,
   "rolling_return_definition": "Trailing 90-calendar-day return using the latest available observation on or before each target date; JUP gross total return includes ex-date distributions between the selected prior and current closes.",
   "regression": {
-    "n": 611,
-    "beta": 1.65249945,
-    "intercept_pct": 4.32889757,
-    "correlation": 0.14461357,
-    "r_squared": 0.02091308,
+    "n": 612,
+    "beta": 1.64223499,
+    "intercept_pct": 4.33951384,
+    "correlation": 0.14381585,
+    "r_squared": 0.020683,
     "dependent_variable": "JUP trailing 90-calendar-day gross total return (%)",
     "independent_variable": "GEAR trailing 90-calendar-day NAV growth (%)",
     "method": "Ordinary least squares: JUP gross total return = intercept + beta \u00d7 GEAR return"
@@ -63,8 +63,8 @@
   "trailing_pe": {
     "jup": {
       "label": "JUP trailing P/E ratio",
-      "pe_ratio": 8.412371,
-      "price_quoted": 163.2,
+      "pe_ratio": 8.639175,
+      "price_quoted": 167.6,
       "eps_pence": 19.4,
       "eps_period": "FY2025",
       "eps_source": "full-year-results-data-pack-2025.pdf",
@@ -78,14 +78,14 @@
       "ticker": "ISF.L",
       "metric": "trailingPE",
       "source_url": "https://uk.finance.yahoo.com/quote/ISF.L/key-statistics/",
-      "retrieved_at_utc": "2026-09-22T07:10:11Z",
+      "retrieved_at_utc": "2026-09-23T08:23:46Z",
       "quote_currency": "GBp",
       "refresh_error": "No module named 'yfinance'"
     }
   },
   "joint_frequency": {
     "schema_version": "jup_gear_joint_frequency_v2",
-    "n": 611,
+    "n": 612,
     "bins": 10,
     "row_axis": "GEAR trailing 90-calendar-day NAV growth (%)",
     "column_axis": "JUP trailing 90-calendar-day gross total return (%)",
@@ -226,7 +226,7 @@
       ],
       [
         6,
-        18,
+        19,
         22,
         3,
         4,
@@ -263,7 +263,7 @@
     ],
     "percentages": [
       [
-        2.62,
+        2.61,
         0.16,
         0.16,
         0.0,
@@ -287,7 +287,7 @@
         0.0
       ],
       [
-        2.13,
+        2.12,
         0.33,
         0.98,
         0.49,
@@ -300,9 +300,9 @@
       ],
       [
         0.49,
-        1.64,
-        3.11,
-        1.15,
+        1.63,
+        3.1,
+        1.14,
         0.65,
         0.65,
         0.49,
@@ -311,32 +311,32 @@
         0.0
       ],
       [
-        3.6,
-        4.75,
-        4.09,
-        3.11,
+        3.59,
+        4.74,
+        4.08,
+        3.1,
         1.96,
-        1.64,
+        1.63,
         0.33,
         0.49,
         0.0,
         0.16
       ],
       [
-        1.64,
-        8.67,
-        4.42,
+        1.63,
+        8.66,
+        4.41,
         2.29,
-        2.62,
+        2.61,
         0.65,
         0.16,
-        1.64,
+        1.63,
         0.33,
-        1.15
+        1.14
       ],
       [
         3.76,
-        8.67,
+        8.66,
         3.27,
         1.8,
         2.78,
@@ -348,8 +348,8 @@
       ],
       [
         0.98,
-        2.95,
-        3.6,
+        3.1,
+        3.59,
         0.49,
         0.65,
         0.0,
@@ -5106,6 +5106,13 @@
       "nav": 2.778,
       "cumulative_return_pct": 38.913821,
       "drawdown_pct": -0.104283,
+      "aum_gbp_m": 9450.0
+    },
+    {
+      "date": "2026-09-21",
+      "nav": 2.7758,
+      "cumulative_return_pct": 38.80381,
+      "drawdown_pct": -0.183394,
       "aum_gbp_m": 9450.0
     }
   ],
@@ -12441,6 +12448,18 @@
       "jup_total_return_pct": -2.950518,
       "gear_nav": 2.778,
       "jup_close_gbp": 163.2
+    },
+    {
+      "date": "2026-09-21",
+      "gear_nav_asof_date": "2026-09-21",
+      "gear_nav_prior_date": "2026-06-23",
+      "jup_close_asof_date": "2026-09-21",
+      "jup_close_prior_date": "2026-06-23",
+      "gear_return_pct": 4.683964,
+      "jup_price_return_pct": 0.660661,
+      "jup_total_return_pct": 0.683623,
+      "gear_nav": 2.7758,
+      "jup_close_gbp": 167.6
     }
   ]
 }
