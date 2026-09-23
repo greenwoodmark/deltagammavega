@@ -1,0 +1,35 @@
+# Generated data files: never let Git attempt a textual merge on these.
+#
+# Everything under data/*.json is produced by a script (publish_cpurnsa.py,
+# run_all_logs_refresh.py, publish_softs_diagnostics.py, etc.) from source
+# CSVs/Parquet, not written by hand. A line-based git merge/rebase on two
+# divergent versions of one of these files can leave content that is
+# individually well-formed but structurally wrong - e.g. duplicated fields
+# inside one JSON object, which happened on 2026-09-22 and broke
+# cpurnsa.html in production.
+#
+# The "merge" driver below always reports a conflict instead of attempting
+# a line-based merge, the same way Git treats binary files. This forces a
+# stop instead of a silent or partial merge. To resolve a conflict on one
+# of these paths: do NOT hand-edit the conflict markers. Re-run the file's
+# generator against the current inputs and `git add` the fresh output.
+#
+# This intentionally does not use `merge=ours`: that driver resolves
+# conflicts silently by keeping the local side and discarding the incoming
+# side, which for files updated by automated cron/CI jobs could silently
+# drop real pipeline data. `merge=binary` always stops and asks instead.
+data/cpurnsa_curve_history.json merge=binary
+data/cpurnsa_daily_commentary.json merge=binary
+data/cpurnsa_pca_diagnostics.json merge=binary
+data/health.json merge=binary
+data/uscpi_release_manifest.json merge=binary
+data/softs_diagnostics.json merge=binary
+data/bars_etf_logs.json merge=binary
+data/equity_vol_logs.json merge=binary
+data/jup_gear_chart.json merge=binary
+data/jup_model_logs.json merge=binary
+data/jup_performance_fee.json merge=binary
+data/refresh_status.json merge=binary
+data/swaption_status.json merge=binary
+data/tips_fedinvest_status.json merge=binary
+data/tip_tlt_model.json merge=binary
