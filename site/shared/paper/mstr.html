@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MSTR/IBIT paper trade | Delta Gamma Vega</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #0f172a; background: #f8fafc; }
+    body { margin: 0; }
+    main { max-width: 1180px; margin: 0 auto; padding: 28px 18px 44px; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; margin-bottom: 16px; }
+    h1 { margin: 0 0 8px; }
+    h2 { margin: 0 0 14px; font-size: 1.15rem; }
+    .muted, .meta { color: #475569; }
+    .meta { font-size: .92rem; }
+    .summary { display: grid; grid-template-columns: repeat(4, minmax(130px, 1fr)); gap: 12px; margin-top: 18px; }
+    .metric { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; }
+    .metric strong { display: block; font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+    .metric span { color: #64748b; font-size: .85rem; }
+    .metric.pos strong { color: #166534; }
+    .metric.neg strong { color: #b91c1c; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    th, td { border-bottom: 1px solid #e2e8f0; padding: 9px 10px; text-align: right; white-space: nowrap; }
+    th { color: #475569; font-size: .88rem; font-weight: 650; background: #f8fafc; position: sticky; top: 0; }
+    th:first-child, td:first-child { text-align: left; }
+    td.pos { color: #166534; }
+    td.neg { color: #b91c1c; }
+    .dry { color: #92400e; }
+    .error { color: #b91c1c; }
+    .notice { background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; padding: 10px 12px; border-radius: 7px; margin: 14px 0; }
+    @media (max-width: 720px) { .summary { grid-template-columns: 1fr 1fr; } main { padding: 18px 10px 30px; } }
+  </style>
+</head>
+<body>
+<main>
+  <section class="card">
+    <h1>MSTR/IBIT relative-value paper trade</h1>
+    <p class="muted">Hour-by-hour paper positions and mark-to-market PnL for the MSTR vs. IBIT dollar-bar medcouple z-score strategy. Positive z-score is long MSTR / short IBIT ($10k per unit of clipped signal). Paper account only; marks use the logged hourly prices with no commissions or slippage.</p>
+    <div id="summary" class="summary" aria-live="polite"></div>
+    <p id="meta" class="meta"></p>
+    <p id="error" class="error" role="alert"></p>
+  </section>
+
+  <section class="card">
+    <h2>Hourly runs</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Run (UTC)</th>
+            <th scope="col">Mode</th>
+            <th scope="col">Z-score</th>
+            <th scope="col">MSTR px</th>
+            <th scope="col">IBIT px</th>
+            <th scope="col">MSTR sh</th>
+            <th scope="col">IBIT sh</th>
+            <th scope="col">MSTR notl</th>
+            <th scope="col">IBIT notl</th>
+            <th scope="col">Interval PnL</th>
+            <th scope="col">Cumulative PnL</th>
+          </tr>
+        </thead>
+        <tbody id="rows"><tr><td colspan="11">Loading paper-trade history…</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <p><a href="../logs.html">← All logs</a></p>
+</main>
+<script>
+  const byId = id => document.getElementById(id);
+  const fmtNum = (v, d = 0) => (v === null || v === undefined || Number.isNaN(Number(v))) ? '—' : Number(v).toLocaleString('en-GB', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const fmtMoney = v => (v === null || v === undefined || Number.isNaN(Number(v))) ? '—' : Number(v).toLocaleString('en-GB', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const fmtTs = v => v ? String(v).replace('T', ' ').replace('Z', ' UTC') : '—';
+  function metric(label, value, cls) {
+    const node = document.createElement('div'); node.className = 'metric' + (cls ? ' ' + cls : '');
+    const strong = document.createElement('strong'); strong.textContent = value;
+    const span = document.createElement('span'); span.textContent = label;
+    node.append(strong, span); return node;
+  }
+  const signClass = v => (v > 0 ? 'pos' : v < 0 ? 'neg' : '');
+  function render(data) {
+    const pnl = Number(data.cumulative_pnl || 0);
+    byId('summary').replaceChildren(
+      metric('Runs logged', fmtNum(data.run_count)),
+      metric('Latest z-score', data.latest_signal_zscore === undefined ? '—' : fmtNum(data.latest_signal_zscore, 2)),
+      metric('Latest position (MSTR / IBIT sh)', `${fmtNum(data.latest_mstr_shares)} / ${fmtNum(data.latest_ibit_shares)}`),
+      metric('Cumulative paper PnL', fmtMoney(pnl), signClass(pnl)),
+    );
+    byId('meta').textContent = `Snapshot generated ${fmtTs(data.generated_at_utc)} from ${data.source}.`
+      + (data.run_count ? ` Runs ${fmtTs(data.first_run_utc)} → ${fmtTs(data.last_run_utc)}.` : '');
+    const runs = [...(data.runs || [])].reverse();  // newest first
+    if (!runs.length) {
+      byId('rows').replaceChildren(Object.assign(document.createElement('tr'), { innerHTML: '<td colspan="11">No paper-trade runs logged yet.</td>' }));
+      return;
+    }
+    byId('rows').replaceChildren(...runs.map(r => {
+      const tr = document.createElement('tr');
+      const cells = [
+        [fmtTs(r.run_timestamp_utc), ''],
+        [r.mode === 'dry_run' ? 'dry-run' : r.mode, r.mode === 'dry_run' ? 'dry' : ''],
+        [fmtNum(r.signal_zscore, 2), ''],
+        [fmtNum(r.mstr_price, 2), ''],
+        [fmtNum(r.ibit_price, 2), ''],
+        [fmtNum(r.mstr_shares), signClass(r.mstr_shares)],
+        [fmtNum(r.ibit_shares), signClass(r.ibit_shares)],
+        [fmtMoney(r.mstr_notional), ''],
+        [fmtMoney(r.ibit_notional), ''],
+        [fmtMoney(r.interval_pnl), signClass(r.interval_pnl)],
+        [fmtMoney(r.cumulative_pnl), signClass(r.cumulative_pnl)],
+      ];
+      cells.forEach(([text, cls], i) => {
+        const td = document.createElement('td');
+        td.textContent = text;
+        if (cls) td.className = cls;
+        if (i === 0) td.style.textAlign = 'left';
+        tr.appendChild(td);
+      });
+      return tr;
+    }));
+  }
+  fetch('../data/rv_paper_logs.json', { cache: 'no-store' })
+    .then(response => { if (!response.ok) throw new Error(`Paper-trade log request failed: ${response.status}`); return response.json(); })
+    .then(render)
+    .catch(error => { byId('rows').replaceChildren(); byId('error').textContent = error.message; });
+</script>
+</body>
+</html>

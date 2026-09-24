@@ -11,7 +11,7 @@
   "jup_share_price_source": "IBKR historical daily TRADES bars from gs://systematicpositiveskew/fund_data/jupiter/JUP_LN_share_price_daily/data.parquet; unadjusted close.",
   "jup_dividend_source": "Canonical gross dividend reference from gs://systematicpositiveskew/fund_data/jupiter/equity_reference/dividends; ex-date attribution, cash GBP per share before tax.",
   "jup_dividend_monitor": {
-    "as_of_date": "2026-09-23",
+    "as_of_date": "2026-09-24",
     "last_four_events": [
       {
         "ex_date": "2025-08-07",
@@ -73,13 +73,14 @@
     "isf": {
       "label": "ISF trailing P/E ratio",
       "pe_ratio": 15.251692,
-      "status": "available",
+      "status": "stale",
       "provider": "Yahoo Finance via yfinance",
       "ticker": "ISF.L",
       "metric": "trailingPE",
       "source_url": "https://uk.finance.yahoo.com/quote/ISF.L/key-statistics/",
-      "retrieved_at_utc": "2026-09-23T10:20:13Z",
-      "quote_currency": "GBp"
+      "retrieved_at_utc": "2026-09-24T07:10:10Z",
+      "quote_currency": "GBp",
+      "refresh_error": "No module named 'yfinance'"
     }
   },
   "joint_frequency": {
