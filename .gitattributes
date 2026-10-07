@@ -8,28 +8,48 @@
 # inside one JSON object, which happened on 2026-09-22 and broke
 # cpurnsa.html in production.
 #
-# The "merge" driver below always reports a conflict instead of attempting
-# a line-based merge, the same way Git treats binary files. This forces a
-# stop instead of a silent or partial merge. To resolve a conflict on one
-# of these paths: do NOT hand-edit the conflict markers. Re-run the file's
-# generator against the current inputs and `git add` the fresh output.
+# Two custom merge drivers handle these files. NEITHER ever interleaves lines
+# from the two versions - a whole side is always chosen - so the structural
+# corruption above cannot happen.
 #
-# This intentionally does not use `merge=ours`: that driver resolves
-# conflicts silently by keeping the local side and discarding the incoming
-# side, which for files updated by automated cron/CI jobs could silently
-# drop real pipeline data. `merge=binary` always stops and asks instead.
-data/cpurnsa_curve_history.json merge=binary
-data/cpurnsa_daily_commentary.json merge=binary
-data/cpurnsa_pca_diagnostics.json merge=binary
-data/health.json merge=binary
-data/uscpi_release_manifest.json merge=binary
-data/softs_diagnostics.json merge=binary
-data/bars_etf_logs.json merge=binary
-data/equity_vol_logs.json merge=binary
+#   merge=newest  (tools/merge_newest_json.py)
+#     The daily case. Two writers (this box's cron/manual pushes and the
+#     github-actions bot) publish the same file to main, so it diverges most
+#     days. These files carry a top-level "generated_at_utc"; the driver keeps
+#     whichever side's timestamp is later ("last wins"), which is exactly what
+#     the manual rebase resolution did by hand. It falls back to a normal
+#     stop-and-ask conflict (never a silent or partial merge) whenever it
+#     cannot decide: either side fails to parse, lacks "generated_at_utc", or
+#     both sides share a timestamp but differ in content.
+#     Register once per clone (not committed, lives in .git/config):
+#       git config merge.newest.driver \
+#         "python3 tools/merge_newest_json.py %O %A %B %P"
+#     If the driver is NOT registered, Git treats merge=newest as an unknown
+#     driver and falls back to the built-in text merge - which is unsafe for
+#     these files - so registration is required on any clone that does merges.
+#
+#   merge=binary
+#     For files with no reliable timestamp to compare (currently only
+#     jup_gear_chart.json). Always reports a conflict instead of attempting a
+#     line-based merge, the same way Git treats binary files. To resolve: do
+#     NOT hand-edit conflict markers; re-run the file's generator against the
+#     current inputs and `git add` the fresh output, or pick a whole side.
+#
+# Note on merge=ours (deliberately unused): it resolves conflicts silently by
+# keeping the local side and discarding the incoming side, which for files
+# updated by automated cron/CI jobs could silently drop real pipeline data.
+data/cpurnsa_curve_history.json merge=newest
+data/cpurnsa_daily_commentary.json merge=newest
+data/cpurnsa_pca_diagnostics.json merge=newest
+data/health.json merge=newest
+data/uscpi_release_manifest.json merge=newest
+data/softs_diagnostics.json merge=newest
+data/bars_etf_logs.json merge=newest
+data/equity_vol_logs.json merge=newest
 data/jup_gear_chart.json merge=binary
-data/jup_model_logs.json merge=binary
-data/jup_performance_fee.json merge=binary
-data/refresh_status.json merge=binary
-data/swaption_status.json merge=binary
-data/tips_fedinvest_status.json merge=binary
-data/tip_tlt_model.json merge=binary
+data/jup_model_logs.json merge=newest
+data/jup_performance_fee.json merge=newest
+data/refresh_status.json merge=newest
+data/swaption_status.json merge=newest
+data/tips_fedinvest_status.json merge=newest
+data/tip_tlt_model.json merge=newest
