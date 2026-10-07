@@ -6,7 +6,13 @@ import pytest
 TOOLS = Path("/home/mark/deltagammavega/tools")
 sys.path.insert(0, str(TOOLS))
 
-from generate_jup_performance_fee_data import _load_successful_ingestion_log  # noqa: E402
+from datetime import date  # noqa: E402
+
+import generate_jup_performance_fee_data as gen  # noqa: E402
+from generate_jup_performance_fee_data import (  # noqa: E402
+    _load_latest_gear_fund_size_gbp_m,
+    _load_successful_ingestion_log,
+)
 
 
 class FakeBlob:
@@ -52,6 +58,67 @@ def test_ingestion_gate_rejects_missing_expected_success():
             "fund_data/jupiter",
             require_run_date="2026-09-13",
         )
+
+
+class FakeTable:
+    def __init__(self, rows):
+        self._rows = rows
+
+    def to_pylist(self):
+        return self._rows
+
+
+class FakeDataset:
+    def __init__(self, rows):
+        self._rows = rows
+
+    def to_table(self):
+        return FakeTable(self._rows)
+
+
+def test_load_latest_gear_fund_size_picks_max_date_gbp_fund_row(monkeypatch):
+    rows = [
+        {"fund_id": "JAM_GEAR_S", "as_of_date": date(2026, 9, 3), "currency": "GBP",
+         "fund_size_value": 10.20, "fund_size_unit": "B", "scope": "fund"},
+        {"fund_id": "JAM_GEAR_S", "as_of_date": date(2026, 9, 4), "currency": "GBP",
+         "fund_size_value": 10.27, "fund_size_unit": "B", "scope": "fund"},
+        # non-GEAR fund (ignored)
+        {"fund_id": "JAM_OTHER", "as_of_date": date(2026, 9, 5), "currency": "GBP",
+         "fund_size_value": 99.0, "fund_size_unit": "B", "scope": "fund"},
+        # GEAR but non-GBP (ignored, no FX)
+        {"fund_id": "JAM_GEAR_S", "as_of_date": date(2026, 9, 5), "currency": "USD",
+         "fund_size_value": 13.61, "fund_size_unit": "B", "scope": "fund"},
+    ]
+    monkeypatch.setattr(gen.ds, "dataset", lambda *a, **k: FakeDataset(rows))
+
+    result = _load_latest_gear_fund_size_gbp_m(object(), "bucket", "fund_data/jupiter")
+
+    assert result is not None
+    aum_gbp_m, as_of, provenance = result
+    assert aum_gbp_m == pytest.approx(10_270.0)
+    assert as_of == date(2026, 9, 4)
+    assert "live_fund_size" in provenance
+
+
+def test_load_latest_gear_fund_size_returns_none_when_no_gbp_gear_row(monkeypatch):
+    rows = [
+        {"fund_id": "JAM_GEAR_S", "as_of_date": date(2026, 9, 4), "currency": "USD",
+         "fund_size_value": 13.61, "fund_size_unit": "B", "scope": "fund"},
+        {"fund_id": "JAM_OTHER", "as_of_date": date(2026, 9, 4), "currency": "GBP",
+         "fund_size_value": 5.0, "fund_size_unit": "B", "scope": "fund"},
+    ]
+    monkeypatch.setattr(gen.ds, "dataset", lambda *a, **k: FakeDataset(rows))
+
+    assert _load_latest_gear_fund_size_gbp_m(object(), "bucket", "fund_data/jupiter") is None
+
+
+def test_load_latest_gear_fund_size_returns_none_on_read_error(monkeypatch):
+    def _raise(*a, **k):
+        raise FileNotFoundError("no dataset")
+
+    monkeypatch.setattr(gen.ds, "dataset", _raise)
+
+    assert _load_latest_gear_fund_size_gbp_m(object(), "bucket", "fund_data/jupiter") is None
 
 
 def test_jup_page_declares_dynamic_backtest_and_scenario_contract():
