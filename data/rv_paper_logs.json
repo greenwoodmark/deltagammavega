@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-07T19:30:35Z",
+  "generated_at_utc": "2026-10-08T07:27:28Z",
   "source": "gs://systematicpositiveskew/rv_paper_trade/positions",
   "strategy": "MSTR/IBIT relative-value medcouple z-score (paper)",
   "run_count": 78,
