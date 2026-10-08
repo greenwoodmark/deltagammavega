@@ -1,14 +1,14 @@
 {
-  "generated_at_utc": "2026-10-08T07:27:28Z",
+  "generated_at_utc": "2026-10-08T13:30:44Z",
   "source": "gs://systematicpositiveskew/rv_paper_trade/positions",
   "strategy": "MSTR/IBIT relative-value medcouple z-score (paper)",
-  "run_count": 78,
+  "run_count": 79,
   "first_run_utc": "2026-09-23T14:30:37.106762Z",
-  "last_run_utc": "2026-10-07T19:30:22.220581Z",
-  "latest_signal_zscore": -0.0419766712985164,
-  "latest_mstr_shares": -3,
-  "latest_ibit_shares": 9,
-  "cumulative_pnl": 172.64000000000254,
+  "last_run_utc": "2026-10-08T13:30:29.084718Z",
+  "latest_signal_zscore": -0.14619006761282835,
+  "latest_mstr_shares": -10,
+  "latest_ibit_shares": 31,
+  "cumulative_pnl": 177.83000000000257,
   "runs": [
     {
       "run_timestamp_utc": "2026-09-23T14:30:37.106762Z",
@@ -1101,6 +1101,20 @@
       "ibit_notional": 424.43999999999994,
       "interval_pnl": -2.0999999999999233,
       "cumulative_pnl": 172.64000000000254
+    },
+    {
+      "run_timestamp_utc": "2026-10-08T13:30:29.084718Z",
+      "mode": "execute",
+      "signal_zscore": -0.14619006761282835,
+      "signal_medcouple": 0.028931262029075495,
+      "mstr_price": 150.55,
+      "ibit_price": 46.63,
+      "mstr_shares": -10,
+      "ibit_shares": 31,
+      "mstr_notional": -1505.5,
+      "ibit_notional": 1445.53,
+      "interval_pnl": 5.190000000000033,
+      "cumulative_pnl": 177.83000000000257
     }
   ]
 }
