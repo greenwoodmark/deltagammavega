@@ -1,99 +1,99 @@
 {
   "schema_version": "internal_refresh_status_v1",
-  "run_id": "8aff2338-3d9a-40c9-a855-9e430cdea144",
-  "generated_at_utc": "2026-10-08T07:32:35Z",
-  "started_at_utc": "2026-10-08T07:10:01Z",
+  "run_id": "efed1862-651f-40f6-82e2-1a1845a024fb",
+  "generated_at_utc": "2026-10-09T07:31:57Z",
+  "started_at_utc": "2026-10-09T07:10:01Z",
   "overall_status": "success",
   "stages": {
     "softs_diagnostics_sync": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:10:01Z",
+      "started_at_utc": "2026-10-09T07:10:01Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:10:02Z"
+      "finished_at_utc": "2026-10-09T07:10:02Z"
     },
     "jup_share_price_daily": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:10:02Z",
+      "started_at_utc": "2026-10-09T07:10:02Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:10:05Z"
+      "finished_at_utc": "2026-10-09T07:10:04Z"
     },
     "jup_gear_chart_data": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:10:05Z",
+      "started_at_utc": "2026-10-09T07:10:04Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:10:11Z"
+      "finished_at_utc": "2026-10-09T07:10:11Z"
     },
     "jup_performance_fee_data": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:10:11Z",
+      "started_at_utc": "2026-10-09T07:10:11Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:10:23Z"
+      "finished_at_utc": "2026-10-09T07:10:21Z"
     },
     "tips_fedinvest_status": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:10:23Z",
+      "started_at_utc": "2026-10-09T07:10:21Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:10:23Z"
+      "finished_at_utc": "2026-10-09T07:10:22Z"
     },
     "swaption_status": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:10:23Z",
+      "started_at_utc": "2026-10-09T07:10:22Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:11:44Z"
+      "finished_at_utc": "2026-10-09T07:11:33Z"
     },
     "model_logs": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:11:44Z",
+      "started_at_utc": "2026-10-09T07:11:33Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:12:01Z"
+      "finished_at_utc": "2026-10-09T07:11:48Z"
     },
     "tip_tlt_model_data": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:12:01Z",
+      "started_at_utc": "2026-10-09T07:11:48Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:27:19Z"
+      "finished_at_utc": "2026-10-09T07:26:42Z"
     },
     "etf_bars": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:27:19Z",
+      "started_at_utc": "2026-10-09T07:26:42Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:27:23Z"
+      "finished_at_utc": "2026-10-09T07:26:46Z"
     },
     "rv_paper_logs": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:27:23Z",
+      "started_at_utc": "2026-10-09T07:26:46Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:27:29Z"
+      "finished_at_utc": "2026-10-09T07:26:52Z"
     },
     "short_shadow_export": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:27:29Z",
+      "started_at_utc": "2026-10-09T07:26:52Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:32:03Z"
+      "finished_at_utc": "2026-10-09T07:31:20Z"
     },
     "long_shadow_extension": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:32:03Z",
+      "started_at_utc": "2026-10-09T07:31:20Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:32:30Z"
+      "finished_at_utc": "2026-10-09T07:31:53Z"
     },
     "cpurnsa_publish": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:32:30Z",
+      "started_at_utc": "2026-10-09T07:31:53Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:32:30Z"
+      "finished_at_utc": "2026-10-09T07:31:53Z"
     },
     "shadow_replay": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:32:30Z",
+      "started_at_utc": "2026-10-09T07:31:53Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:32:35Z"
+      "finished_at_utc": "2026-10-09T07:31:57Z"
     },
     "internal_build": {
       "status": "success",
-      "started_at_utc": "2026-10-08T07:32:35Z",
+      "started_at_utc": "2026-10-09T07:31:57Z",
       "output": null,
-      "finished_at_utc": "2026-10-08T07:32:35Z"
+      "finished_at_utc": "2026-10-09T07:31:57Z"
     }
   }
 }

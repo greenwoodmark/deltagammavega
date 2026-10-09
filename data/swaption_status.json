@@ -1,43 +1,43 @@
 {
   "schema_version": "marquee_swaption_status_v1",
-  "generated_at_utc": "2026-10-08T07:11:44Z",
+  "generated_at_utc": "2026-10-09T07:11:33Z",
   "source_base": "gs://systematicpositiveskew/gs_marquee_data/swaptions",
   "lookback_days": 90,
-  "start_date": "2026-07-11",
-  "latest_date": "2026-10-07",
+  "start_date": "2026-07-12",
+  "latest_date": "2026-10-08",
   "currency_count": 4,
   "currencies_with_errors": [],
   "currencies": [
     {
       "currency": "USD",
-      "latest_date": "2026-10-07",
-      "row_count": 2964,
+      "latest_date": "2026-10-08",
+      "row_count": 3012,
       "asset_count": 48,
-      "day_count": 62,
+      "day_count": 63,
       "error": null
     },
     {
       "currency": "EUR",
-      "latest_date": "2026-10-07",
-      "row_count": 2976,
+      "latest_date": "2026-10-08",
+      "row_count": 3024,
       "asset_count": 48,
-      "day_count": 62,
+      "day_count": 63,
       "error": null
     },
     {
       "currency": "GBP",
-      "latest_date": "2026-10-07",
-      "row_count": 2977,
+      "latest_date": "2026-10-08",
+      "row_count": 3025,
       "asset_count": 48,
-      "day_count": 62,
+      "day_count": 63,
       "error": null
     },
     {
       "currency": "JPY",
-      "latest_date": "2026-10-07",
-      "row_count": 2792,
+      "latest_date": "2026-10-08",
+      "row_count": 2847,
       "asset_count": 48,
-      "day_count": 58,
+      "day_count": 59,
       "error": null
     }
   ],
@@ -1329,6 +1329,27 @@
         },
         "JPY": {
           "row_count": 48,
+          "asset_count": 48
+        }
+      }
+    },
+    {
+      "date": "2026-10-08",
+      "currencies": {
+        "USD": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "EUR": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "GBP": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "JPY": {
+          "row_count": 55,
           "asset_count": 48
         }
       }

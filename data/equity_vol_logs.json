@@ -1,12 +1,40 @@
 {
-  "generated_at_utc": "2026-10-08T07:12:00.899453Z",
+  "generated_at_utc": "2026-10-09T07:11:48.595220Z",
   "source": "/home/mark/trading_env/data",
   "symbols": [
     "TIP",
     "TLT"
   ],
-  "event_count": 4925,
+  "event_count": 4927,
   "rows": [
+    {
+      "symbol": "TLT",
+      "date": "2026-10-08",
+      "status": "fit written",
+      "event": "GH5_WRITTEN",
+      "model_version": "gh5_v1",
+      "timestamp_utc": "2026-10-09T02:04:58+00:00",
+      "rows": 19,
+      "mad_err": 0.0032941803684547236,
+      "error": null,
+      "stage": null,
+      "uri": "gs://systematicpositiveskew/options_data/ticker=TLT_UP/year=2026/month=10/data.parquet",
+      "strike_references": null
+    },
+    {
+      "symbol": "TIP",
+      "date": "2026-10-08",
+      "status": "fit written",
+      "event": "GH5_WRITTEN",
+      "model_version": "gh5_v1",
+      "timestamp_utc": "2026-10-09T02:04:09+00:00",
+      "rows": 19,
+      "mad_err": 0.015927828214053776,
+      "error": null,
+      "stage": null,
+      "uri": "gs://systematicpositiveskew/options_data/ticker=TIP_UP/year=2026/month=10/data.parquet",
+      "strike_references": null
+    },
     {
       "symbol": "TLT",
       "date": "2026-10-07",
