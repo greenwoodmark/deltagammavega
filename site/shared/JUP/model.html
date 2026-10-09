@@ -114,7 +114,7 @@
     <p class="muted">The table shows the four most recent dividend events currently stored, including any future ex-dates already announced. Future dates are not forecast here: the cadence message is only a monthly-review heuristic because Jupiter normally confirms dates and amounts relatively close to declaration.</p>
     <p id="jup-dividend-monitor-status" class="notice"></p>
     <div class="table-wrap">
-      <table id="jup-dividend-monitor-table"><caption>Latest stored JUP cash-distribution events</caption><thead><tr><th scope="col">Ex-date</th><th scope="col">Payment date</th><th scope="col">Type</th><th scope="col">GBP/share</th><th scope="col">State</th></tr></thead><tbody></tbody></table>
+      <table id="jup-dividend-monitor-table"><caption>Latest stored JUP cash-distribution events</caption><thead><tr><th scope="col">Ex-date</th><th scope="col">Payment date</th><th scope="col">Type</th><th scope="col">GBp/share</th><th scope="col">State</th></tr></thead><tbody></tbody></table>
     </div>
     <p id="jup-dividend-monitor-note" class="meta"></p>
   </section>
@@ -273,7 +273,7 @@
     status.style.borderColor = monitor.missing_forthcoming_event ? '#fca5a5' : '#86efac';
     status.style.color = monitor.missing_forthcoming_event ? '#991b1b' : '#166534';
     const body = byId('jup-dividend-monitor-table').querySelector('tbody');
-    body.innerHTML = monitor.last_four_events.map(event => `<tr><td>${event.ex_date}</td><td>${event.payment_date || '—'}</td><td>${event.dividend_type}</td><td>${Number(event.amount_gbp_per_share).toFixed(4)}</td><td>${event.status}</td></tr>`).join('');
+    body.innerHTML = monitor.last_four_events.map(event => `<tr><td>${event.ex_date}</td><td>${event.payment_date || '—'}</td><td>${event.dividend_type}</td><td>${(Number(event.amount_gbp_per_share) * 100).toFixed(2)}</td><td>${event.status}</td></tr>`).join('');
     byId('jup-dividend-monitor-note').textContent = monitor.note + (monitor.expected_next_ordinary_ex_date ? ` Historical-cadence review date: ${monitor.expected_next_ordinary_ex_date}.` : '');
   }
   fetch('../../data/jup_performance_fee.json', { cache: 'no-store' }).then(response => { if (!response.ok) throw new Error(`Performance-fee data request failed: ${response.status}`); return response.json(); }).then(renderPerformanceFeePayload).catch(error => { byId('jup-pf-backtest-error').textContent = `Latest calculated backtest unavailable: ${error.message}`; byId('jup-pf-scenario-summary').textContent = `Latest calculated FY2026 scenarios unavailable: ${error.message}`; });
