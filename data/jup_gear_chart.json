@@ -72,13 +72,13 @@
     },
     "isf": {
       "label": "ISF trailing P/E ratio",
-      "pe_ratio": 15.014526,
+      "pe_ratio": 15.007165,
       "status": "available",
       "provider": "Yahoo Finance via yfinance",
       "ticker": "ISF.L",
       "metric": "trailingPE",
       "source_url": "https://uk.finance.yahoo.com/quote/ISF.L/key-statistics/",
-      "retrieved_at_utc": "2026-10-09T10:05:16Z",
+      "retrieved_at_utc": "2026-10-09T10:40:15Z",
       "quote_currency": "GBp"
     }
   },
