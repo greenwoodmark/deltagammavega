@@ -1,8 +1,84 @@
 {
-  "generated_at_utc": "2026-10-09T15:17:59Z",
+  "generated_at_utc": "2026-10-10T07:26:38Z",
   "source": "gs://systematicpositiveskew/rv_paper_trade/positions",
   "strategy": "MSTR/IBIT relative-value medcouple z-score (paper)",
-  "run_count": 0,
-  "cumulative_pnl": 0.0,
-  "runs": []
+  "run_count": 5,
+  "first_run_utc": "2026-10-09T15:30:16.143310Z",
+  "last_run_utc": "2026-10-09T19:30:20.656924Z",
+  "latest_signal_zscore": 0.777622742499372,
+  "latest_mstr_shares": 50,
+  "latest_ibit_shares": -167,
+  "cumulative_pnl": -46.26410000000142,
+  "runs": [
+    {
+      "run_timestamp_utc": "2026-10-09T15:30:16.143310Z",
+      "mode": "execute",
+      "signal_zscore": 0.14157349266893518,
+      "signal_medcouple": 0.05211741164795081,
+      "mstr_price": 156.96,
+      "ibit_price": 47.08,
+      "mstr_shares": 9,
+      "ibit_shares": -30,
+      "mstr_notional": 1412.64,
+      "ibit_notional": -1412.3999999999999,
+      "interval_pnl": 0.0,
+      "cumulative_pnl": 0.0
+    },
+    {
+      "run_timestamp_utc": "2026-10-09T16:30:21.907346Z",
+      "mode": "execute",
+      "signal_zscore": 0.0967275914557137,
+      "signal_medcouple": 0.04924463105472697,
+      "mstr_price": 156.18,
+      "ibit_price": 46.81,
+      "mstr_shares": 6,
+      "ibit_shares": -21,
+      "mstr_notional": 937.08,
+      "ibit_notional": -983.01,
+      "interval_pnl": 1.0799999999998704,
+      "cumulative_pnl": 1.0799999999998704
+    },
+    {
+      "run_timestamp_utc": "2026-10-09T17:30:21.868881Z",
+      "mode": "execute",
+      "signal_zscore": 0.8269460469339266,
+      "signal_medcouple": 0.10207579124389875,
+      "mstr_price": 156.2503,
+      "ibit_price": 46.78,
+      "mstr_shares": 53,
+      "ibit_shares": -177,
+      "mstr_notional": 8281.2659,
+      "ibit_notional": -8280.06,
+      "interval_pnl": 1.0518000000000427,
+      "cumulative_pnl": 2.131799999999913
+    },
+    {
+      "run_timestamp_utc": "2026-10-09T18:30:20.790053Z",
+      "mode": "execute",
+      "signal_zscore": 0.9443129985360528,
+      "signal_medcouple": 0.11071263392309087,
+      "mstr_price": 154.0,
+      "ibit_price": 46.665,
+      "mstr_shares": 61,
+      "ibit_shares": -202,
+      "mstr_notional": 9394.0,
+      "ibit_notional": -9426.33,
+      "interval_pnl": -98.91090000000017,
+      "cumulative_pnl": -96.77910000000026
+    },
+    {
+      "run_timestamp_utc": "2026-10-09T19:30:20.656924Z",
+      "mode": "execute",
+      "signal_zscore": 0.777622742499372,
+      "signal_medcouple": 0.09892502167502014,
+      "mstr_price": 154.795,
+      "ibit_price": 46.655,
+      "mstr_shares": 50,
+      "ibit_shares": -167,
+      "mstr_notional": 7739.749999999999,
+      "ibit_notional": -7791.385,
+      "interval_pnl": 50.514999999998835,
+      "cumulative_pnl": -46.26410000000142
+    }
+  ]
 }
