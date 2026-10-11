@@ -32,10 +32,15 @@
     <table id="live-table">
       <tbody>
         <tr><th>Composite z-score</th><td id="live-z">—</td></tr>
-        <tr><th>Proposed MSTR</th><td id="live-mstr">—</td></tr>
-        <tr><th>Proposed IBIT</th><td id="live-ibit">—</td></tr>
+        <tr><th>Raw sized MSTR<br><span class="meta">from z, before gate</span></th><td id="live-mstr">—</td></tr>
+        <tr><th>Raw sized IBIT<br><span class="meta">from z, before gate</span></th><td id="live-ibit">—</td></tr>
         <tr><th>10-min MAD percentile<br><span class="meta">causal / expanding, prior history only</span></th><td id="live-pct">—</td></tr>
         <tr><th>Regime</th><td id="live-regime">—</td></tr>
+        <tr><th>Vol gate<br><span class="meta">causal hysteresis 40/60</span></th><td id="live-gate">—</td></tr>
+        <tr><th>Deadzone (|z| ≥ 0.5)</th><td id="live-deadzone">—</td></tr>
+        <tr><th>Proposed action</th><td id="live-action">—</td></tr>
+        <tr><th>Gated decision MSTR<br><span class="meta">shares if acting fresh</span></th><td id="live-gated-mstr">—</td></tr>
+        <tr><th>Gated decision IBIT<br><span class="meta">shares if acting fresh</span></th><td id="live-gated-ibit">—</td></tr>
       </tbody>
     </table>
     <p class="meta" id="live-meta">Latest bar — · generated —</p>
@@ -130,7 +135,41 @@
     }
 
     setCell('live-regime', data.regime || '—', '');
+
+    // Hold-through-deadzone + hysteresis vol-gate state (fresh decision).
+    if (data.gate_state === 'on') {
+      setCell('live-gate', 'on (low-vol)', '');
+    } else if (data.gate_state === 'off') {
+      setCell('live-gate', 'off (high-vol)', '');
+    } else {
+      setCell('live-gate', 'warming up', '');
+    }
+
+    if (data.deadzone_pass === true) {
+      setCell('live-deadzone', 'pass', '');
+    } else if (data.deadzone_pass === false) {
+      setCell('live-deadzone', 'inside band', '');
+    } else {
+      setCell('live-deadzone', '—', '');
+    }
+
+    setCell('live-action', fmtAction(data.proposed_action), '');
+
+    const gatedMstr = (data.gated_mstr_shares === null || data.gated_mstr_shares === undefined) ? '—' : fmtNum(data.gated_mstr_shares);
+    const gatedIbit = (data.gated_ibit_shares === null || data.gated_ibit_shares === undefined) ? '—' : fmtNum(data.gated_ibit_shares);
+    setCell('live-gated-mstr', `${gatedMstr} sh`, signClass(data.gated_mstr_shares));
+    setCell('live-gated-ibit', `${gatedIbit} sh`, signClass(data.gated_ibit_shares));
+
     byId('live-meta').textContent = `Latest bar ${fmtTs(data.latest_bar_utc)} · generated ${fmtTs(data.generated_at_utc)}`;
+  }
+
+  function fmtAction(action) {
+    switch (action) {
+      case 'enter_long_mstr': return 'Enter long MSTR / short IBIT';
+      case 'enter_short_mstr': return 'Enter short MSTR / long IBIT';
+      case 'no_new_position': return 'No new position';
+      default: return '—';
+    }
   }
 
   fetch('../data/rv_live_signal.json', { cache: 'no-store' })

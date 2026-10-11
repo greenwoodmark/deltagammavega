@@ -35,6 +35,7 @@
     .refresh-button:hover:not(:disabled) { background: #bae6fd; }
     .refresh-button:disabled { cursor: wait; opacity: .65; }
     .refresh-status { display: block; color: #475569; font-size: .78rem; margin-top: 3px; }
+    .pair-refresh { margin-top: 16px; }
     @media (max-width: 650px) { .summary { grid-template-columns: 1fr; } main { padding: 18px 10px 30px; } }
   </style>
 </head>
@@ -47,6 +48,11 @@
     <p id="freshness" class="notice" hidden></p>
     <p id="meta" class="meta"></p>
     <p id="error" class="error" role="alert"></p>
+    <div id="pair-refresh" class="pair-refresh">
+      <button id="pair-refresh-button" class="refresh-button" type="button" aria-label="Refresh MSTR and IBIT 1-minute data and recompute the live signal">Refresh bars (MSTR/IBIT + signal)</button>
+      <span class="refresh-status" aria-live="polite"></span>
+    </div>
+    <p class="meta">Refreshes IBIT then MSTR 1-minute bars and recomputes the <a href="../paper/mstr.html">MSTR/IBIT live signal</a> in one job.</p>
   </section>
 
   <section class="card">
@@ -78,7 +84,8 @@
   const refreshJobs = new Map();
   function setRefreshState(button, status, message) {
     button.disabled = status === 'queued' || status === 'running';
-    button.textContent = status === 'queued' ? 'Queued…' : status === 'running' ? 'Refreshing…' : 'Refresh';
+    const idleLabel = button.dataset.idleLabel || 'Refresh';
+    button.textContent = status === 'queued' ? 'Queued…' : status === 'running' ? 'Refreshing…' : idleLabel;
     const statusNode = button.parentElement.querySelector('.refresh-status');
     if (statusNode) statusNode.textContent = message || '';
   }
@@ -147,6 +154,13 @@
       return tr;
     }));
   }
+  const PAIR_TOKEN = 'MSTR+IBIT';
+  const pairButton = byId('pair-refresh-button');
+  if (pairButton) {
+    pairButton.dataset.idleLabel = 'Refresh bars (MSTR/IBIT + signal)';
+    pairButton.addEventListener('click', () => refreshTicker(PAIR_TOKEN, pairButton));
+  }
+
   fetch('../data/bars_etf_logs.json', { cache: 'no-store' })
     .then(response => { if (!response.ok) throw new Error(`Coverage request failed: ${response.status}`); return response.json(); })
     .then(render)
