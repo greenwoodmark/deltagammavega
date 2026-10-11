@@ -25,6 +25,22 @@
 </head>
 <body>
 <main>
+  <section class="card" id="live-signal">
+    <h1>Live signal</h1>
+    <p class="muted">Generated offline from the latest stored 1-minute GCS bars when the <a href="../bars/logs.html">bars logs</a> are refreshed — no live trading, no orders. Composite z and sizing match the retired runner's 5-speed medcouple ensemble; sizes are indicative at $10k per unit of signal, dollar-neutral.</p>
+    <p id="live-message" class="muted" style="display:none"></p>
+    <table id="live-table">
+      <tbody>
+        <tr><th>Composite z-score</th><td id="live-z">—</td></tr>
+        <tr><th>Proposed MSTR</th><td id="live-mstr">—</td></tr>
+        <tr><th>Proposed IBIT</th><td id="live-ibit">—</td></tr>
+        <tr><th>10-min MAD percentile<br><span class="meta">causal / expanding, prior history only</span></th><td id="live-pct">—</td></tr>
+        <tr><th>Regime</th><td id="live-regime">—</td></tr>
+      </tbody>
+    </table>
+    <p class="meta" id="live-meta">Latest bar — · generated —</p>
+  </section>
+
   <section class="card">
     <h1>MSTR/IBIT relative-value paper trade — retired</h1>
     <p class="verdict">Retired 2026-10-10. Paper trading suspended. The strategy has no tradeable net-of-cost edge; it is not funded and the hourly runner is turned off.</p>
@@ -54,5 +70,73 @@
     <p><a href="../logs.html">← All logs</a></p>
   </section>
 </main>
+<script>
+  const byId = id => document.getElementById(id);
+
+  function fmtNum(value, digits) {
+    if (value === null || value === undefined || Number.isNaN(Number(value))) return '—';
+    return Number(value).toLocaleString(undefined, {
+      minimumFractionDigits: digits || 0,
+      maximumFractionDigits: digits || 0,
+    });
+  }
+
+  function fmtMoney(value) {
+    if (value === null || value === undefined || Number.isNaN(Number(value))) return '—';
+    const n = Number(value);
+    return (n < 0 ? '−$' : '$') + Math.abs(n).toLocaleString(undefined, { maximumFractionDigits: 0 });
+  }
+
+  function fmtTs(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return Number.isNaN(d.getTime()) ? String(iso) : d.toISOString().replace('.000Z', 'Z');
+  }
+
+  function signClass(value) {
+    return (value !== null && value !== undefined && Number(value) < 0) ? 'neg' : '';
+  }
+
+  function setCell(id, text, cls) {
+    const el = byId(id);
+    if (!el) return;
+    el.textContent = text;
+    el.className = cls || '';
+  }
+
+  function showMessage(text) {
+    const msg = byId('live-message');
+    msg.textContent = text;
+    msg.style.display = '';
+  }
+
+  function renderLiveSignal(data) {
+    if (!data || data.error) {
+      showMessage('Live signal unavailable' + (data && data.error ? ` (${data.error}).` : '.'));
+      return;
+    }
+
+    setCell('live-z', fmtNum(data.composite_z, 2), signClass(data.composite_z));
+
+    const mstrShares = (data.mstr_shares === null || data.mstr_shares === undefined) ? '—' : fmtNum(data.mstr_shares);
+    const ibitShares = (data.ibit_shares === null || data.ibit_shares === undefined) ? '—' : fmtNum(data.ibit_shares);
+    setCell('live-mstr', `${mstrShares} sh  (${fmtMoney(data.mstr_notional)})`, signClass(data.mstr_shares));
+    setCell('live-ibit', `${ibitShares} sh  (${fmtMoney(data.ibit_notional)})`, signClass(data.ibit_shares));
+
+    if (data.mad10_percentile === null || data.mad10_percentile === undefined) {
+      setCell('live-pct', 'warming up', '');
+    } else {
+      setCell('live-pct', `${fmtNum(data.mad10_percentile, 1)}th pct` + ` (n=${fmtNum(data.n_vol_history)})`, '');
+    }
+
+    setCell('live-regime', data.regime || '—', '');
+    byId('live-meta').textContent = `Latest bar ${fmtTs(data.latest_bar_utc)} · generated ${fmtTs(data.generated_at_utc)}`;
+  }
+
+  fetch('../data/rv_live_signal.json', { cache: 'no-store' })
+    .then(response => { if (!response.ok) throw new Error(`request failed: ${response.status}`); return response.json(); })
+    .then(renderLiveSignal)
+    .catch(() => { showMessage('Live signal unavailable (no data yet — refresh the bars logs to generate one).'); });
+</script>
 </body>
 </html>
