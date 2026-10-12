@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-10-12T08:17:04.270716Z",
+  "generated_at_utc": "2026-10-12T09:33:07.468365Z",
   "source": "gs://systematicpositiveskew/etf_data",
   "bar_size": "1 min",
   "expected_session": "2026-10-09",
@@ -11,8 +11,8 @@
     {
       "symbol": "IBIT",
       "first_bar_utc": "2024-01-11T09:04:00Z",
-      "last_bar_utc": "2026-10-12T08:16:00Z",
-      "bar_count": 659226,
+      "last_bar_utc": "2026-10-12T09:32:00Z",
+      "bar_count": 659302,
       "expected_session": "2026-10-09",
       "stale": false,
       "staleness_days": 0,
@@ -21,8 +21,8 @@
     {
       "symbol": "MSTR",
       "first_bar_utc": "2024-01-02T09:04:00Z",
-      "last_bar_utc": "2026-10-12T08:16:00Z",
-      "bar_count": 657497,
+      "last_bar_utc": "2026-10-12T09:32:00Z",
+      "bar_count": 657573,
       "expected_session": "2026-10-09",
       "stale": false,
       "staleness_days": 0,
