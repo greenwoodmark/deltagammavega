@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MSTR/IBIT paper trade — retired | Delta Gamma Vega</title>
+  <title>MSTR/IBIT paper trade — summary | Delta Gamma Vega</title>
   <style>
     :root { color-scheme: light; font-family: system-ui, sans-serif; color: #0f172a; background: #f8fafc; }
     body { margin: 0; }
@@ -43,13 +43,36 @@
         <tr><th>Gated decision IBIT<br><span class="meta">shares if acting fresh</span></th><td id="live-gated-ibit">—</td></tr>
       </tbody>
     </table>
+    <h2>How the composite z is built</h2>
+    <p class="muted">The composite z-score is the equal-weight mean of the five speeds' clipped z-scores, then re-standardised over a trailing 120-day window and clipped to ±3. Each speed's z comes from its own medcouple vs its trailing history; the medcouple percentile is causal / expanding (ranked against that speed's prior observations only).</p>
+    <table id="speed-table">
+      <thead>
+        <tr>
+          <th>Speed</th>
+          <th>Medcouple</th>
+          <th>Medcouple pct<br><span class="meta">causal / expanding</span></th>
+          <th>Clipped z<br><span class="meta">composite input</span></th>
+          <th>History n</th>
+        </tr>
+      </thead>
+      <tbody id="speed-rows">
+        <tr><td colspan="5" class="muted">—</td></tr>
+      </tbody>
+    </table>
     <p class="meta" id="live-meta">Latest bar — · generated —</p>
   </section>
 
   <section class="card">
-    <h1>MSTR/IBIT relative-value paper trade — retired</h1>
-    <p class="verdict">Retired 2026-10-10. Paper trading suspended. The strategy has no tradeable net-of-cost edge; it is not funded and the hourly runner is turned off.</p>
-    <p class="muted">The signal was a 5-speed equal-weight medcouple ensemble (trailing windows 10/15/20/30/45 days, 200 IBIT-clocked dollar bars) of MSTR/IBIT dollar-bar VWAP log-returns, z-scored and clipped, sized $10k per unit of signal, dollar-neutral. It began as an execution-plumbing exercise on an IBKR paper account, not a profit expectation (exploratory correlation ~0.03).</p>
+    <h1>MSTR/IBIT relative-value paper trade — summary</h1>
+    <p class="muted">The signal is a 5-speed equal-weight medcouple ensemble (trailing windows 10/15/20/30/45 days, 200 IBIT-clocked dollar bars) of MSTR/IBIT dollar-bar VWAP log-returns, z-scored and clipped, sized $10k per unit of signal, dollar-neutral. It began as an execution-plumbing exercise on an IBKR paper account, not a profit expectation (exploratory correlation ~0.03).</p>
+    <p class="muted">It is currently <strong>paper-only and not funded</strong>: a cost-sensitivity study found no tradeable net-of-cost edge (details below), so the hourly runner is suspended. The live-signal panel above is kept as a monitoring/research view — it is computed offline from stored bars and places no orders.</p>
+    <h2>What was learned</h2>
+    <ul class="muted">
+      <li><strong>Direction is thin.</strong> The medcouple ensemble's directional edge is small (IC ~0.02–0.04) and concentrated in low-volatility hours; it does not survive realistic transaction costs at any cadence or filter.</li>
+      <li><strong>Costs dominate.</strong> SMART routing cannot net the MSTR/IBIT pair (two unrelated underlyings, no listed combo), so both single-name half-spreads (~7.5 bps MSTR, ~3.2 bps IBIT per leg) are paid on every rebalance. That double spread is the binding constraint, not latency or signal freshness.</li>
+      <li><strong>Volatility is forecastable and useful for sizing.</strong> The 10-day-speed per-minute vol predicts the forward absolute move (R²~0.07), and inverse-vol sizing roughly doubles gross Sharpe (0.30→0.81) — but as risk-normalisation, not new directional alpha.</li>
+      <li><strong>Best gross configuration</strong> (low-vol-gated, 10-min, hold-through-deadzone + hysteresis) reaches a gross Sharpe ~2.25, yet still loses money net after the double spread. The remaining obstacle is turnover cost, not signal.</li>
+    </ul>
   </section>
 
   <section class="card">
@@ -160,7 +183,37 @@
     setCell('live-gated-mstr', `${gatedMstr} sh`, signClass(data.gated_mstr_shares));
     setCell('live-gated-ibit', `${gatedIbit} sh`, signClass(data.gated_ibit_shares));
 
+    renderSpeedBreakdown(data.speed_breakdown);
+
     byId('live-meta').textContent = `Latest bar ${fmtTs(data.latest_bar_utc)} · generated ${fmtTs(data.generated_at_utc)}`;
+  }
+
+  function renderSpeedBreakdown(rows) {
+    const body = byId('speed-rows');
+    if (!body) return;
+    if (!Array.isArray(rows) || rows.length === 0) {
+      body.innerHTML = '<tr><td colspan="5" class="muted">—</td></tr>';
+      return;
+    }
+    const fmtPct = v => (v === null || v === undefined || Number.isNaN(Number(v))) ? '—' : `${fmtNum(v, 1)}th`;
+    body.replaceChildren(...rows.map(r => {
+      const tr = document.createElement('tr');
+      const cells = [
+        [`${fmtNum(r.speed_days)}d`, ''],
+        [fmtNum(r.medcouple, 4), signClass(r.medcouple)],
+        [fmtPct(r.medcouple_percentile), ''],
+        [fmtNum(r.clipped_z, 2), signClass(r.clipped_z)],
+        [fmtNum(r.n_history), ''],
+      ];
+      cells.forEach(([text, cls], i) => {
+        const td = document.createElement('td');
+        td.textContent = text;
+        if (cls) td.className = cls;
+        if (i === 0) td.style.textAlign = 'left';
+        tr.appendChild(td);
+      });
+      return tr;
+    }));
   }
 
   function fmtAction(action) {
