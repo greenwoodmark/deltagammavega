@@ -21,13 +21,23 @@
     td.neg { color: #b91c1c; }
     code { background: #f1f5f9; padding: 1px 5px; border-radius: 4px; font-size: .9em; }
     .meta { color: #64748b; font-size: .9rem; }
+    .refresh-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    button#pair-refresh-button { font: inherit; padding: 7px 14px; border: 1px solid #cbd5e1; border-radius: 7px; background: #f1f5f9; color: #0f172a; cursor: pointer; }
+    button#pair-refresh-button:hover:not(:disabled) { background: #e2e8f0; }
+    button#pair-refresh-button:disabled { opacity: .6; cursor: default; }
+    #pair-refresh-status { margin-left: 10px; }
   </style>
 </head>
 <body>
 <main>
   <section class="card" id="live-signal">
     <h1>Live signal</h1>
-    <p class="muted">Generated offline from the latest stored 1-minute GCS bars when the <a href="../bars/logs.html">bars logs</a> are refreshed — no live trading, no orders. Composite z and sizing match the retired runner's 5-speed medcouple ensemble; sizes are indicative at $10k per unit of signal, dollar-neutral.</p>
+    <p class="muted">Generated offline from the latest stored 1-minute GCS bars — no live trading, no orders. Composite z and sizing match the retired runner's 5-speed medcouple ensemble; sizes are indicative at $10k per unit of signal, dollar-neutral.</p>
+    <p class="refresh-row">
+      <button id="pair-refresh-button" type="button" aria-label="Refresh MSTR and IBIT 1-minute bars and recompute the live signal">Refresh bars &amp; signal</button>
+      <span id="latest-bars" class="meta">Latest 1-min bars — MSTR: — · IBIT: —</span>
+      <span id="pair-refresh-status" class="meta"></span>
+    </p>
     <p id="live-message" class="muted" style="display:none"></p>
     <table id="live-table">
       <tbody>
@@ -185,6 +195,11 @@
 
     renderSpeedBreakdown(data.speed_breakdown);
 
+    const latestEl = byId('latest-bars');
+    if (latestEl) {
+      latestEl.textContent = `Latest 1-min bars — MSTR: ${fmtTs(data.mstr_latest_bar_utc)} · IBIT: ${fmtTs(data.ibit_latest_bar_utc)}`;
+    }
+
     byId('live-meta').textContent = `Latest bar ${fmtTs(data.latest_bar_utc)} · generated ${fmtTs(data.generated_at_utc)}`;
   }
 
@@ -225,10 +240,65 @@
     }
   }
 
-  fetch('../data/rv_live_signal.json', { cache: 'no-store' })
-    .then(response => { if (!response.ok) throw new Error(`request failed: ${response.status}`); return response.json(); })
-    .then(renderLiveSignal)
-    .catch(() => { showMessage('Live signal unavailable (no data yet — refresh the bars logs to generate one).'); });
+  function loadLiveSignal() {
+    return fetch(`../data/rv_live_signal.json?t=${Date.now()}`, { cache: 'no-store' })
+      .then(response => { if (!response.ok) throw new Error(`request failed: ${response.status}`); return response.json(); })
+      .then(renderLiveSignal)
+      .catch(() => { showMessage('Live signal unavailable (no data yet — use "Refresh bars & signal" to generate one).'); });
+  }
+
+  // Combined "Refresh bars & signal" button: refreshes IBIT then MSTR 1-minute
+  // bars and recomputes the live signal (one job on the loopback refresh
+  // service), then re-renders this panel. Same mechanism as the bars-logs page.
+  const REFRESH_API = 'http://127.0.0.1:8765';
+  const PAIR_TOKEN = 'MSTR+IBIT';
+
+  function setRefreshStatus(text) {
+    const el = byId('pair-refresh-status');
+    if (el) el.textContent = text || '';
+  }
+
+  async function pollRefresh(jobId) {
+    for (;;) {
+      await new Promise(r => setTimeout(r, 5000));
+      const resp = await fetch(`${REFRESH_API}/api/etf-refresh/${encodeURIComponent(jobId)}`, { cache: 'no-store' });
+      if (!resp.ok) throw new Error(`status request failed: ${resp.status}`);
+      const job = await resp.json();
+      if (job.status === 'running') setRefreshStatus('IBKR request in progress…');
+      else if (job.status === 'queued') setRefreshStatus('Waiting for collector…');
+      if (job.status === 'succeeded') return job;
+      if (job.status === 'failed') throw new Error(job.message || 'refresh failed');
+    }
+  }
+
+  async function runPairRefresh() {
+    const button = byId('pair-refresh-button');
+    if (!button || button.disabled) return;
+    button.disabled = true;
+    setRefreshStatus('Starting…');
+    try {
+      const resp = await fetch(`${REFRESH_API}/api/etf-refresh`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ symbol: PAIR_TOKEN }),
+      });
+      const job = await resp.json();
+      if (!resp.ok && resp.status !== 409) throw new Error(job.error || `request failed: ${resp.status}`);
+      await pollRefresh(job.job_id);
+      setRefreshStatus('Done — updated.');
+      await loadLiveSignal();
+    } catch (err) {
+      setRefreshStatus(`Failed: ${err.message}`);
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  (() => {
+    const button = byId('pair-refresh-button');
+    if (button) button.addEventListener('click', runPairRefresh);
+    loadLiveSignal();
+  })();
 </script>
 </body>
 </html>

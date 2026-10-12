@@ -1,24 +1,18 @@
 {
-  "generated_at_utc": "2026-10-10T07:26:37.116708Z",
+  "generated_at_utc": "2026-10-12T08:17:04.270716Z",
   "source": "gs://systematicpositiveskew/etf_data",
   "bar_size": "1 min",
   "expected_session": "2026-10-09",
-  "freshness_status": "stale",
-  "stale_symbols": [
-    "SPCX",
-    "STRC",
-    "TIP",
-    "TLT",
-    "TSLA"
-  ],
-  "warning": "ETF bars are stale for: SPCX, STRC, TIP, TLT, TSLA",
+  "freshness_status": "current",
+  "stale_symbols": [],
+  "warning": null,
   "etf_count": 7,
   "etfs": [
     {
       "symbol": "IBIT",
       "first_bar_utc": "2024-01-11T09:04:00Z",
-      "last_bar_utc": "2026-10-09T19:30:00Z",
-      "bar_count": 658804,
+      "last_bar_utc": "2026-10-12T08:16:00Z",
+      "bar_count": 659226,
       "expected_session": "2026-10-09",
       "stale": false,
       "staleness_days": 0,
@@ -27,8 +21,8 @@
     {
       "symbol": "MSTR",
       "first_bar_utc": "2024-01-02T09:04:00Z",
-      "last_bar_utc": "2026-10-09T19:29:00Z",
-      "bar_count": 657075,
+      "last_bar_utc": "2026-10-12T08:16:00Z",
+      "bar_count": 657497,
       "expected_session": "2026-10-09",
       "stale": false,
       "staleness_days": 0,
@@ -37,52 +31,52 @@
     {
       "symbol": "SPCX",
       "first_bar_utc": "2026-06-12T15:46:00Z",
-      "last_bar_utc": "2026-10-08T23:59:00Z",
-      "bar_count": 77360,
+      "last_bar_utc": "2026-10-09T23:59:00Z",
+      "bar_count": 78320,
       "expected_session": "2026-10-09",
-      "stale": true,
-      "staleness_days": 1,
-      "status": "stale"
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
     },
     {
       "symbol": "STRC",
       "first_bar_utc": "2026-01-02T12:09:00Z",
-      "last_bar_utc": "2026-10-08T23:59:00Z",
-      "bar_count": 182512,
+      "last_bar_utc": "2026-10-09T23:59:00Z",
+      "bar_count": 183472,
       "expected_session": "2026-10-09",
-      "stale": true,
-      "staleness_days": 1,
-      "status": "stale"
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
     },
     {
       "symbol": "TIP",
       "first_bar_utc": "2017-01-03T14:30:00Z",
-      "last_bar_utc": "2026-10-08T23:59:00Z",
-      "bar_count": 968636,
+      "last_bar_utc": "2026-10-09T23:59:00Z",
+      "bar_count": 969596,
       "expected_session": "2026-10-09",
-      "stale": true,
-      "staleness_days": 1,
-      "status": "stale"
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
     },
     {
       "symbol": "TLT",
       "first_bar_utc": "2017-01-03T14:30:00Z",
-      "last_bar_utc": "2026-10-08T23:59:00Z",
-      "bar_count": 976645,
+      "last_bar_utc": "2026-10-09T23:59:00Z",
+      "bar_count": 977605,
       "expected_session": "2026-10-09",
-      "stale": true,
-      "staleness_days": 1,
-      "status": "stale"
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
     },
     {
       "symbol": "TSLA",
       "first_bar_utc": "2026-01-02T09:00:00Z",
-      "last_bar_utc": "2026-10-08T23:59:00Z",
-      "bar_count": 184002,
+      "last_bar_utc": "2026-10-09T23:59:00Z",
+      "bar_count": 184962,
       "expected_session": "2026-10-09",
-      "stale": true,
-      "staleness_days": 1,
-      "status": "stale"
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
     }
   ]
 }

@@ -48,11 +48,7 @@
     <p id="freshness" class="notice" hidden></p>
     <p id="meta" class="meta"></p>
     <p id="error" class="error" role="alert"></p>
-    <div id="pair-refresh" class="pair-refresh">
-      <button id="pair-refresh-button" class="refresh-button" type="button" aria-label="Refresh MSTR and IBIT 1-minute data and recompute the live signal">Refresh bars (MSTR/IBIT + signal)</button>
-      <span class="refresh-status" aria-live="polite"></span>
-    </div>
-    <p class="meta">Refreshes IBIT then MSTR 1-minute bars and recomputes the <a href="../paper/mstr.html">MSTR/IBIT live signal</a> in one job.</p>
+    <p class="meta">The combined MSTR/IBIT bars refresh and live-signal recompute now lives on the <a href="../paper/mstr.html">MSTR/IBIT live signal</a> page.</p>
   </section>
 
   <section class="card">
@@ -154,13 +150,6 @@
       return tr;
     }));
   }
-  const PAIR_TOKEN = 'MSTR+IBIT';
-  const pairButton = byId('pair-refresh-button');
-  if (pairButton) {
-    pairButton.dataset.idleLabel = 'Refresh bars (MSTR/IBIT + signal)';
-    pairButton.addEventListener('click', () => refreshTicker(PAIR_TOKEN, pairButton));
-  }
-
   fetch('../data/bars_etf_logs.json', { cache: 'no-store' })
     .then(response => { if (!response.ok) throw new Error(`Coverage request failed: ${response.status}`); return response.json(); })
     .then(render)
