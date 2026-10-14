@@ -1,12 +1,68 @@
 {
-  "generated_at_utc": "2026-10-10T07:11:54.207861Z",
+  "generated_at_utc": "2026-10-14T07:11:52.215797Z",
   "source": "/home/mark/trading_env/data",
   "symbols": [
     "TIP",
     "TLT"
   ],
-  "event_count": 4929,
+  "event_count": 4933,
   "rows": [
+    {
+      "symbol": "TLT",
+      "date": "2026-10-13",
+      "status": "fit written",
+      "event": "GH5_WRITTEN",
+      "model_version": "gh5_v1",
+      "timestamp_utc": "2026-10-14T02:05:20+00:00",
+      "rows": 19,
+      "mad_err": 0.004336085959425693,
+      "error": null,
+      "stage": null,
+      "uri": "gs://systematicpositiveskew/options_data/ticker=TLT_UP/year=2026/month=10/data.parquet",
+      "strike_references": null
+    },
+    {
+      "symbol": "TIP",
+      "date": "2026-10-13",
+      "status": "fit written",
+      "event": "GH5_WRITTEN",
+      "model_version": "gh5_v1",
+      "timestamp_utc": "2026-10-14T02:04:25+00:00",
+      "rows": 19,
+      "mad_err": 0.007407473608548597,
+      "error": null,
+      "stage": null,
+      "uri": "gs://systematicpositiveskew/options_data/ticker=TIP_UP/year=2026/month=10/data.parquet",
+      "strike_references": null
+    },
+    {
+      "symbol": "TLT",
+      "date": "2026-10-12",
+      "status": "fit written",
+      "event": "GH5_WRITTEN",
+      "model_version": "gh5_v1",
+      "timestamp_utc": "2026-10-13T02:05:03+00:00",
+      "rows": 19,
+      "mad_err": 0.003870570229550115,
+      "error": null,
+      "stage": null,
+      "uri": "gs://systematicpositiveskew/options_data/ticker=TLT_UP/year=2026/month=10/data.parquet",
+      "strike_references": null
+    },
+    {
+      "symbol": "TIP",
+      "date": "2026-10-12",
+      "status": "fit written",
+      "event": "GH5_WRITTEN",
+      "model_version": "gh5_v1",
+      "timestamp_utc": "2026-10-13T02:04:12+00:00",
+      "rows": 19,
+      "mad_err": 0.0074209510765024835,
+      "error": null,
+      "stage": null,
+      "uri": "gs://systematicpositiveskew/options_data/ticker=TIP_UP/year=2026/month=10/data.parquet",
+      "strike_references": null
+    },
     {
       "symbol": "TLT",
       "date": "2026-10-09",

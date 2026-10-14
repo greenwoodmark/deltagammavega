@@ -1,131 +1,47 @@
 {
   "schema_version": "marquee_swaption_status_v1",
-  "generated_at_utc": "2026-10-10T07:11:39Z",
+  "generated_at_utc": "2026-10-14T07:11:36Z",
   "source_base": "gs://systematicpositiveskew/gs_marquee_data/swaptions",
   "lookback_days": 90,
-  "start_date": "2026-07-13",
-  "latest_date": "2026-10-09",
+  "start_date": "2026-07-17",
+  "latest_date": "2026-10-13",
   "currency_count": 4,
   "currencies_with_errors": [],
   "currencies": [
     {
       "currency": "USD",
-      "latest_date": "2026-10-09",
-      "row_count": 3060,
+      "latest_date": "2026-10-13",
+      "row_count": 2964,
       "asset_count": 48,
-      "day_count": 64,
+      "day_count": 62,
       "error": null
     },
     {
       "currency": "EUR",
-      "latest_date": "2026-10-09",
-      "row_count": 3072,
+      "latest_date": "2026-10-13",
+      "row_count": 2976,
       "asset_count": 48,
-      "day_count": 64,
+      "day_count": 62,
       "error": null
     },
     {
       "currency": "GBP",
-      "latest_date": "2026-10-09",
-      "row_count": 3073,
+      "latest_date": "2026-10-13",
+      "row_count": 2977,
       "asset_count": 48,
-      "day_count": 64,
+      "day_count": 62,
       "error": null
     },
     {
       "currency": "JPY",
-      "latest_date": "2026-10-09",
-      "row_count": 2895,
+      "latest_date": "2026-10-13",
+      "row_count": 2751,
       "asset_count": 48,
-      "day_count": 60,
+      "day_count": 57,
       "error": null
     }
   ],
   "daily": [
-    {
-      "date": "2026-07-13",
-      "currencies": {
-        "USD": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "EUR": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "GBP": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "JPY": {
-          "row_count": 48,
-          "asset_count": 48
-        }
-      }
-    },
-    {
-      "date": "2026-07-14",
-      "currencies": {
-        "USD": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "EUR": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "GBP": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "JPY": {
-          "row_count": 48,
-          "asset_count": 48
-        }
-      }
-    },
-    {
-      "date": "2026-07-15",
-      "currencies": {
-        "USD": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "EUR": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "GBP": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "JPY": {
-          "row_count": 48,
-          "asset_count": 48
-        }
-      }
-    },
-    {
-      "date": "2026-07-16",
-      "currencies": {
-        "USD": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "EUR": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "GBP": {
-          "row_count": 48,
-          "asset_count": 48
-        },
-        "JPY": {
-          "row_count": 48,
-          "asset_count": 48
-        }
-      }
-    },
     {
       "date": "2026-07-17",
       "currencies": {
@@ -1356,6 +1272,44 @@
     },
     {
       "date": "2026-10-09",
+      "currencies": {
+        "USD": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "EUR": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "GBP": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "JPY": {
+          "row_count": 48,
+          "asset_count": 48
+        }
+      }
+    },
+    {
+      "date": "2026-10-12",
+      "currencies": {
+        "USD": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "EUR": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "GBP": {
+          "row_count": 48,
+          "asset_count": 48
+        }
+      }
+    },
+    {
+      "date": "2026-10-13",
       "currencies": {
         "USD": {
           "row_count": 48,

@@ -26,6 +26,7 @@
     button#pair-refresh-button:hover:not(:disabled) { background: #e2e8f0; }
     button#pair-refresh-button:disabled { opacity: .6; cursor: default; }
     #pair-refresh-status { margin-left: 10px; }
+    #stale-snapshot-warning { background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; padding: 10px 12px; border-radius: 8px; }
   </style>
 </head>
 <body>
@@ -38,6 +39,7 @@
       <span id="latest-bars" class="meta">Latest 1-min bars — MSTR: — · IBIT: —</span>
       <span id="pair-refresh-status" class="meta"></span>
     </p>
+    <p id="stale-snapshot-warning" style="display:none">Bars are newer than the live signal snapshot; signal recalculation is still pending.</p>
     <p id="live-message" class="muted" style="display:none"></p>
     <table id="live-table">
       <tbody>
@@ -201,6 +203,19 @@
     }
 
     byId('live-meta').textContent = `Latest bar ${fmtTs(data.latest_bar_utc)} · generated ${fmtTs(data.generated_at_utc)}`;
+    updateStaleSnapshotWarning(data);
+  }
+
+  function updateStaleSnapshotWarning(data) {
+    const warning = byId('stale-snapshot-warning');
+    if (!warning) return;
+    const signalTime = Date.parse(data && data.latest_bar_utc);
+    const barTimes = [
+      Date.parse(data && data.mstr_latest_bar_utc),
+      Date.parse(data && data.ibit_latest_bar_utc),
+    ].filter(timestamp => !Number.isNaN(timestamp));
+    const isStale = !Number.isNaN(signalTime) && barTimes.some(timestamp => timestamp > signalTime);
+    warning.style.display = isStale ? '' : 'none';
   }
 
   function renderSpeedBreakdown(rows) {
@@ -258,16 +273,30 @@
     if (el) el.textContent = text || '';
   }
 
-  async function pollRefresh(jobId) {
+  function describeRefreshJob(job) {
+    const el = byId('pair-refresh-status');
+    if (el) el.textContent = text || '';
+  }
+
+  function describeRefreshJob(job) {
+    if (job.status === 'queued') return job.message || 'Queued — waiting for the refresh service…';
+    if (job.status === 'running') return job.message || 'Running — IBIT → MSTR → signal → site rebuild…';
+    if (job.status === 'succeeded') return job.message || 'Completed — bars, signal, and internal site updated.';
+    if (job.status === 'failed') return job.message || 'Refresh failed.';
+    return job.message || `Refresh status: ${job.status || 'unknown'}`;
+  }
+
+  async function pollRefresh(jobId, initialJob) {
+    let job = initialJob;
+    setRefreshStatus(describeRefreshJob(job));
     for (;;) {
+      if (job.status === 'succeeded') return job;
+      if (job.status === 'failed') throw new Error(job.message || 'refresh failed');
       await new Promise(r => setTimeout(r, 5000));
       const resp = await fetch(`${REFRESH_API}/api/etf-refresh/${encodeURIComponent(jobId)}`, { cache: 'no-store' });
       if (!resp.ok) throw new Error(`status request failed: ${resp.status}`);
-      const job = await resp.json();
-      if (job.status === 'running') setRefreshStatus('IBKR request in progress…');
-      else if (job.status === 'queued') setRefreshStatus('Waiting for collector…');
-      if (job.status === 'succeeded') return job;
-      if (job.status === 'failed') throw new Error(job.message || 'refresh failed');
+      job = await resp.json();
+      setRefreshStatus(describeRefreshJob(job));
     }
   }
 
@@ -284,8 +313,8 @@
       });
       const job = await resp.json();
       if (!resp.ok && resp.status !== 409) throw new Error(job.error || `request failed: ${resp.status}`);
-      await pollRefresh(job.job_id);
-      setRefreshStatus('Done — updated.');
+      await pollRefresh(job.job_id, job);
+      setRefreshStatus('Completed — bars → signal → site updated.');
       await loadLiveSignal();
     } catch (err) {
       setRefreshStatus(`Failed: ${err.message}`);
