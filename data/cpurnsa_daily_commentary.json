@@ -1,8 +1,8 @@
 {
   "schema_version": "cpurnsa_daily_commentary_v1",
   "trade_count_definition": "Accepted fit-observation endpoint-support counts. Exact reference CPI trades count once at their endpoint; interpolated trades count once at both final endpoint nodes. The known base CPI node is excluded.",
-  "generated_at_utc": "2026-10-14T05:05:05+00:00",
-  "latest_model_date": "2026-10-13",
+  "generated_at_utc": "2026-10-15T05:05:10+00:00",
+  "latest_model_date": "2026-10-14",
   "entries": {
     "2026-03-18": {
       "trace_id": "2026-03-18",
@@ -9138,6 +9138,69 @@
       "unchanged_nodes": 0,
       "source_trade_count_delta": 3,
       "summary": "The curve moved higher versus 2026-10-09. The move was within its usual historical range; 6 nodes rose and 6 fell; the largest absolute move was 2.43 bp at 2027-08-01."
+    },
+    "2026-10-14": {
+      "trace_id": "2026-10-14",
+      "model_date": "2026-10-14",
+      "curve_kind": "shadow_posterior",
+      "fit_status": "rank_deficient",
+      "source_trade_count": 4,
+      "trade_count": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        2,
+        0
+      ],
+      "comparison_status": "unavailable_frame_boundary",
+      "prior_model_date": "2026-10-13",
+      "reference_month": [
+        "2026-10-01",
+        "2026-11-01",
+        "2026-12-01",
+        "2027-01-01",
+        "2027-02-01",
+        "2027-03-01",
+        "2027-04-01",
+        "2027-05-01",
+        "2027-06-01",
+        "2027-07-01",
+        "2027-08-01",
+        "2027-09-01"
+      ],
+      "move_bp": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "max_abs_move_bp": null,
+      "max_abs_move_reference_month": null,
+      "uncertainty_sd_bp": null,
+      "uncertainty_ratio": null,
+      "uncertainty_status": "available",
+      "uncertainty_alignment": "node_position",
+      "magnitude_class": "unavailable",
+      "up_nodes": 0,
+      "down_nodes": 0,
+      "unchanged_nodes": 0,
+      "source_trade_count_delta": null,
+      "summary": "Comparison unavailable because the public model frame changed."
     }
   }
 }
