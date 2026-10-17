@@ -1,105 +1,105 @@
 {
   "schema_version": "internal_refresh_status_v1",
-  "run_id": "d63d00b8-b077-4c96-98c4-252a7672cfe5",
-  "generated_at_utc": "2026-10-16T07:37:21Z",
-  "started_at_utc": "2026-10-16T07:10:01Z",
+  "run_id": "667ae569-bceb-4d7e-b962-2fb669bf1dfa",
+  "generated_at_utc": "2026-10-17T07:37:50Z",
+  "started_at_utc": "2026-10-17T07:10:01Z",
   "overall_status": "success",
   "stages": {
     "softs_diagnostics_sync": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:10:01Z",
+      "started_at_utc": "2026-10-17T07:10:01Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:10:01Z"
+      "finished_at_utc": "2026-10-17T07:10:01Z"
     },
     "jup_share_price_daily": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:10:01Z",
+      "started_at_utc": "2026-10-17T07:10:01Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:10:04Z"
+      "finished_at_utc": "2026-10-17T07:10:08Z"
     },
     "jup_gear_chart_data": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:10:04Z",
+      "started_at_utc": "2026-10-17T07:10:08Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:10:10Z"
+      "finished_at_utc": "2026-10-17T07:10:14Z"
     },
     "jup_performance_fee_data": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:10:10Z",
+      "started_at_utc": "2026-10-17T07:10:14Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:10:20Z"
+      "finished_at_utc": "2026-10-17T07:10:25Z"
     },
     "tips_fedinvest_status": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:10:20Z",
+      "started_at_utc": "2026-10-17T07:10:25Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:10:21Z"
+      "finished_at_utc": "2026-10-17T07:10:26Z"
     },
     "swaption_status": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:10:21Z",
+      "started_at_utc": "2026-10-17T07:10:26Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:11:35Z"
+      "finished_at_utc": "2026-10-17T07:11:39Z"
     },
     "model_logs": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:11:35Z",
+      "started_at_utc": "2026-10-17T07:11:39Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:11:50Z"
+      "finished_at_utc": "2026-10-17T07:11:54Z"
     },
     "tip_tlt_model_data": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:11:50Z",
+      "started_at_utc": "2026-10-17T07:11:54Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:26:44Z"
+      "finished_at_utc": "2026-10-17T07:27:14Z"
     },
     "etf_bars": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:26:44Z",
+      "started_at_utc": "2026-10-17T07:27:14Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:26:47Z"
+      "finished_at_utc": "2026-10-17T07:27:18Z"
     },
     "rv_paper_logs": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:26:47Z",
+      "started_at_utc": "2026-10-17T07:27:18Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:26:48Z"
+      "finished_at_utc": "2026-10-17T07:27:19Z"
     },
     "rv_live_signal": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:26:48Z",
+      "started_at_utc": "2026-10-17T07:27:19Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:32:15Z"
+      "finished_at_utc": "2026-10-17T07:32:52Z"
     },
     "short_shadow_export": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:32:15Z",
+      "started_at_utc": "2026-10-17T07:32:52Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:36:47Z"
+      "finished_at_utc": "2026-10-17T07:37:22Z"
     },
     "long_shadow_extension": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:36:47Z",
+      "started_at_utc": "2026-10-17T07:37:22Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:37:16Z"
+      "finished_at_utc": "2026-10-17T07:37:45Z"
     },
     "cpurnsa_publish": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:37:16Z",
+      "started_at_utc": "2026-10-17T07:37:45Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:37:16Z"
+      "finished_at_utc": "2026-10-17T07:37:45Z"
     },
     "shadow_replay": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:37:16Z",
+      "started_at_utc": "2026-10-17T07:37:45Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:37:21Z"
+      "finished_at_utc": "2026-10-17T07:37:50Z"
     },
     "internal_build": {
       "status": "success",
-      "started_at_utc": "2026-10-16T07:37:21Z",
+      "started_at_utc": "2026-10-17T07:37:50Z",
       "output": null,
-      "finished_at_utc": "2026-10-16T07:37:21Z"
+      "finished_at_utc": "2026-10-17T07:37:50Z"
     }
   }
 }
