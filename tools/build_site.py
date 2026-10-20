@@ -1,4 +1,4 @@
-"""Assemble the public Firebase site and the local internal site."""
+"""Assemble the public Firebase site."""
 
 from __future__ import annotations
 
@@ -26,30 +26,6 @@ PUBLIC_DATA_FILES = (
     "cpurnsa_pca_diagnostics.json",
     "health.json",
 )
-INTERNAL_FILES = (
-    "logs.html",
-    "bars/logs.html",
-    "tips_fedinvest.html",
-    "swaption_status.html",
-    "softs/logs.html",
-    "model/logs.html",
-    "JUP/model.html",
-    "TIP_v_TLT/model.html",
-    "TIP_v_TLT/model/overview.html",
-    "paper/mstr.html",
-)
-INTERNAL_DATA_FILES = (
-    "softs_diagnostics.json",
-    "bars_etf_logs.json",
-    "equity_vol_logs.json",
-    "jup_model_logs.json",
-    "jup_gear_chart.json",
-    "tip_tlt_model.json",
-)
-INTERNAL_OPTIONAL_DATA_FILES = ("refresh_status.json", "tips_fedinvest_status.json", "swaption_status.json", "jup_performance_fee.json", "rv_paper_logs.json", "rv_live_signal.json")
-
-PUBLIC_LOG_TEXT = '<text x="950.48" y="110.08" font-size="192.05px" transform="rotate(-30.83, 950.48, 110.08)">a</text>'
-INTERNAL_LOG_LINK = f'<a href="logs.html" aria-label="Open logs">{PUBLIC_LOG_TEXT}</a>'
 
 
 def _copy(source: Path, destination: Path) -> None:
@@ -59,65 +35,23 @@ def _copy(source: Path, destination: Path) -> None:
     shutil.copy2(source, destination)
 
 
-def _assemble_variant(root: Path, output: Path, *, include_internal: bool) -> None:
+def _assemble_variant(root: Path, output: Path) -> None:
     shared = root / "site" / "shared"
     data = root / "data"
-    internal = root / "site" / "internal"
 
     for relative in PUBLIC_FILES:
         _copy(shared / relative, output / relative)
     for filename in PUBLIC_DATA_FILES:
         _copy(data / filename, output / "data" / filename)
 
-    if include_internal:
-        # Keep the logs link on the internal landing page only. The shared
-        # source is deliberately link-free so a direct public copy is safe.
-        internal_index = output / "index.html"
-        index_text = internal_index.read_text(encoding="utf-8")
-        if PUBLIC_LOG_TEXT not in index_text:
-            raise ValueError("Shared landing page is missing its final letter")
-        internal_index.write_text(index_text.replace(PUBLIC_LOG_TEXT, INTERNAL_LOG_LINK), encoding="utf-8")
-        for relative in INTERNAL_FILES:
-            _copy(shared / relative, output / relative)
-        for filename in INTERNAL_DATA_FILES:
-            _copy(data / filename, output / "data" / filename)
-        for filename in INTERNAL_OPTIONAL_DATA_FILES:
-            optional_source = data / filename
-            if optional_source.is_file():
-                _copy(optional_source, output / "data" / filename)
 
-    if include_internal:
-        # Keep the shared CPURNSA page available to the internal overlay without
-        # exposing this helper in the Firebase public artifact.
-        _copy(shared / "cpurnsa.html", output / "cpurnsa_base.html")
-        base_page = output / "cpurnsa_base.html"
-        base_text = base_page.read_text(encoding="utf-8")
-        pca_link = '<p><a href="pca.html">View six-driver PCA diagnostics →</a></p>'
-        internal_links = (
-            '<div style="display:flex; justify-content:space-between; align-items:center;">'
-            '<a href="pca.html">View six-driver PCA diagnostics →</a>'
-            '<a href="cpurnsa_example.html">Example of daily update →</a>'
-            '</div>'
-        )
-        if pca_link not in base_text:
-            raise ValueError("Shared CPURNSA page is missing its PCA link")
-        base_page.write_text(base_text.replace(pca_link, internal_links), encoding="utf-8")
-        # Present the existing shared Bayesian CPI example at the internal
-        # CPURNSA example URL without changing its public URL.
-        _copy(shared / "cpi_bayesian_update_example.html", output / "cpurnsa_example.html")
-        if internal.exists():
-            for source in internal.rglob("*"):
-                if source.is_file():
-                    _copy(source, output / source.relative_to(internal))
-
-
-def build_variant(root: Path, output: Path, *, include_internal: bool) -> None:
+def build_variant(root: Path, output: Path) -> None:
     """Build into a complete temporary tree, then atomically publish it."""
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = Path(tempfile.mkdtemp(prefix=f".{output.name}.", dir=output.parent))
     backup = output.with_name(f".{output.name}.{uuid.uuid4().hex}.old")
     try:
-        _assemble_variant(root, temporary, include_internal=include_internal)
+        _assemble_variant(root, temporary)
         if output.exists():
             os.replace(output, backup)
         os.replace(temporary, output)
@@ -133,15 +67,16 @@ def build_variant(root: Path, output: Path, *, include_internal: bool) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--target", choices=("public", "internal", "all"), default="all")
+    # The internal variant now lives in the private repo (dgv_resources). This
+    # builder produces the public site only. "all" is retained as a backward-
+    # compatible alias that builds the public site.
+    parser.add_argument("--target", choices=("public", "all"), default="public")
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
     root = args.root.resolve()
     build_dir = root / "build"
     if args.target in {"public", "all"}:
-        build_variant(root, build_dir / "public", include_internal=False)
-    if args.target in {"internal", "all"}:
-        build_variant(root, build_dir / "internal", include_internal=True)
+        build_variant(root, build_dir / "public")
     return 0
 
 
