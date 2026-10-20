@@ -81,3 +81,53 @@ jobs:
             data/health.json
           git commit -m "Update CPURNSA curve data"
           git push
+
+      # ---------------------------------------------------------------------
+      # Automated Firebase Hosting deploy (replaces the manual
+      # deploy_public_site.sh DEPLOY gate for the CI path).
+      #
+      # Publishes the freshly assembled build/public to live Firebase Hosting
+      # so the site (https://www.deltagammavega.com/cpurnsa.html) stays in sync
+      # on every successful run. This runs regardless of whether the commit
+      # step found a diff, because build/public is reassembled fresh each run;
+      # a no-diff run still re-publishes the current build. It only runs when
+      # every preceding build/validation step succeeded: these are plain
+      # sequential steps (no `if: always()`), so a validation failure aborts
+      # the job before reaching the deploy.
+      #
+      # Required GitHub Actions repository secret:
+      #   FIREBASE_SERVICE_ACCOUNT - the full JSON of a Google Cloud service
+      #       account key with Firebase Hosting deploy permissions on project
+      #       deltagammavega-46877 (roles/firebasehosting.admin or equivalent).
+      #
+      # Optional legacy fallback secret (deprecated path):
+      #   FIREBASE_TOKEN - a `firebase login:ci` CI token. Used only if
+      #       FIREBASE_SERVICE_ACCOUNT is not set. `firebase deploy --token` is
+      #       deprecated by firebase-tools; prefer the service account.
+      #
+      # The project id is taken from the repo-root .firebaserc (default project
+      # deltagammavega-46877), so --project is intentionally omitted.
+      # ---------------------------------------------------------------------
+      - name: Install firebase-tools
+        run: npm install -g firebase-tools
+
+      - name: Deploy public build to Firebase Hosting
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -n "${FIREBASE_SERVICE_ACCOUNT:-}" ]; then
+            # Primary: authenticate via a service account key file.
+            cred_file="$(mktemp)"
+            printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$cred_file"
+            export GOOGLE_APPLICATION_CREDENTIALS="$cred_file"
+            trap 'rm -f "$cred_file"' EXIT
+            firebase deploy --only hosting --non-interactive
+          elif [ -n "${FIREBASE_TOKEN:-}" ]; then
+            # Fallback: deprecated CI token.
+            firebase deploy --only hosting --non-interactive --token "$FIREBASE_TOKEN"
+          else
+            echo "::error::Neither FIREBASE_SERVICE_ACCOUNT nor FIREBASE_TOKEN secret is set; cannot deploy." >&2
+            exit 1
+          fi
