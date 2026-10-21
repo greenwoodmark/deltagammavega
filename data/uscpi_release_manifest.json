@@ -1,17 +1,17 @@
 {
   "schema_version": "uscpi_public_release_manifest_v1",
-  "release_id": "2026-10-19-3c5dca99ab4ea00c",
-  "generated_at_utc": "2026-10-20T05:04:55+00:00",
-  "latest_model_date": "2026-10-19",
+  "release_id": "2026-10-20-eab4cabb7158fde5",
+  "generated_at_utc": "2026-10-21T05:05:00+00:00",
+  "latest_model_date": "2026-10-20",
   "model_version": "uscpi_six_driver_v1",
   "curve_kind": "shadow_posterior",
   "pca_schema_version": "cpurnsa_pca_diagnostics_v2",
-  "snapshot_count": 88,
+  "snapshot_count": 89,
   "files": [
     {
       "path": "cpurnsa_pca_diagnostics.json",
-      "sha256": "0ef3e4436778d96db28b7873a11bfc7574f3b9aba3cab5883dd1629816172ebc",
-      "size_bytes": 12663,
+      "sha256": "02a749c66193535f881559b796861736ad782d84d77afc6f0cf35752ba269b5d",
+      "size_bytes": 12681,
       "content_type": "application/json"
     },
     {
@@ -540,6 +540,12 @@
       "path": "snapshots/2026-10-19.csv",
       "sha256": "1581aeee25a4e9024307189104b3e09c31c2ce51dd44a4c39afbbbc89bdb0607",
       "size_bytes": 2575,
+      "content_type": "text/csv"
+    },
+    {
+      "path": "snapshots/2026-10-20.csv",
+      "sha256": "527d1acfcd412240defff11069f20a2d9cbd5d3b2b093a728ea94880df77c952",
+      "size_bytes": 2572,
       "content_type": "text/csv"
     }
   ],
