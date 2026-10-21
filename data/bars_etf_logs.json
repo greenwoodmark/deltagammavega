@@ -1,0 +1,82 @@
+{
+  "generated_at_utc": "2026-10-21T07:26:44.689493Z",
+  "source": "gs://systematicpositiveskew/etf_data",
+  "bar_size": "1 min",
+  "expected_session": "2026-10-20",
+  "freshness_status": "current",
+  "stale_symbols": [],
+  "warning": null,
+  "etf_count": 7,
+  "etfs": [
+    {
+      "symbol": "IBIT",
+      "first_bar_utc": "2024-01-11T09:04:00Z",
+      "last_bar_utc": "2026-10-20T23:59:00Z",
+      "bar_count": 665238,
+      "expected_session": "2026-10-20",
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
+    },
+    {
+      "symbol": "MSTR",
+      "first_bar_utc": "2024-01-02T09:04:00Z",
+      "last_bar_utc": "2026-10-20T23:59:00Z",
+      "bar_count": 663510,
+      "expected_session": "2026-10-20",
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
+    },
+    {
+      "symbol": "SPCX",
+      "first_bar_utc": "2026-06-12T15:46:00Z",
+      "last_bar_utc": "2026-10-20T23:59:00Z",
+      "bar_count": 85040,
+      "expected_session": "2026-10-20",
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
+    },
+    {
+      "symbol": "STRC",
+      "first_bar_utc": "2026-01-02T12:09:00Z",
+      "last_bar_utc": "2026-10-20T23:59:00Z",
+      "bar_count": 190187,
+      "expected_session": "2026-10-20",
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
+    },
+    {
+      "symbol": "TIP",
+      "first_bar_utc": "2017-01-03T14:30:00Z",
+      "last_bar_utc": "2026-10-20T23:59:00Z",
+      "bar_count": 975155,
+      "expected_session": "2026-10-20",
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
+    },
+    {
+      "symbol": "TLT",
+      "first_bar_utc": "2017-01-03T14:30:00Z",
+      "last_bar_utc": "2026-10-20T23:59:00Z",
+      "bar_count": 984325,
+      "expected_session": "2026-10-20",
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
+    },
+    {
+      "symbol": "TSLA",
+      "first_bar_utc": "2026-01-02T09:00:00Z",
+      "last_bar_utc": "2026-10-20T23:59:00Z",
+      "bar_count": 191682,
+      "expected_session": "2026-10-20",
+      "stale": false,
+      "staleness_days": 0,
+      "status": "current"
+    }
+  ]
+}

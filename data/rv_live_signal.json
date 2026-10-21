@@ -1,0 +1,62 @@
+{
+  "generated_at_utc": "2026-10-21T07:32:21Z",
+  "latest_bar_utc": "2026-10-20T23:59:00Z",
+  "mstr_latest_bar_utc": "2026-10-20T23:59:00Z",
+  "ibit_latest_bar_utc": "2026-10-20T23:59:00Z",
+  "mstr_price": 144.32,
+  "ibit_price": 46.98,
+  "composite_z": 0.320913214430702,
+  "speed_breakdown": [
+    {
+      "speed_days": 10,
+      "medcouple": 0.09743129790196557,
+      "clipped_z": 0.7310006796324205,
+      "medcouple_percentile": 80.8589306029579,
+      "n_history": 7032
+    },
+    {
+      "speed_days": 15,
+      "medcouple": 0.0012068627373508748,
+      "clipped_z": -0.057943113170807845,
+      "medcouple_percentile": 47.68202502844141,
+      "n_history": 7032
+    },
+    {
+      "speed_days": 20,
+      "medcouple": -0.011292059913848435,
+      "clipped_z": -0.6812457271223259,
+      "medcouple_percentile": 38.42434584755404,
+      "n_history": 7032
+    },
+    {
+      "speed_days": 30,
+      "medcouple": 0.022948375248202722,
+      "clipped_z": 0.22340989268498446,
+      "medcouple_percentile": 57.62229806598407,
+      "n_history": 7032
+    },
+    {
+      "speed_days": 45,
+      "medcouple": 0.0930353780574367,
+      "clipped_z": 0.7250701795043021,
+      "medcouple_percentile": 78.9391353811149,
+      "n_history": 7032
+    }
+  ],
+  "mstr_notional": 3209.1321443070196,
+  "ibit_notional": -3209.1321443070196,
+  "mstr_shares": 22,
+  "ibit_shares": -68,
+  "vol10_per_min": 0.0005834994840417547,
+  "mad10_percentile": 41.259550821949524,
+  "n_vol_history": 4319,
+  "regime": "low-vol (edge regime)",
+  "deadzone": 0.5,
+  "deadzone_pass": false,
+  "hysteresis_on_pct": 40,
+  "hysteresis_off_pct": 60,
+  "gate_state": "on",
+  "proposed_action": "no_new_position",
+  "gated_mstr_shares": 0,
+  "gated_ibit_shares": 0
+}
