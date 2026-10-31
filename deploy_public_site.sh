@@ -14,6 +14,7 @@ python3 tools/validate_uscpi_public_data.py \
   --commentary-path data/cpurnsa_daily_commentary.json
 
 python3 tools/validate_softs_diagnostics.py data/softs_diagnostics.json
+python3 tools/validate_cpi_prediction_markets_data.py data/cpi_prediction_markets.json
 python3 tools/validate_public_build.py build/public
 
 echo

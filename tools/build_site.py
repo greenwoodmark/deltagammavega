@@ -13,6 +13,7 @@ PUBLIC_FILES = (
     "index.html",
     "softs/logs.html",
     "cpurnsa.html",
+    "cpi_prediction_markets.html",
     "pca.html",
     "chart.html",
     "cpi_bayesian_update_example.html",
@@ -24,6 +25,7 @@ PUBLIC_DATA_FILES = (
     "cpurnsa_curve_history.json",
     "cpurnsa_daily_commentary.json",
     "cpurnsa_pca_diagnostics.json",
+    "cpi_prediction_markets.json",
     "health.json",
 )
 

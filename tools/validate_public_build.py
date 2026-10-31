@@ -9,6 +9,7 @@ ALLOWED_FILES = {
     "index.html",
     "softs/logs.html",
     "cpurnsa.html",
+    "cpi_prediction_markets.html",
     "pca.html",
     "chart.html",
     "cpi_bayesian_update_example.html",
@@ -18,6 +19,7 @@ ALLOWED_FILES = {
     "data/cpurnsa_curve_history.json",
     "data/cpurnsa_daily_commentary.json",
     "data/cpurnsa_pca_diagnostics.json",
+    "data/cpi_prediction_markets.json",
     "data/health.json",
 }
 REQUIRED_FILES = ALLOWED_FILES - {"CNAME"}
