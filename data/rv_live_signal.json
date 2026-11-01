@@ -1,55 +1,55 @@
 {
-  "generated_at_utc": "2026-10-21T07:32:21Z",
-  "latest_bar_utc": "2026-10-20T23:59:00Z",
-  "mstr_latest_bar_utc": "2026-10-20T23:59:00Z",
-  "ibit_latest_bar_utc": "2026-10-20T23:59:00Z",
-  "mstr_price": 144.32,
-  "ibit_price": 46.98,
-  "composite_z": 0.320913214430702,
+  "generated_at_utc": "2026-10-31T07:32:28Z",
+  "latest_bar_utc": "2026-10-29T23:59:00Z",
+  "mstr_latest_bar_utc": "2026-10-29T23:59:00Z",
+  "ibit_latest_bar_utc": "2026-10-29T23:59:00Z",
+  "mstr_price": 133.47,
+  "ibit_price": 43.98,
+  "composite_z": -0.15901565131404702,
   "speed_breakdown": [
     {
       "speed_days": 10,
-      "medcouple": 0.09743129790196557,
-      "clipped_z": 0.7310006796324205,
-      "medcouple_percentile": 80.8589306029579,
-      "n_history": 7032
+      "medcouple": 0.01156097557973904,
+      "clipped_z": -0.5656735969936308,
+      "medcouple_percentile": 46.219646799117,
+      "n_history": 7248
     },
     {
       "speed_days": 15,
-      "medcouple": 0.0012068627373508748,
-      "clipped_z": -0.057943113170807845,
-      "medcouple_percentile": 47.68202502844141,
-      "n_history": 7032
+      "medcouple": 0.04567427512385438,
+      "clipped_z": 0.44392590672214555,
+      "medcouple_percentile": 68.88796909492274,
+      "n_history": 7248
     },
     {
       "speed_days": 20,
-      "medcouple": -0.011292059913848435,
-      "clipped_z": -0.6812457271223259,
-      "medcouple_percentile": 38.42434584755404,
-      "n_history": 7032
+      "medcouple": 0.0015502464184551697,
+      "clipped_z": -0.5681985061046462,
+      "medcouple_percentile": 41.459713024282564,
+      "n_history": 7248
     },
     {
       "speed_days": 30,
-      "medcouple": 0.022948375248202722,
-      "clipped_z": 0.22340989268498446,
-      "medcouple_percentile": 57.62229806598407,
-      "n_history": 7032
+      "medcouple": 0.00847198597955444,
+      "clipped_z": -0.07783709898041774,
+      "medcouple_percentile": 49.1583885209713,
+      "n_history": 7248
     },
     {
       "speed_days": 45,
-      "medcouple": 0.0930353780574367,
-      "clipped_z": 0.7250701795043021,
-      "medcouple_percentile": 78.9391353811149,
-      "n_history": 7032
+      "medcouple": 0.06440684969912559,
+      "clipped_z": 0.2927199810562318,
+      "medcouple_percentile": 67.64624724061811,
+      "n_history": 7248
     }
   ],
-  "mstr_notional": 3209.1321443070196,
-  "ibit_notional": -3209.1321443070196,
-  "mstr_shares": 22,
-  "ibit_shares": -68,
-  "vol10_per_min": 0.0005834994840417547,
-  "mad10_percentile": 41.259550821949524,
-  "n_vol_history": 4319,
+  "mstr_notional": -1590.1565131404702,
+  "ibit_notional": 1590.1565131404702,
+  "mstr_shares": -12,
+  "ibit_shares": 36,
+  "vol10_per_min": 0.0006065725092964928,
+  "mad10_percentile": 45.79288025889968,
+  "n_vol_history": 4326,
   "regime": "low-vol (edge regime)",
   "deadzone": 0.5,
   "deadzone_pass": false,
