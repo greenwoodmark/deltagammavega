@@ -1,8 +1,8 @@
 {
   "schema_version": "cpi_prediction_markets_v1",
-  "generated_at_utc": "2026-10-31T18:00:57+00:00",
+  "generated_at_utc": "2026-11-02T12:26:23+00:00",
   "latest_as_of": "2026-10-31",
-  "model_version": "gh_prediction_v1",
+  "model_version": "implied_dist_v1",
   "warning": null,
   "measures": [
     {
@@ -12,7 +12,6 @@
       "axis_unit": "YoY %",
       "implied_mean": 3.9349999999999996,
       "implied_median": 3.95,
-      "n_params": 3,
       "n_strikes": 21,
       "repaired": false,
       "prob_mad_err": 0.017178326760747632,
@@ -481,7 +480,6 @@
       "axis_unit": "YoY %",
       "implied_mean": 2.8710000000000004,
       "implied_median": 2.8499999999999996,
-      "n_params": 3,
       "n_strikes": 15,
       "repaired": false,
       "prob_mad_err": 0.011470824038464592,
@@ -926,7 +924,6 @@
       "axis_unit": "MoM %",
       "implied_mean": 0.27275,
       "implied_median": 0.25,
-      "n_params": 3,
       "n_strikes": 11,
       "repaired": false,
       "prob_mad_err": 0.011751587804508478,
@@ -1355,7 +1352,6 @@
       "axis_unit": "MoM %",
       "implied_mean": 0.231,
       "implied_median": 0.25,
-      "n_params": 4,
       "n_strikes": 11,
       "repaired": false,
       "prob_mad_err": 0.011701106793771931,

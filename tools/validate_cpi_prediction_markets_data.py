@@ -32,7 +32,6 @@ MEASURE_REQUIRED = {
     "axis_unit",
     "implied_mean",
     "implied_median",
-    "n_params",
     "n_strikes",
     "repaired",
     "prob_mad_err",
@@ -48,6 +47,13 @@ FORBIDDEN_FIELDS = {
     "local_path",
     "traceback",
     "GOOGLE_APPLICATION_CREDENTIALS",
+    # The fitting METHOD is confidential and must never be named or inferable in
+    # the public JSON. Reject any field that would reveal it.
+    "n_params",
+    "gh_prediction",
+    "gh_prediction_v1",
+    "tukey",
+    "gh_params",
 }
 
 
@@ -118,7 +124,6 @@ def _validate_measure(entry: object) -> None:
     _finite_or_null(entry["implied_mean"], f"{where} implied_mean")
     _finite_or_null(entry["implied_median"], f"{where} implied_median")
     _finite_or_null(entry["prob_mad_err"], f"{where} prob_mad_err")
-    _nonneg_int(entry["n_params"], f"{where} n_params")
     _nonneg_int(entry["n_strikes"], f"{where} n_strikes")
     if not isinstance(entry["repaired"], bool):
         raise ValueError(f"{where} repaired must be boolean")

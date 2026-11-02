@@ -69,19 +69,21 @@
       color: #fde68a;
     }
     .error { color: #fca5a5; }
-    .measure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.1rem; }
+    .measure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1.1rem; }
     .card {
       background: rgba(6, 25, 22, 0.72);
       border: 1px solid rgba(94, 234, 212, 0.18);
       border-radius: 12px;
       padding: 1rem 1.1rem 1.2rem;
+      min-width: 0;
+      overflow: hidden;
     }
     .card h2 { font-size: 1.08rem; margin: 0 0 0.15rem; }
     .card .sub { color: rgba(148, 163, 184, 0.95); font-size: 0.82rem; margin: 0 0 0.75rem; }
     dl.summary { display: grid; grid-template-columns: max-content 1fr; gap: 0.3rem 1rem; margin: 0 0 0.85rem; font-size: 0.9rem; }
     dl.summary dt { color: rgba(148, 163, 184, 0.95); }
     dl.summary dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
-    .chart { width: 100%; min-height: 320px; }
+    .chart { width: 100%; max-width: 100%; min-height: 380px; overflow: hidden; }
     .unavailable { color: rgba(226, 232, 240, 0.7); font-style: italic; padding: 1.5rem 0; text-align: center; }
     footer.site-footer {
       width: 100%;
@@ -105,10 +107,10 @@
     <h1>US CPI prediction markets — implied distribution</h1>
     <p class="lede">
       Market-implied risk-neutral distributions for US CPI, fitted from Kalshi
-      prediction-market ladders with a Tukey GH distribution. Each panel shows a
-      measure's fitted implied mean and median, the reconstructed implied
-      cumulative distribution (CDF) and probability density (PDF) across the
-      rate axis, and the raw ladder-implied survival probabilities as points.
+      prediction-market ladders. Each panel shows a measure's fitted implied
+      mean and median, the reconstructed implied cumulative distribution (CDF)
+      and probability density (PDF) across the rate axis, and the raw
+      ladder-implied survival probabilities as points.
     </p>
     <p id="meta" class="meta" aria-live="polite"></p>
     <div id="notice" class="notice" role="status"></div>
@@ -169,8 +171,7 @@
       dl.className = 'summary';
       addDetail(dl, 'Implied mean', `${fmt(entry.implied_mean)}${entry.axis_unit ? ' ' + entry.axis_unit : ''}`);
       addDetail(dl, 'Implied median', `${fmt(entry.implied_median)}${entry.axis_unit ? ' ' + entry.axis_unit : ''}`);
-      addDetail(dl, 'GH parameters', `${entry.n_params}-param${entry.repaired ? ' · repaired ladder' : ''}`);
-      addDetail(dl, 'Ladder strikes', String(entry.n_strikes));
+      addDetail(dl, 'Ladder strikes', `${entry.n_strikes}${entry.repaired ? ' · repaired ladder' : ''}`);
       if (Number.isFinite(entry.prob_mad_err)) {
         addDetail(dl, 'Prob. MAD error', fmt(entry.prob_mad_err, 4));
       }
@@ -218,7 +219,7 @@
         traces.push({
           x: points.map(p => p.strike),
           y: points.map(p => 1 - p.implied_prob),
-          name: 'Ladder-implied CDF point', yaxis: 'y',
+          name: 'Ladder points', yaxis: 'y',
           mode: 'markers', marker: { color: '#fcd34d', size: 7, symbol: 'circle-open' },
           hovertemplate: `%{x:.3f} ${unit}<br>P(≥K) %{customdata:.3f}<extra></extra>`,
           customdata: points.map(p => p.implied_prob)
@@ -226,17 +227,40 @@
       }
 
       const layout = {
-        margin: { t: 10, r: 48, b: 42, l: 48 },
+        // Fixed margins (NOT automargin): automargin on the dual y-axes could
+        // grow the plot area outward past the card and bleed one chart's right
+        // PDF axis into the neighbouring card's left CDF axis. Explicit margins
+        // keep every chart strictly inside its own card. Extra bottom room lets
+        // the horizontal legend sit clear of the x-axis title.
+        margin: { t: 10, r: 56, b: 80, l: 56 },
+        height: 380,
+        autosize: true,
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#e2e8f0', family: 'Roboto, sans-serif', size: 11 },
-        xaxis: { title: unit, gridcolor: 'rgba(148,163,184,0.18)', zeroline: false },
+        xaxis: {
+          title: unit,
+          gridcolor: 'rgba(148,163,184,0.18)',
+          zeroline: false,
+          // Thin the ladder strike ticks (up to 21 at 0.1 spacing) so the
+          // numeric labels do not overlap on a narrow card.
+          nticks: 7,
+          tickformat: '.1f'
+        },
         yaxis: { title: 'CDF', range: [0, 1], gridcolor: 'rgba(148,163,184,0.18)' },
         yaxis2: { title: 'PDF', overlaying: 'y', side: 'right', showgrid: false, rangemode: 'tozero' },
-        legend: { orientation: 'h', y: -0.25, font: { size: 10 } },
+        legend: {
+          orientation: 'h',
+          xanchor: 'center',
+          x: 0.5,
+          y: -0.3,
+          font: { size: 10 },
+          itemwidth: 30
+        },
         showlegend: true
       };
-      Plotly.newPlot(chart, traces, layout, { responsive: true, displaylogo: false, displayModeBar: false });
+      Plotly.newPlot(chart, traces, layout, { responsive: true, displaylogo: false, displayModeBar: false })
+        .then(() => Plotly.Plots.resize(chart));
       return card;
     }
 

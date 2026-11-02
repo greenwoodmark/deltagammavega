@@ -14,7 +14,7 @@ def _good_payload():
         "schema_version": "cpi_prediction_markets_v1",
         "generated_at_utc": "2026-02-11T00:00:00+00:00",
         "latest_as_of": "2026-02-10",
-        "model_version": "gh_prediction_v1",
+        "model_version": "implied_dist_v1",
         "warning": None,
         "measures": [
             {
@@ -24,7 +24,6 @@ def _good_payload():
                 "axis_unit": "YoY %",
                 "implied_mean": 3.1,
                 "implied_median": 3.0,
-                "n_params": 3,
                 "n_strikes": 7,
                 "repaired": False,
                 "prob_mad_err": 0.012,
@@ -118,5 +117,15 @@ def test_rejects_bad_market_point(tmp_path):
 def test_rejects_forbidden_private_field(tmp_path):
     payload = _good_payload()
     payload["measures"][0]["source_uri"] = "gs://private/thing"
+    with pytest.raises(ValueError, match="forbidden private fields"):
+        val.validate(_write(tmp_path, payload))
+
+
+@pytest.mark.parametrize("token", ["n_params", "gh_prediction_v1", "tukey"])
+def test_rejects_confidential_method_fields(tmp_path, token):
+    """The fitting method is confidential: a payload that leaks the parameter
+    count or any GH/Tukey token must be rejected, not silently published."""
+    payload = _good_payload()
+    payload["measures"][0][token] = 3 if token == "n_params" else "x"
     with pytest.raises(ValueError, match="forbidden private fields"):
         val.validate(_write(tmp_path, payload))

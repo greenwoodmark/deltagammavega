@@ -59,13 +59,21 @@ def _sources(measures=("headline_yoy", "core_yoy", "headline_mom", "core_mom")):
 def test_build_payload_matches_schema():
     payload = pub.build_payload(_sources(), generated_at_utc="2026-02-11T00:00:00+00:00")
     assert payload["schema_version"] == "cpi_prediction_markets_v1"
-    assert payload["model_version"] == "gh_prediction_v1"
+    # The public model identifier is NEUTRAL: the fitting method is confidential
+    # and must not be named/inferable in the public JSON (so not "gh_prediction_v1").
+    assert payload["model_version"] == "implied_dist_v1"
     assert payload["latest_as_of"] == "2026-02-10"
     assert payload["warning"] is None
     assert {m["measure"] for m in payload["measures"]} == {
         "headline_yoy", "core_yoy", "headline_mom", "core_mom"
     }
     entry = payload["measures"][0]
+    # Confidentiality: the fitted-distribution parameter count must NOT be
+    # published, and no GH/Tukey token may appear anywhere in the payload.
+    assert "n_params" not in entry
+    blob = json.dumps(payload).lower()
+    for token in ("n_params", "gh_prediction", "tukey", "gh param"):
+        assert token not in blob, f"confidential token leaked into public payload: {token}"
     curve = entry["curve"]
     assert len(curve["x"]) == len(curve["cdf"]) == len(curve["pdf"]) > 1
     # CDF is monotone non-decreasing and bounded in [0, 1].

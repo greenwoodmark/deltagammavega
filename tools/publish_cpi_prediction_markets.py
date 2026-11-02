@@ -44,7 +44,10 @@ from pathlib import Path
 from typing import Any, Mapping, Optional, Sequence
 
 SCHEMA_VERSION = "cpi_prediction_markets_v1"
-MODEL_VERSION = "gh_prediction_v1"
+# Public-facing model identifier. Deliberately NEUTRAL: the fitting method is
+# confidential and must not be named or inferable in the public JSON (so this is
+# "implied_dist_v1", not the internal "gh_prediction_v1" fit model version).
+MODEL_VERSION = "implied_dist_v1"
 
 GH_FIT_BUCKET = "gs://systematicpositiveskew/prediction_markets/kalshi_gh_fit"
 RAW_BUCKET = "gs://systematicpositiveskew/prediction_markets/kalshi"
@@ -307,7 +310,9 @@ def _build_measure_entry(
         "axis_unit": str(fit.get("axis_unit", "")),
         "implied_mean": implied_mean,
         "implied_median": implied_median,
-        "n_params": int(fit.get("n_params", 0) or 0),
+        # NOTE: the fitted-distribution parameter count (fit["n_params"]) is
+        # deliberately NOT emitted — the fitting method is confidential and must
+        # not be inferable from the public JSON.
         "n_strikes": int(fit.get("n_strikes", len(points)) or len(points)),
         "repaired": bool(fit.get("repaired", False)),
         "prob_mad_err": _finite(fit.get("prob_mad_err")),
