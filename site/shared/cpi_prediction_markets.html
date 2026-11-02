@@ -69,7 +69,10 @@
       color: #fde68a;
     }
     .error { color: #fca5a5; }
-    .measure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1.1rem; }
+    /* Fixed 2x2 grid: column 1 = headline, column 2 = core; row 1 = YoY,
+       row 2 = MoM (cards are rendered in MEASURE_ORDER:
+       headline_yoy, core_yoy, headline_mom, core_mom). */
+    .measure-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
     .card {
       background: rgba(6, 25, 22, 0.72);
       border: 1px solid rgba(94, 234, 212, 0.18);
@@ -92,6 +95,8 @@
       font-size: 0.8rem;
       text-align: center;
     }
+    /* Below ~820px two columns get too cramped, so stack to a single column. */
+    @media (max-width: 820px) { .measure-grid { grid-template-columns: 1fr; } }
     @media (max-width: 560px) { h1 { font-size: 1.35rem; } }
   </style>
 </head>
