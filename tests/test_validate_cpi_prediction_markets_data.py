@@ -58,14 +58,42 @@ def test_rejects_wrong_schema(tmp_path):
 def test_rejects_missing_top_level_field(tmp_path):
     payload = _good_payload()
     del payload["model_version"]
-    with pytest.raises(ValueError, match="top-level fields missing"):
+    with pytest.raises(ValueError, match="top-level payload fields missing"):
+        val.validate(_write(tmp_path, payload))
+
+
+def test_rejects_unknown_top_level_field(tmp_path):
+    payload = _good_payload()
+    payload["extra_metadata"] = {}
+    with pytest.raises(ValueError, match="top-level payload fields unknown"):
         val.validate(_write(tmp_path, payload))
 
 
 def test_rejects_missing_measure_field(tmp_path):
     payload = _good_payload()
     del payload["measures"][0]["implied_mean"]
-    with pytest.raises(ValueError, match="missing fields"):
+    with pytest.raises(ValueError, match="measure entry fields missing"):
+        val.validate(_write(tmp_path, payload))
+
+
+def test_rejects_unknown_measure_field(tmp_path):
+    payload = _good_payload()
+    payload["measures"][0]["extra_metadata"] = {}
+    with pytest.raises(ValueError, match="measure entry fields unknown"):
+        val.validate(_write(tmp_path, payload))
+
+
+def test_rejects_unknown_curve_field(tmp_path):
+    payload = _good_payload()
+    payload["measures"][0]["curve"]["extra_axis"] = []
+    with pytest.raises(ValueError, match="curve fields unknown"):
+        val.validate(_write(tmp_path, payload))
+
+
+def test_rejects_unknown_market_point_field(tmp_path):
+    payload = _good_payload()
+    payload["measures"][0]["market_points"][0]["quote"] = 0.8
+    with pytest.raises(ValueError, match="market point fields unknown"):
         val.validate(_write(tmp_path, payload))
 
 
@@ -77,16 +105,14 @@ def test_rejects_mismatched_curve_lengths(tmp_path):
 
 
 def test_rejects_non_finite_number(tmp_path):
-    # NaN as a bare JSON constant must be rejected by parse_constant.
     path = tmp_path / "bad.json"
-    raw = json.dumps(_good_payload())
-    raw = raw.replace('"implied_mean": 3.1', '"implied_mean": NaN')
+    raw = json.dumps(_good_payload()).replace('"implied_mean": 3.1', '"implied_mean": NaN')
     path.write_text(raw, encoding="utf-8")
     with pytest.raises(ValueError, match="non-finite JSON constant"):
         val.validate(path)
 
 
-def test_rejects_non_monotone_cdf_axis(tmp_path):
+def test_rejects_non_monotone_curve_axis(tmp_path):
     payload = _good_payload()
     payload["measures"][0]["curve"]["x"] = [0.0, 0.5, 0.4, 1.5, 2.0]
     with pytest.raises(ValueError, match="strictly increasing"):
@@ -100,10 +126,24 @@ def test_rejects_cdf_out_of_range(tmp_path):
         val.validate(_write(tmp_path, payload))
 
 
+def test_rejects_negative_density(tmp_path):
+    payload = _good_payload()
+    payload["measures"][0]["curve"]["pdf"][2] = -0.1
+    with pytest.raises(ValueError, match="pdf must be non-negative"):
+        val.validate(_write(tmp_path, payload))
+
+
 def test_rejects_unknown_measure(tmp_path):
     payload = _good_payload()
     payload["measures"][0]["measure"] = "bogus_measure"
     with pytest.raises(ValueError, match="unknown measure"):
+        val.validate(_write(tmp_path, payload))
+
+
+def test_rejects_duplicate_measure(tmp_path):
+    payload = _good_payload()
+    payload["measures"].append(dict(payload["measures"][0]))
+    with pytest.raises(ValueError, match="duplicate measure entry"):
         val.validate(_write(tmp_path, payload))
 
 
@@ -114,18 +154,8 @@ def test_rejects_bad_market_point(tmp_path):
         val.validate(_write(tmp_path, payload))
 
 
-def test_rejects_forbidden_private_field(tmp_path):
+def test_rejects_non_monotone_market_points(tmp_path):
     payload = _good_payload()
-    payload["measures"][0]["source_uri"] = "gs://private/thing"
-    with pytest.raises(ValueError, match="forbidden private fields"):
-        val.validate(_write(tmp_path, payload))
-
-
-@pytest.mark.parametrize("token", ["n_params", "gh_prediction_v1", "tukey"])
-def test_rejects_confidential_method_fields(tmp_path, token):
-    """The fitting method is confidential: a payload that leaks the parameter
-    count or any GH/Tukey token must be rejected, not silently published."""
-    payload = _good_payload()
-    payload["measures"][0][token] = 3 if token == "n_params" else "x"
-    with pytest.raises(ValueError, match="forbidden private fields"):
+    payload["measures"][0]["market_points"][1]["strike"] = 0.5
+    with pytest.raises(ValueError, match="market_points.strike must be strictly increasing"):
         val.validate(_write(tmp_path, payload))

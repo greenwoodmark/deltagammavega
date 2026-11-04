@@ -10,6 +10,12 @@ The CPURNSA public JSON files below are generated outputs owned by the GitHub Ac
 
 Commit the source inputs, not a locally rebuilt copy of these files. After the source commit reaches `main`, the workflow validates the inputs, rebuilds the public JSON, validates the public build, and commits the generated outputs as `github-actions[bot]`.
 
+The CPI prediction-markets file is also generated output:
+
+- `data/cpi_prediction_markets.json`
+
+The private release bridge generates and commits that neutral handoff. Normal developers must not rebuild or stage it locally. The workflow validates the handoff before assembling the public build, and Firebase deployment belongs to CI.
+
 Avoid `git add .` for routine updates. Stage the intended source files explicitly, for example:
 
 ```bash
@@ -19,7 +25,7 @@ git commit -m "Update CPURNSA source data"
 git push origin main
 ```
 
-If you intentionally change a generator or its inputs, do not also stage the three generated CPURNSA files. Let the workflow regenerate them. Wait for the workflow to finish before starting another update or syncing again.
+If you intentionally change a generator or its inputs, do not also stage the three generated CPURNSA files or `data/cpi_prediction_markets.json`. Let the workflow and private release bridge regenerate their outputs. Wait for the workflow to finish before starting another update or syncing again.
 
 ## If sync reports conflicts
 

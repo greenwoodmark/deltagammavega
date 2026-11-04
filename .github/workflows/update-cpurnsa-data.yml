@@ -8,9 +8,12 @@ on:
       - "data/cpurnsa_snapshots/**"
       - "data/cpurnsa_pca_diagnostics.json"
       - "data/uscpi_release_manifest.json"
+      - "data/cpi_prediction_markets.json"
       - "site/shared/**"
+      - "site/shared/cpi_prediction_markets.html"
       - "tools/build_site.py"
       - "tools/validate_public_build.py"
+      - "tools/validate_cpi_prediction_markets_data.py"
       - "firebase.json"
   workflow_dispatch:
 
@@ -18,7 +21,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: cpurnsa-data-update
+  group: public-site-deploy
   cancel-in-progress: true
 
 jobs:
@@ -55,6 +58,11 @@ jobs:
             --manifest-path data/uscpi_release_manifest.json \
             --curve-path data/cpurnsa_curve_history.json \
             --commentary-path data/cpurnsa_daily_commentary.json
+
+      - name: Validate CPI prediction-markets data
+        run: |
+          python tools/validate_cpi_prediction_markets_data.py \
+            data/cpi_prediction_markets.json
 
       - name: Assemble and validate Firebase public build
         run: |

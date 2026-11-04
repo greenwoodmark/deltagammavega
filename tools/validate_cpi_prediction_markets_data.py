@@ -1,10 +1,8 @@
-"""Validate the public US CPI prediction-markets implied-distribution JSON.
+"""Validate the public US CPI prediction-markets JSON contract.
 
-Mirrors the shape and strictness of ``validate_softs_diagnostics.py`` and
-``validate_uscpi_public_data.py``: reject non-finite JSON constants, forbid
-private/internal fields, enforce the schema version, the top-level required
-fields, the per-measure structure, finite numeric arrays, and matching array
-lengths for the reconstructed curve. Stdlib-only.
+The validator is stdlib-only and checks the complete neutral schema. Every
+object uses an exact allowlist of fields so generated output cannot carry
+unapproved source, implementation, or operational metadata.
 """
 
 from __future__ import annotations
@@ -17,7 +15,7 @@ from pathlib import Path
 SCHEMA = "cpi_prediction_markets_v1"
 MEASURES = {"headline_yoy", "core_yoy", "headline_mom", "core_mom"}
 AXIS_UNITS = {"YoY %", "MoM %", ""}
-TOP_LEVEL_REQUIRED = {
+TOP_LEVEL_FIELDS = {
     "schema_version",
     "generated_at_utc",
     "latest_as_of",
@@ -25,7 +23,7 @@ TOP_LEVEL_REQUIRED = {
     "warning",
     "measures",
 }
-MEASURE_REQUIRED = {
+MEASURE_FIELDS = {
     "measure",
     "reference_month",
     "as_of",
@@ -38,27 +36,34 @@ MEASURE_REQUIRED = {
     "curve",
     "market_points",
 }
-FORBIDDEN_FIELDS = {
-    "source_uri",
-    "source_generation",
-    "credentials",
-    "private_key",
-    "client_secret",
-    "local_path",
-    "traceback",
-    "GOOGLE_APPLICATION_CREDENTIALS",
-    # The fitting METHOD is confidential and must never be named or inferable in
-    # the public JSON. Reject any field that would reveal it.
-    "n_params",
-    "gh_prediction",
-    "gh_prediction_v1",
-    "tukey",
-    "gh_params",
-}
+CURVE_FIELDS = {"x", "cdf", "pdf"}
+MARKET_POINT_FIELDS = {"strike", "implied_prob"}
 
 
 def _reject_constant(value: str) -> None:
     raise ValueError(f"non-finite JSON constant is not allowed: {value}")
+
+
+def _reject_duplicate_keys(pairs: list[tuple[str, object]]) -> dict[str, object]:
+    result: dict[str, object] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate object field: {key}")
+        result[key] = value
+    return result
+
+
+def _check_fields(value: object, allowed: set[str], where: str) -> dict[str, object]:
+    if not isinstance(value, dict):
+        raise ValueError(f"{where} must be an object")
+    fields = set(value)
+    missing = sorted(allowed - fields)
+    if missing:
+        raise ValueError(f"{where} fields missing: {missing}")
+    unknown = sorted(fields - allowed)
+    if unknown:
+        raise ValueError(f"{where} fields unknown: {unknown}")
+    return value
 
 
 def _finite_or_null(value: object, field: str) -> None:
@@ -79,46 +84,41 @@ def _nonneg_int(value: object, field: str) -> None:
 
 
 def _validate_curve(curve: object, where: str) -> None:
-    if not isinstance(curve, dict):
-        raise ValueError(f"{where} curve must be an object")
-    arrays = {}
+    curve = _check_fields(curve, CURVE_FIELDS, f"{where} curve")
+    arrays: dict[str, list[object]] = {}
     for key in ("x", "cdf", "pdf"):
-        values = curve.get(key)
+        values = curve[key]
         if not isinstance(values, list):
             raise ValueError(f"{where} curve.{key} must be a list")
         for value in values:
             _finite_number(value, f"{where} curve.{key}[]")
         arrays[key] = values
+
     lengths = {len(values) for values in arrays.values()}
     if len(lengths) != 1:
         raise ValueError(f"{where} curve arrays have mismatched lengths: {sorted(lengths)}")
-    length = lengths.pop()
-    if length:
-        xs = arrays["x"]
-        if any(xs[i + 1] <= xs[i] for i in range(len(xs) - 1)):
-            raise ValueError(f"{where} curve.x must be strictly increasing")
-        for value in arrays["cdf"]:
-            if not (0.0 - 1e-9 <= value <= 1.0 + 1e-9):
-                raise ValueError(f"{where} curve.cdf must lie in [0, 1]")
-        for value in arrays["pdf"]:
-            if value < -1e-9:
-                raise ValueError(f"{where} curve.pdf must be non-negative")
+
+    xs = arrays["x"]
+    if any(xs[index + 1] <= xs[index] for index in range(len(xs) - 1)):
+        raise ValueError(f"{where} curve.x must be strictly increasing")
+    for value in arrays["cdf"]:
+        if not 0.0 <= value <= 1.0:
+            raise ValueError(f"{where} curve.cdf must lie in [0, 1]")
+    for value in arrays["pdf"]:
+        if value < 0.0:
+            raise ValueError(f"{where} curve.pdf must be non-negative")
 
 
-def _validate_measure(entry: object) -> None:
-    if not isinstance(entry, dict):
-        raise ValueError("measure entry must be an object")
-    missing = sorted(MEASURE_REQUIRED.difference(entry))
-    if missing:
-        raise ValueError(f"measure entry missing fields: {missing}")
+def _validate_measure(entry: object) -> str:
+    entry = _check_fields(entry, MEASURE_FIELDS, "measure entry")
     measure = entry["measure"]
     if measure not in MEASURES:
         raise ValueError(f"unknown measure: {measure}")
     where = f"measure {measure}"
-    if not isinstance(entry["reference_month"], str) or not entry["reference_month"]:
-        raise ValueError(f"{where} reference_month must be a non-empty string")
-    if not isinstance(entry["as_of"], str) or not entry["as_of"]:
-        raise ValueError(f"{where} as_of must be a non-empty string")
+
+    for field in ("reference_month", "as_of"):
+        if not isinstance(entry[field], str) or not entry[field]:
+            raise ValueError(f"{where} {field} must be a non-empty string")
     if entry["axis_unit"] not in AXIS_UNITS:
         raise ValueError(f"{where} axis_unit is invalid: {entry['axis_unit']}")
     _finite_or_null(entry["implied_mean"], f"{where} implied_mean")
@@ -127,52 +127,54 @@ def _validate_measure(entry: object) -> None:
     _nonneg_int(entry["n_strikes"], f"{where} n_strikes")
     if not isinstance(entry["repaired"], bool):
         raise ValueError(f"{where} repaired must be boolean")
+
     _validate_curve(entry["curve"], where)
     points = entry["market_points"]
     if not isinstance(points, list):
         raise ValueError(f"{where} market_points must be a list")
+    previous_strike = None
     for point in points:
-        if not isinstance(point, dict) or set(point) != {"strike", "implied_prob"}:
-            raise ValueError(f"{where} market_points entry must have strike + implied_prob")
-        _finite_number(point["strike"], f"{where} market_points.strike")
-        prob = point["implied_prob"]
-        _finite_number(prob, f"{where} market_points.implied_prob")
-        if not (0.0 - 1e-9 <= prob <= 1.0 + 1e-9):
+        point = _check_fields(point, MARKET_POINT_FIELDS, f"{where} market point")
+        strike = point["strike"]
+        _finite_number(strike, f"{where} market_points.strike")
+        if previous_strike is not None and strike <= previous_strike:
+            raise ValueError(f"{where} market_points.strike must be strictly increasing")
+        previous_strike = strike
+        _finite_number(point["implied_prob"], f"{where} market_points.implied_prob")
+        if not 0.0 <= point["implied_prob"] <= 1.0:
             raise ValueError(f"{where} market_points.implied_prob must lie in [0, 1]")
+    return measure
 
 
 def validate(path: Path) -> dict[str, object]:
-    text = path.read_text(encoding="utf-8")
-    leaked = sorted(field for field in FORBIDDEN_FIELDS if f'"{field}"' in text)
-    if leaked:
-        raise ValueError(f"forbidden private fields present: {leaked}")
-    payload = json.loads(text, parse_constant=_reject_constant)
-    if not isinstance(payload, dict):
-        raise ValueError("payload must be a JSON object")
-    missing = sorted(TOP_LEVEL_REQUIRED.difference(payload))
-    if missing:
-        raise ValueError(f"top-level fields missing: {missing}")
-    if payload.get("schema_version") != SCHEMA:
+    payload = json.loads(
+        path.read_text(encoding="utf-8"),
+        parse_constant=_reject_constant,
+        object_pairs_hook=_reject_duplicate_keys,
+    )
+    payload = _check_fields(payload, TOP_LEVEL_FIELDS, "top-level payload")
+    if payload["schema_version"] != SCHEMA:
         raise ValueError("prediction-markets schema is incompatible")
-    if not isinstance(payload.get("generated_at_utc"), str) or not payload["generated_at_utc"]:
+    if not isinstance(payload["generated_at_utc"], str) or not payload["generated_at_utc"]:
         raise ValueError("generated_at_utc must be a non-empty string")
-    if not isinstance(payload.get("model_version"), str) or not payload["model_version"]:
+    if not isinstance(payload["model_version"], str) or not payload["model_version"]:
         raise ValueError("model_version must be a non-empty string")
-    latest = payload.get("latest_as_of")
-    if latest is not None and not isinstance(latest, str):
-        raise ValueError("latest_as_of must be a string or null")
-    warning = payload.get("warning")
+    latest = payload["latest_as_of"]
+    if latest is not None and (not isinstance(latest, str) or not latest):
+        raise ValueError("latest_as_of must be a non-empty string or null")
+    warning = payload["warning"]
     if warning is not None and not isinstance(warning, str):
         raise ValueError("warning must be a string or null")
-    measures = payload.get("measures")
+
+    measures = payload["measures"]
     if not isinstance(measures, list):
         raise ValueError("measures must be a list")
-    seen = set()
+    seen: set[str] = set()
     for entry in measures:
-        _validate_measure(entry)
-        if entry["measure"] in seen:
-            raise ValueError(f"duplicate measure entry: {entry['measure']}")
-        seen.add(entry["measure"])
+        measure = _validate_measure(entry)
+        if measure in seen:
+            raise ValueError(f"duplicate measure entry: {measure}")
+        seen.add(measure)
     return payload
 
 
