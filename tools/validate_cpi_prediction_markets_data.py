@@ -175,6 +175,9 @@ def validate(path: Path) -> dict[str, object]:
         if measure in seen:
             raise ValueError(f"duplicate measure entry: {measure}")
         seen.add(measure)
+    if seen != MEASURES:
+        missing = sorted(MEASURES - seen)
+        raise ValueError(f"measures incomplete; missing: {missing}")
     return payload
 
 

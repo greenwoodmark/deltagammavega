@@ -10,18 +10,19 @@ def _good_payload():
     x = [0.0, 0.5, 1.0, 1.5, 2.0]
     cdf = [0.05, 0.2, 0.5, 0.8, 0.95]
     pdf = [0.1, 0.3, 0.4, 0.3, 0.1]
-    return {
-        "schema_version": "cpi_prediction_markets_v1",
-        "generated_at_utc": "2026-02-11T00:00:00+00:00",
-        "latest_as_of": "2026-02-10",
-        "model_version": "implied_dist_v1",
-        "warning": None,
-        "measures": [
+    measures = []
+    for measure, axis_unit in (
+        ("headline_yoy", "YoY %"),
+        ("core_yoy", "YoY %"),
+        ("headline_mom", "MoM %"),
+        ("core_mom", "MoM %"),
+    ):
+        measures.append(
             {
-                "measure": "headline_yoy",
+                "measure": measure,
                 "reference_month": "2026-01",
                 "as_of": "2026-02-10",
-                "axis_unit": "YoY %",
+                "axis_unit": axis_unit,
                 "implied_mean": 3.1,
                 "implied_median": 3.0,
                 "n_strikes": 7,
@@ -33,7 +34,14 @@ def _good_payload():
                     {"strike": 1.0, "implied_prob": 0.5},
                 ],
             }
-        ],
+        )
+    return {
+        "schema_version": "cpi_prediction_markets_v1",
+        "generated_at_utc": "2026-02-11T00:00:00+00:00",
+        "latest_as_of": "2026-02-10",
+        "model_version": "implied_dist_v1",
+        "warning": None,
+        "measures": measures,
     }
 
 
@@ -45,7 +53,14 @@ def _write(tmp_path: Path, payload) -> Path:
 
 def test_accepts_good_payload(tmp_path):
     payload = val.validate(_write(tmp_path, _good_payload()))
-    assert len(payload["measures"]) == 1
+    assert len(payload["measures"]) == 4
+
+
+def test_rejects_missing_measure(tmp_path):
+    payload = _good_payload()
+    payload["measures"] = payload["measures"][:-1]
+    with pytest.raises(ValueError, match="measures incomplete"):
+        val.validate(_write(tmp_path, payload))
 
 
 def test_rejects_wrong_schema(tmp_path):
