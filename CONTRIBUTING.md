@@ -14,7 +14,7 @@ The CPI prediction-markets file is also generated output:
 
 - `data/cpi_prediction_markets.json`
 
-The private release bridge generates and commits that neutral handoff. Normal developers must not rebuild or stage it locally. The workflow validates the handoff before assembling the public build, and Firebase deployment belongs to CI.
+The private release bridge generates and commits that neutral handoff. Normal developers must not rebuild or stage it locally. The workflow validates the handoff and assembles the public build. Firebase Hosting deployment is owned by the Linux-box cron job `ops/run_softs_diagnostics_deploy.sh`, which uses the existing local Firebase credentials and deploys the exact `origin/main` revision for CPURNSA, Kalshi, and the other public pages.
 
 Avoid `git add .` for routine updates. Stage the intended source files explicitly, for example:
 
