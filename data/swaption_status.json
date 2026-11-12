@@ -1,6 +1,6 @@
 {
   "schema_version": "marquee_swaption_status_v1",
-  "generated_at_utc": "2026-11-12T07:12:27Z",
+  "generated_at_utc": "2026-11-12T14:29:14Z",
   "source_base": "gs://systematicpositiveskew/gs_marquee_data/swaptions",
   "lookback_days": 90,
   "start_date": "2026-08-15",

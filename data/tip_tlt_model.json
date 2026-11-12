@@ -1,7 +1,7 @@
 {
   "schema_version": "tip_tlt_gh5_model_v1",
   "model_version": "gh5_v1",
-  "generated_at_utc": "2026-11-12T07:12:43+00:00",
+  "generated_at_utc": "2026-11-12T13:59:34+00:00",
   "tenor": "1m",
   "symbols": {
     "TIP": {
@@ -15,10 +15,10 @@
       "g": -0.054576515127659424,
       "h": 0.2942647291286085,
       "mad_err": 0.008487737212161454,
-      "effective_duration": 6.236393050325911,
+      "effective_duration": 6.237443982264157,
       "effective_duration_source": "iShares Duration field, market-value weighted",
       "holdings_as_of_date": "2026-09-04",
-      "holdings_rows": 2124,
+      "holdings_rows": 2176,
       "points": [
         {
           "moneyness": 0.9784500761940998,
@@ -303,10 +303,10 @@
       "g": -0.0077297460278149726,
       "h": 0.11273023539284448,
       "mad_err": 0.002094437919253161,
-      "effective_duration": 14.862232197154492,
+      "effective_duration": 14.861454672188122,
       "effective_duration_source": "iShares Duration field, market-value weighted",
       "holdings_as_of_date": "2026-09-04",
-      "holdings_rows": 2205,
+      "holdings_rows": 2255,
       "points": [
         {
           "moneyness": 0.9479210093461743,
