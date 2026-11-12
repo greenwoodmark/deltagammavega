@@ -1,109 +1,108 @@
 {
   "schema_version": "internal_refresh_status_v1",
-  "run_id": "6faa4d05-4792-4554-9b27-5d7df5487f66",
-  "generated_at_utc": "2026-11-12T07:39:11Z",
-  "started_at_utc": "2026-11-12T07:10:01Z",
+  "run_id": "91de5951-c0ba-451d-8fd7-cc7d3a378cb6",
+  "generated_at_utc": "2026-11-12T14:56:09Z",
+  "started_at_utc": "2026-11-12T14:27:27Z",
   "overall_status": "degraded",
   "stages": {
     "softs_diagnostics_sync": {
-      "status": "failed",
-      "started_at_utc": "2026-11-12T07:10:01Z",
+      "status": "success",
+      "started_at_utc": "2026-11-12T14:27:27Z",
       "output": null,
-      "error": "softs diagnostics freshness check failed: missing session CC=2026-11-11; missing session CT=2026-11-11; missing session KC=2026-11-11; missing session SB=2026-11-11",
-      "finished_at_utc": "2026-11-12T07:10:02Z"
+      "finished_at_utc": "2026-11-12T14:27:27Z"
     },
     "jup_share_price_daily": {
       "status": "failed",
-      "started_at_utc": "2026-11-12T07:10:02Z",
+      "started_at_utc": "2026-11-12T14:27:27Z",
       "output": null,
       "error": "Command '['/home/mark/trading_env/venv311/bin/python', '/home/mark/trading_env/tools/sync_jup_share_price_daily.py']' returned non-zero exit status 1.",
-      "finished_at_utc": "2026-11-12T07:10:53Z"
+      "finished_at_utc": "2026-11-12T14:27:39Z"
     },
     "jup_gear_chart_data": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:10:53Z",
+      "started_at_utc": "2026-11-12T14:27:39Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:11:00Z"
+      "finished_at_utc": "2026-11-12T14:27:44Z"
     },
     "jup_performance_fee_data": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:11:00Z",
+      "started_at_utc": "2026-11-12T14:27:44Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:11:15Z"
+      "finished_at_utc": "2026-11-12T14:27:58Z"
     },
     "tips_fedinvest_status": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:11:15Z",
+      "started_at_utc": "2026-11-12T14:27:58Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:11:16Z"
+      "finished_at_utc": "2026-11-12T14:27:59Z"
     },
     "swaption_status": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:11:16Z",
+      "started_at_utc": "2026-11-12T14:27:59Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:12:27Z"
+      "finished_at_utc": "2026-11-12T14:29:14Z"
     },
     "model_logs": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:12:27Z",
+      "started_at_utc": "2026-11-12T14:29:14Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:12:42Z"
+      "finished_at_utc": "2026-11-12T14:29:29Z"
     },
     "tip_tlt_model_data": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:12:42Z",
+      "started_at_utc": "2026-11-12T14:29:29Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:27:09Z"
+      "finished_at_utc": "2026-11-12T14:43:59Z"
     },
     "etf_bars": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:27:09Z",
+      "started_at_utc": "2026-11-12T14:43:59Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:27:13Z"
+      "finished_at_utc": "2026-11-12T14:44:03Z"
     },
     "rv_paper_logs": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:27:13Z",
+      "started_at_utc": "2026-11-12T14:44:03Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:27:14Z"
+      "finished_at_utc": "2026-11-12T14:44:04Z"
     },
     "rv_live_signal": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:27:14Z",
+      "started_at_utc": "2026-11-12T14:44:04Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:33:46Z"
+      "finished_at_utc": "2026-11-12T14:50:31Z"
     },
     "short_shadow_export": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:33:46Z",
+      "started_at_utc": "2026-11-12T14:50:31Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:39:05Z"
+      "finished_at_utc": "2026-11-12T14:56:04Z"
     },
     "long_shadow_extension": {
       "status": "failed",
-      "started_at_utc": "2026-11-12T07:39:05Z",
+      "started_at_utc": "2026-11-12T14:56:04Z",
       "output": null,
       "error": "Command '['/home/mark/trading_env/venv311/bin/python', '/home/mark/trading_env/tools/extend_cpurnsa_long_shadow.py', '--date', '2026-11-11', '--artifact-dir', '/home/mark/trading_env/artifacts/uscpi_long_shadow_history_v4_median_maturity_2026', '--short-state-dir', '/home/mark/trading_env/artifacts/uscpi_six_driver/shadow/states', '--sdr-uri', 'gs://systematicpositiveskew/inflation_data/sdr']' returned non-zero exit status 1.",
-      "finished_at_utc": "2026-11-12T07:39:06Z"
+      "finished_at_utc": "2026-11-12T14:56:05Z"
     },
     "cpurnsa_publish": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:39:06Z",
+      "started_at_utc": "2026-11-12T14:56:05Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:39:06Z"
+      "finished_at_utc": "2026-11-12T14:56:05Z"
     },
     "shadow_replay": {
       "status": "success",
-      "started_at_utc": "2026-11-12T07:39:06Z",
+      "started_at_utc": "2026-11-12T14:56:05Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:39:11Z"
+      "finished_at_utc": "2026-11-12T14:56:09Z"
     },
     "internal_build": {
-      "status": "blocked",
-      "started_at_utc": "2026-11-12T07:39:11Z",
+      "status": "failed",
+      "started_at_utc": "2026-11-12T14:56:09Z",
       "output": null,
-      "finished_at_utc": "2026-11-12T07:39:11Z",
-      "error": "blocked by softs_diagnostics_sync"
+      "error": "Command '['/home/mark/trading_env/venv311/bin/python', '/home/mark/deltagammavega/tools/build_site.py', '--target', 'internal']' returned non-zero exit status 2.",
+      "finished_at_utc": "2026-11-12T14:56:09Z"
     }
   }
 }

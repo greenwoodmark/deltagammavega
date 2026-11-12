@@ -1,7 +1,7 @@
 {
   "schema_version": "tip_tlt_gh5_model_v1",
   "model_version": "gh5_v1",
-  "generated_at_utc": "2026-11-12T13:59:34+00:00",
+  "generated_at_utc": "2026-11-12T14:29:30+00:00",
   "tenor": "1m",
   "symbols": {
     "TIP": {
