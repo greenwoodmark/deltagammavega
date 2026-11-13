@@ -1,8 +1,8 @@
 {
   "schema_version": "cpurnsa_daily_commentary_v1",
   "trade_count_definition": "Accepted fit-observation endpoint-support counts. Exact reference CPI trades count once at their endpoint; interpolated trades count once at both final endpoint nodes. The known base CPI node is excluded.",
-  "generated_at_utc": "2026-11-12T23:33:06+00:00",
-  "latest_model_date": "2026-11-10",
+  "generated_at_utc": "2026-11-13T05:05:49+00:00",
+  "latest_model_date": "2026-11-12",
   "entries": {
     "2026-03-18": {
       "trace_id": "2026-03-18",
@@ -10398,6 +10398,69 @@
       "unchanged_nodes": 0,
       "source_trade_count_delta": null,
       "summary": "Comparison unavailable because the public model frame changed."
+    },
+    "2026-11-12": {
+      "trace_id": "2026-11-12",
+      "model_date": "2026-11-12",
+      "curve_kind": "shadow_posterior",
+      "fit_status": "rank_deficient",
+      "source_trade_count": 3,
+      "trade_count": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "comparison_status": "available",
+      "prior_model_date": "2026-11-10",
+      "reference_month": [
+        "2026-11-01",
+        "2026-12-01",
+        "2027-01-01",
+        "2027-02-01",
+        "2027-03-01",
+        "2027-04-01",
+        "2027-05-01",
+        "2027-06-01",
+        "2027-07-01",
+        "2027-08-01",
+        "2027-09-01",
+        "2027-10-01"
+      ],
+      "move_bp": [
+        1.1874737745953823,
+        0.051829191884955605,
+        -0.2001782509752914,
+        -0.011291947925595736,
+        0.16975576238920098,
+        0.34434935909599673,
+        -0.012791888241991956,
+        -0.771001748098854,
+        0.11412290495504962,
+        2.312403219937309,
+        5.557281972476957,
+        9.692267813197208
+      ],
+      "max_abs_move_bp": 9.692267813197208,
+      "max_abs_move_reference_month": "2027-10-01",
+      "uncertainty_sd_bp": 13.776406681638763,
+      "uncertainty_ratio": 0.7035410638766271,
+      "uncertainty_status": "available",
+      "uncertainty_alignment": "node_position",
+      "magnitude_class": "modest",
+      "up_nodes": 8,
+      "down_nodes": 4,
+      "unchanged_nodes": 0,
+      "source_trade_count_delta": -5,
+      "summary": "The curve moved higher versus 2026-11-10. The move was modest; 8 nodes rose and 4 fell; the largest absolute move was 9.69 bp at 2027-10-01."
     }
   }
 }
