@@ -1,43 +1,43 @@
 {
   "schema_version": "marquee_swaption_status_v1",
-  "generated_at_utc": "2026-11-12T14:29:14Z",
+  "generated_at_utc": "2026-11-13T07:11:37Z",
   "source_base": "gs://systematicpositiveskew/gs_marquee_data/swaptions",
   "lookback_days": 90,
-  "start_date": "2026-08-15",
-  "latest_date": "2026-11-11",
+  "start_date": "2026-08-16",
+  "latest_date": "2026-11-12",
   "currency_count": 4,
   "currencies_with_errors": [],
   "currencies": [
     {
       "currency": "USD",
-      "latest_date": "2026-11-11",
-      "row_count": 2964,
+      "latest_date": "2026-11-12",
+      "row_count": 3012,
       "asset_count": 48,
-      "day_count": 62,
+      "day_count": 63,
       "error": null
     },
     {
       "currency": "EUR",
-      "latest_date": "2026-11-11",
-      "row_count": 2975,
+      "latest_date": "2026-11-12",
+      "row_count": 3023,
       "asset_count": 48,
-      "day_count": 62,
+      "day_count": 63,
       "error": null
     },
     {
       "currency": "GBP",
-      "latest_date": "2026-11-11",
-      "row_count": 2975,
+      "latest_date": "2026-11-12",
+      "row_count": 3023,
       "asset_count": 48,
-      "day_count": 62,
+      "day_count": 63,
       "error": null
     },
     {
       "currency": "JPY",
-      "latest_date": "2026-11-11",
-      "row_count": 2806,
+      "latest_date": "2026-11-12",
+      "row_count": 2854,
       "asset_count": 48,
-      "day_count": 58,
+      "day_count": 59,
       "error": null
     }
   ],
@@ -1314,6 +1314,27 @@
     },
     {
       "date": "2026-11-11",
+      "currencies": {
+        "USD": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "EUR": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "GBP": {
+          "row_count": 48,
+          "asset_count": 48
+        },
+        "JPY": {
+          "row_count": 48,
+          "asset_count": 48
+        }
+      }
+    },
+    {
+      "date": "2026-11-12",
       "currencies": {
         "USD": {
           "row_count": 48,

@@ -11,7 +11,7 @@
     "tax_rate": 0.25,
     "unit_movements": "ignored; constant units assumed"
   },
-  "generated_at_utc": "2026-11-12T14:27:52.612330Z",
+  "generated_at_utc": "2026-11-13T07:10:20.688983Z",
   "model": "performance_fee_estimate",
   "model_version": "jupiter-valuation-hwm-1",
   "periods": [
