@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-11-13T07:26:04.381615Z",
+  "generated_at_utc": "2026-11-14T07:26:32.919268Z",
   "source": "gs://systematicpositiveskew/etf_data",
   "bar_size": "1 min",
-  "expected_session": "2026-11-12",
+  "expected_session": "2026-11-13",
   "freshness_status": "current",
   "stale_symbols": [],
   "warning": null,
@@ -13,7 +13,7 @@
       "first_bar_utc": "2024-01-11T09:04:00Z",
       "last_bar_utc": "2026-11-13T00:59:00Z",
       "bar_count": 681156,
-      "expected_session": "2026-11-12",
+      "expected_session": "2026-11-13",
       "stale": false,
       "staleness_days": 0,
       "status": "current"
@@ -23,7 +23,7 @@
       "first_bar_utc": "2024-01-02T09:04:00Z",
       "last_bar_utc": "2026-11-13T00:59:00Z",
       "bar_count": 679428,
-      "expected_session": "2026-11-12",
+      "expected_session": "2026-11-13",
       "stale": false,
       "staleness_days": 0,
       "status": "current"
@@ -33,7 +33,7 @@
       "first_bar_utc": "2026-06-12T15:46:00Z",
       "last_bar_utc": "2026-11-13T00:59:00Z",
       "bar_count": 101180,
-      "expected_session": "2026-11-12",
+      "expected_session": "2026-11-13",
       "stale": false,
       "staleness_days": 0,
       "status": "current"
@@ -43,7 +43,7 @@
       "first_bar_utc": "2026-01-02T12:09:00Z",
       "last_bar_utc": "2026-11-13T00:59:00Z",
       "bar_count": 206325,
-      "expected_session": "2026-11-12",
+      "expected_session": "2026-11-13",
       "stale": false,
       "staleness_days": 0,
       "status": "current"
@@ -53,7 +53,7 @@
       "first_bar_utc": "2017-01-03T14:30:00Z",
       "last_bar_utc": "2026-11-13T00:59:00Z",
       "bar_count": 988489,
-      "expected_session": "2026-11-12",
+      "expected_session": "2026-11-13",
       "stale": false,
       "staleness_days": 0,
       "status": "current"
@@ -63,7 +63,7 @@
       "first_bar_utc": "2017-01-03T14:30:00Z",
       "last_bar_utc": "2026-11-13T00:59:00Z",
       "bar_count": 1000465,
-      "expected_session": "2026-11-12",
+      "expected_session": "2026-11-13",
       "stale": false,
       "staleness_days": 0,
       "status": "current"
@@ -73,7 +73,7 @@
       "first_bar_utc": "2026-01-02T09:00:00Z",
       "last_bar_utc": "2026-11-13T00:59:00Z",
       "bar_count": 207822,
-      "expected_session": "2026-11-12",
+      "expected_session": "2026-11-13",
       "stale": false,
       "staleness_days": 0,
       "status": "current"

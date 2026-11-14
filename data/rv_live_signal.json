@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-13T07:32:38Z",
+  "generated_at_utc": "2026-11-14T07:33:09Z",
   "latest_bar_utc": "2026-11-13T00:59:00Z",
   "mstr_latest_bar_utc": "2026-11-13T00:59:00Z",
   "ibit_latest_bar_utc": "2026-11-13T00:59:00Z",
@@ -48,8 +48,8 @@
   "mstr_shares": -26,
   "ibit_shares": 74,
   "vol10_per_min": 0.0007239232185099574,
-  "mad10_percentile": 66.88221709006929,
-  "n_vol_history": 4330,
+  "mad10_percentile": 66.86677441699376,
+  "n_vol_history": 4331,
   "regime": "high-vol",
   "deadzone": 0.5,
   "deadzone_pass": false,

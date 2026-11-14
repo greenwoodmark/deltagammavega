@@ -1,106 +1,106 @@
 {
   "schema_version": "internal_refresh_status_v1",
-  "run_id": "5830fa23-6cb1-4ed9-a005-69f7a171ed20",
-  "generated_at_utc": "2026-11-13T07:39:08Z",
-  "started_at_utc": "2026-11-13T07:10:01Z",
+  "run_id": "139eb1fe-2f11-4c8a-97ca-ba3331e0e1ac",
+  "generated_at_utc": "2026-11-14T07:38:57Z",
+  "started_at_utc": "2026-11-14T07:10:01Z",
   "overall_status": "degraded",
   "stages": {
     "softs_diagnostics_sync": {
       "status": "failed",
-      "started_at_utc": "2026-11-13T07:10:01Z",
+      "started_at_utc": "2026-11-14T07:10:01Z",
       "output": null,
-      "error": "softs diagnostics freshness check failed: missing session CC=2026-11-12; missing session CT=2026-11-12; missing session KC=2026-11-12; missing session SB=2026-11-12",
-      "finished_at_utc": "2026-11-13T07:10:02Z"
+      "error": "softs diagnostics freshness check failed: missing session CC=2026-11-13; missing session CT=2026-11-13; missing session KC=2026-11-13; missing session SB=2026-11-13",
+      "finished_at_utc": "2026-11-14T07:10:02Z"
     },
     "jup_share_price_daily": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:10:02Z",
+      "started_at_utc": "2026-11-14T07:10:02Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:10:05Z"
+      "finished_at_utc": "2026-11-14T07:10:07Z"
     },
     "jup_gear_chart_data": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:10:05Z",
+      "started_at_utc": "2026-11-14T07:10:07Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:10:11Z"
+      "finished_at_utc": "2026-11-14T07:10:13Z"
     },
     "jup_performance_fee_data": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:10:11Z",
+      "started_at_utc": "2026-11-14T07:10:13Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:10:27Z"
+      "finished_at_utc": "2026-11-14T07:10:29Z"
     },
     "tips_fedinvest_status": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:10:27Z",
+      "started_at_utc": "2026-11-14T07:10:29Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:10:28Z"
+      "finished_at_utc": "2026-11-14T07:10:30Z"
     },
     "swaption_status": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:10:28Z",
+      "started_at_utc": "2026-11-14T07:10:30Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:11:37Z"
+      "finished_at_utc": "2026-11-14T07:11:41Z"
     },
     "model_logs": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:11:37Z",
+      "started_at_utc": "2026-11-14T07:11:41Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:11:51Z"
+      "finished_at_utc": "2026-11-14T07:11:55Z"
     },
     "tip_tlt_model_data": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:11:51Z",
+      "started_at_utc": "2026-11-14T07:11:55Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:26:00Z"
+      "finished_at_utc": "2026-11-14T07:26:29Z"
     },
     "etf_bars": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:26:00Z",
+      "started_at_utc": "2026-11-14T07:26:29Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:26:04Z"
+      "finished_at_utc": "2026-11-14T07:26:33Z"
     },
     "rv_paper_logs": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:26:04Z",
+      "started_at_utc": "2026-11-14T07:26:33Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:26:05Z"
+      "finished_at_utc": "2026-11-14T07:26:34Z"
     },
     "rv_live_signal": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:26:05Z",
+      "started_at_utc": "2026-11-14T07:26:34Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:32:38Z"
+      "finished_at_utc": "2026-11-14T07:33:09Z"
     },
     "short_shadow_export": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:32:38Z",
+      "started_at_utc": "2026-11-14T07:33:09Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:38:28Z"
+      "finished_at_utc": "2026-11-14T07:38:29Z"
     },
     "long_shadow_extension": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:38:28Z",
+      "started_at_utc": "2026-11-14T07:38:29Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:39:03Z"
+      "finished_at_utc": "2026-11-14T07:38:53Z"
     },
     "cpurnsa_publish": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:39:03Z",
+      "started_at_utc": "2026-11-14T07:38:53Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:39:03Z"
+      "finished_at_utc": "2026-11-14T07:38:53Z"
     },
     "shadow_replay": {
       "status": "success",
-      "started_at_utc": "2026-11-13T07:39:03Z",
+      "started_at_utc": "2026-11-14T07:38:53Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:39:08Z"
+      "finished_at_utc": "2026-11-14T07:38:57Z"
     },
     "internal_build": {
       "status": "blocked",
-      "started_at_utc": "2026-11-13T07:39:08Z",
+      "started_at_utc": "2026-11-14T07:38:57Z",
       "output": null,
-      "finished_at_utc": "2026-11-13T07:39:08Z",
+      "finished_at_utc": "2026-11-14T07:38:57Z",
       "error": "blocked by softs_diagnostics_sync"
     }
   }
