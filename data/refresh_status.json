@@ -1,106 +1,107 @@
 {
   "schema_version": "internal_refresh_status_v1",
-  "run_id": "139eb1fe-2f11-4c8a-97ca-ba3331e0e1ac",
-  "generated_at_utc": "2026-11-14T07:38:57Z",
-  "started_at_utc": "2026-11-14T07:10:01Z",
+  "run_id": "a90eb948-325e-4d7c-b74c-d8c296caea4e",
+  "generated_at_utc": "2026-11-25T07:38:57Z",
+  "started_at_utc": "2026-11-25T07:10:01Z",
   "overall_status": "degraded",
   "stages": {
     "softs_diagnostics_sync": {
       "status": "failed",
-      "started_at_utc": "2026-11-14T07:10:01Z",
+      "started_at_utc": "2026-11-25T07:10:01Z",
       "output": null,
-      "error": "softs diagnostics freshness check failed: missing session CC=2026-11-13; missing session CT=2026-11-13; missing session KC=2026-11-13; missing session SB=2026-11-13",
-      "finished_at_utc": "2026-11-14T07:10:02Z"
+      "error": "softs diagnostics freshness check failed: missing session CC=2026-11-24; missing session CT=2026-11-24; missing session KC=2026-11-24; missing session SB=2026-11-24",
+      "finished_at_utc": "2026-11-25T07:10:02Z"
     },
     "jup_share_price_daily": {
-      "status": "success",
-      "started_at_utc": "2026-11-14T07:10:02Z",
+      "status": "failed",
+      "started_at_utc": "2026-11-25T07:10:02Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:10:07Z"
+      "error": "Command '['/home/mark/trading_env/venv311/bin/python', '/home/mark/trading_env/tools/sync_jup_share_price_daily.py']' returned non-zero exit status 1.",
+      "finished_at_utc": "2026-11-25T07:10:14Z"
     },
     "jup_gear_chart_data": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:10:07Z",
+      "started_at_utc": "2026-11-25T07:10:14Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:10:13Z"
+      "finished_at_utc": "2026-11-25T07:10:21Z"
     },
     "jup_performance_fee_data": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:10:13Z",
+      "started_at_utc": "2026-11-25T07:10:21Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:10:29Z"
+      "finished_at_utc": "2026-11-25T07:10:37Z"
     },
     "tips_fedinvest_status": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:10:29Z",
+      "started_at_utc": "2026-11-25T07:10:37Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:10:30Z"
+      "finished_at_utc": "2026-11-25T07:10:38Z"
     },
     "swaption_status": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:10:30Z",
+      "started_at_utc": "2026-11-25T07:10:38Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:11:41Z"
+      "finished_at_utc": "2026-11-25T07:11:48Z"
     },
     "model_logs": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:11:41Z",
+      "started_at_utc": "2026-11-25T07:11:48Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:11:55Z"
+      "finished_at_utc": "2026-11-25T07:12:03Z"
     },
     "tip_tlt_model_data": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:11:55Z",
+      "started_at_utc": "2026-11-25T07:12:03Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:26:29Z"
+      "finished_at_utc": "2026-11-25T07:26:06Z"
     },
     "etf_bars": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:26:29Z",
+      "started_at_utc": "2026-11-25T07:26:06Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:26:33Z"
+      "finished_at_utc": "2026-11-25T07:26:09Z"
     },
     "rv_paper_logs": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:26:33Z",
+      "started_at_utc": "2026-11-25T07:26:09Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:26:34Z"
+      "finished_at_utc": "2026-11-25T07:26:11Z"
     },
     "rv_live_signal": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:26:34Z",
+      "started_at_utc": "2026-11-25T07:26:11Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:33:09Z"
+      "finished_at_utc": "2026-11-25T07:32:13Z"
     },
     "short_shadow_export": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:33:09Z",
+      "started_at_utc": "2026-11-25T07:32:13Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:38:29Z"
+      "finished_at_utc": "2026-11-25T07:37:57Z"
     },
     "long_shadow_extension": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:38:29Z",
+      "started_at_utc": "2026-11-25T07:37:57Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:38:53Z"
+      "finished_at_utc": "2026-11-25T07:38:52Z"
     },
     "cpurnsa_publish": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:38:53Z",
+      "started_at_utc": "2026-11-25T07:38:52Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:38:53Z"
+      "finished_at_utc": "2026-11-25T07:38:52Z"
     },
     "shadow_replay": {
       "status": "success",
-      "started_at_utc": "2026-11-14T07:38:53Z",
+      "started_at_utc": "2026-11-25T07:38:52Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:38:57Z"
+      "finished_at_utc": "2026-11-25T07:38:57Z"
     },
     "internal_build": {
       "status": "blocked",
-      "started_at_utc": "2026-11-14T07:38:57Z",
+      "started_at_utc": "2026-11-25T07:38:57Z",
       "output": null,
-      "finished_at_utc": "2026-11-14T07:38:57Z",
+      "finished_at_utc": "2026-11-25T07:38:57Z",
       "error": "blocked by softs_diagnostics_sync"
     }
   }
