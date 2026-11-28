@@ -1,58 +1,58 @@
 {
-  "generated_at_utc": "2026-11-25T07:32:13Z",
-  "latest_bar_utc": "2026-11-25T00:59:00Z",
-  "mstr_latest_bar_utc": "2026-11-25T00:59:00Z",
-  "ibit_latest_bar_utc": "2026-11-25T00:59:00Z",
-  "mstr_price": 77.43,
-  "ibit_price": 33.65,
-  "composite_z": 0.24771039017652183,
+  "generated_at_utc": "2026-11-28T07:32:33Z",
+  "latest_bar_utc": "2026-11-26T00:59:00Z",
+  "mstr_latest_bar_utc": "2026-11-26T00:59:00Z",
+  "ibit_latest_bar_utc": "2026-11-26T00:59:00Z",
+  "mstr_price": 82.11,
+  "ibit_price": 34.23,
+  "composite_z": 0.5599144948335633,
   "speed_breakdown": [
     {
       "speed_days": 10,
-      "medcouple": 0.05703832301774878,
-      "clipped_z": 0.6125029786892676,
-      "medcouple_percentile": 66.65819890765908,
-      "n_history": 7873
+      "medcouple": 0.2305631367053591,
+      "clipped_z": 2.427512939746164,
+      "medcouple_percentile": 99.37951120678738,
+      "n_history": 7897
     },
     {
       "speed_days": 15,
-      "medcouple": 0.06005050162350616,
-      "clipped_z": 0.40170311525098434,
-      "medcouple_percentile": 75.28261145687793,
-      "n_history": 7873
+      "medcouple": 0.09345995417717157,
+      "clipped_z": 0.7938808858799946,
+      "medcouple_percentile": 85.46283398759023,
+      "n_history": 7897
     },
     {
       "speed_days": 20,
-      "medcouple": 0.042358528348875255,
-      "clipped_z": 0.08903652008451039,
-      "medcouple_percentile": 61.62835005715738,
-      "n_history": 7873
+      "medcouple": 0.06800179549236925,
+      "clipped_z": 0.5073353329362654,
+      "medcouple_percentile": 74.09142712422438,
+      "n_history": 7897
     },
     {
       "speed_days": 30,
-      "medcouple": 0.03667525462684985,
-      "clipped_z": 0.03393184405951971,
-      "medcouple_percentile": 62.55556966848723,
-      "n_history": 7873
+      "medcouple": 0.014844839317794272,
+      "clipped_z": -0.2640484024411261,
+      "medcouple_percentile": 52.083069520070914,
+      "n_history": 7897
     },
     {
       "speed_days": 45,
-      "medcouple": 0.009374587497001935,
-      "clipped_z": -0.43972055743552324,
-      "medcouple_percentile": 45.751301917947416,
-      "n_history": 7873
+      "medcouple": -0.12113502928631262,
+      "clipped_z": -1.8919903420450948,
+      "medcouple_percentile": 6.382170444472584,
+      "n_history": 7897
     }
   ],
-  "mstr_notional": 2477.1039017652183,
-  "ibit_notional": -2477.1039017652183,
-  "mstr_shares": 32,
-  "ibit_shares": -74,
-  "vol10_per_min": 0.0007794409726703217,
-  "mad10_percentile": 74.00830258302584,
-  "n_vol_history": 4336,
+  "mstr_notional": 5599.144948335633,
+  "ibit_notional": -5599.144948335633,
+  "mstr_shares": 68,
+  "ibit_shares": -164,
+  "vol10_per_min": 0.0008819786468187158,
+  "mad10_percentile": 80.56708160442601,
+  "n_vol_history": 4338,
   "regime": "high-vol",
   "deadzone": 0.5,
-  "deadzone_pass": false,
+  "deadzone_pass": true,
   "hysteresis_on_pct": 40,
   "hysteresis_off_pct": 60,
   "gate_state": "off",
